@@ -1,9 +1,9 @@
-import UserBadge from "@/components/ui/user-badge"
+import SleepifyNormalPlayer from "@/components/sleepify-normal-player"
 
 export default async function Page() {
   return (
     <div>
-      <UserBadge />
+      <SleepifyNormalPlayer />
     </div>
   )
 }
