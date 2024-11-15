@@ -4,7 +4,7 @@ import ProgressBar from "./ui/progress-bar"
 
 export default function SleepifyNormalPlayer() {
   return (
-    <>
+    <div className="sticky bottom-0 left-0">
       <ProgressBar />
       <div className="flex w-full items-center justify-between bg-white px-4 py-3">
         <PlayerTrack />
@@ -13,6 +13,6 @@ export default function SleepifyNormalPlayer() {
         </button>
         <PlayerControl />
       </div>
-    </>
+    </div>
   )
 }
