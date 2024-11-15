@@ -1,6 +1,6 @@
 import Image from "next/image"
-import cover from "../../../public/cover-album_placeholder.webp"
-import HeartButton from "./heart-button"
+import cover from "../../public/cover-album_placeholder.webp"
+import HeartButton from "./ui/heart-button"
 
 export default function TrackCard() {
   return (

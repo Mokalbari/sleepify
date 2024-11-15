@@ -1,9 +1,9 @@
-import TrackCard from "@/components/ui/track-card"
+import UserBadge from "@/components/ui/user-badge"
 
 export default async function Page() {
   return (
     <div>
-      <TrackCard />
+      <UserBadge />
     </div>
   )
 }
