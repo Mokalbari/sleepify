@@ -1,6 +1,6 @@
+import "@/styles/globals.css"
 import type { Metadata } from "next"
-import { montserrat } from "./styles/font"
-import "./styles/globals.css"
+import { montserrat } from "../styles/font"
 
 export const metadata: Metadata = {
   title: "Sleepify",

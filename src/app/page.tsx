@@ -1,3 +1,9 @@
+import TrackCard from "@/components/ui/track-card"
+
 export default async function Page() {
-  return <div>Hi!</div>
+  return (
+    <div>
+      <TrackCard />
+    </div>
+  )
 }
