@@ -4,7 +4,7 @@ import userPhoto from "../../../public/userphoto.jpg"
 export default function UserBadge() {
   return (
     <div className="flex flex-col items-center gap-4 text-center lg:flex-row lg:text-left">
-      <div className="max-w-16">
+      <div className="max-w-12">
         <Image
           src={userPhoto}
           width={128}

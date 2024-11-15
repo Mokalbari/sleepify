@@ -7,9 +7,10 @@ export default function SideNav() {
   return (
     <div
       className={cn(
-        "h-svh max-w-56 rounded-r-md border border-black bg-softBlue shadow-half-full max-sm:hidden",
+        "h-screen max-w-56 rounded-r-md border border-black bg-softBlue shadow-half-full max-sm:hidden",
         "px-6 py-10",
         "lg:max-w-80",
+        "sticky left-0 top-0",
         "z-20 flex flex-col justify-between",
       )}
     >

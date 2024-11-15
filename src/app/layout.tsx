@@ -19,7 +19,7 @@ export default function RootLayout({
       <body
         className={`${montserrat.className} bg-lightBlue text-base antialiased`}
       >
-        <div className="flex">
+        <div className="flex min-h-screen">
           <SideNav />
           <div className="flex-1">
             <main>{children}</main>
