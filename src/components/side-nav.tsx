@@ -1,7 +1,7 @@
+import SleepifyLogo from "@/components/ui/sleepify-logo"
+import UserBadge from "@/components/ui/user-badge"
 import { cn } from "@/helpers/style"
 import { AudioLines, Heart } from "lucide-react"
-import SleepifyLogo from "./ui/sleepify-logo"
-import UserBadge from "./ui/user-badge"
 
 export default function SideNav() {
   return (

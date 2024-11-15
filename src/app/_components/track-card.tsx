@@ -1,5 +1,5 @@
+import HeartButton from "@/components/ui/heart-button"
 import Image from "next/image"
-import HeartButton from "./ui/heart-button"
 
 interface Props {
   trackName: string

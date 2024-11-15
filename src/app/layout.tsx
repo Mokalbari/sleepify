@@ -1,8 +1,8 @@
 import SideNav from "@/components/side-nav"
 import SleepifyNormalPlayer from "@/components/sleepify-normal-player"
+import { montserrat } from "@/styles/font"
 import "@/styles/globals.css"
 import type { Metadata } from "next"
-import { montserrat } from "../styles/font"
 
 export const metadata: Metadata = {
   title: "Sleepify",
