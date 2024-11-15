@@ -4,7 +4,7 @@ import userPhoto from "../../../public/userphoto.jpg"
 export default function UserBadge() {
   return (
     <div className="flex flex-col items-center gap-4 text-center lg:flex-row lg:text-left">
-      <div className="w-16">
+      <div className="max-w-16">
         <Image
           src={userPhoto}
           width={128}
@@ -18,10 +18,8 @@ export default function UserBadge() {
         />
       </div>
       <div>
-        <div className="text-sm font-bold">Juste Leblanc</div>
-        <div className="text-sm hover:cursor-pointer hover:underline">
-          Sign out
-        </div>
+        <div className="font-bold">Juste Leblanc</div>
+        <div className="hover:cursor-pointer hover:underline">Sign out</div>
       </div>
     </div>
   )

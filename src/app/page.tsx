@@ -1,9 +1,9 @@
-import SleepifyNormalPlayer from "@/components/sleepify-normal-player"
+import SideNav from "@/components/side-nav"
 
 export default async function Page() {
   return (
     <div>
-      <SleepifyNormalPlayer />
+      <SideNav />
     </div>
   )
 }

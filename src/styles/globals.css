@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .brutal {
-  @apply shadow-half-full rounded-md border border-black;
+  @apply shadow-half-full border border-black;
 }
