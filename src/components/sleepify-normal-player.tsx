@@ -1,3 +1,4 @@
+import BottomNav from "./bottom-nav"
 import PlayerControl from "./ui/player-control"
 import PlayerTrack from "./ui/player-track"
 import ProgressBar from "./ui/progress-bar"
@@ -5,6 +6,9 @@ import ProgressBar from "./ui/progress-bar"
 export default function SleepifyNormalPlayer() {
   return (
     <div className="sticky bottom-0 left-0">
+      <div className="sm:hidden">
+        <BottomNav />
+      </div>
       <ProgressBar />
       <div className="flex w-full items-center justify-between bg-white px-4 py-3">
         <PlayerTrack />
