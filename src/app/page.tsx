@@ -1,3 +1,9 @@
+import TracksHeader from "./_components/tracks-header"
+
 export default async function Page() {
-  return <div></div>
+  return (
+    <div>
+      <TracksHeader />
+    </div>
+  )
 }
