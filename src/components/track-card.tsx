@@ -4,7 +4,7 @@ import HeartButton from "./ui/heart-button"
 
 export default function TrackCard() {
   return (
-    <div className="brutal flex items-center justify-between bg-white px-6 py-3 outline sm:py-4">
+    <div className="brutal flex items-center justify-between rounded-md bg-white px-6 py-3 sm:py-4">
       <div className="flex items-center">
         <div className="relative w-12 sm:w-16">
           <Image
