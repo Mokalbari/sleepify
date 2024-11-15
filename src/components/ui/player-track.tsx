@@ -4,7 +4,7 @@ import HeartButton from "./heart-button"
 
 export default function PlayerTrack() {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4 lg:ml-16">
       <div className="brutal w-14 sm:w-16">
         <Image
           src={cover}
