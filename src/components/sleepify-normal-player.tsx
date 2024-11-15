@@ -5,7 +5,7 @@ import ProgressBar from "./ui/progress-bar"
 
 export default function SleepifyNormalPlayer() {
   return (
-    <div className="sticky bottom-0 left-0">
+    <div className="sticky bottom-0 left-0 max-sm:mt-12">
       <div className="sm:hidden">
         <BottomNav />
       </div>

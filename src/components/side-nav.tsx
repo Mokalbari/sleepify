@@ -21,7 +21,7 @@ export default function SideNav() {
           </span>
           <span>Sleepify</span>
         </h1>
-        <nav className="mt-12">
+        <nav className="mt-12 text-xs">
           <menu className="flex flex-col gap-4">
             <li className="brutal flex items-center gap-4 bg-white px-5 py-1">
               <AudioLines />
