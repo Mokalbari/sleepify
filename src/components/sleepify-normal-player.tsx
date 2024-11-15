@@ -9,7 +9,7 @@ export default function SleepifyNormalPlayer() {
       <div className="flex w-full items-center justify-between bg-white px-4 py-3">
         <PlayerTrack />
         <button className="font-bold text-deepBlue hover:cursor-pointer hover:underline max-sm:hidden">
-          View lyrics
+          <span className="max-lg:hidden">View</span> Lyrics
         </button>
         <PlayerControl />
       </div>

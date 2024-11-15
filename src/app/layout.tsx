@@ -1,3 +1,5 @@
+import SideNav from "@/components/side-nav"
+import SleepifyNormalPlayer from "@/components/sleepify-normal-player"
 import "@/styles/globals.css"
 import type { Metadata } from "next"
 import { montserrat } from "../styles/font"
@@ -17,7 +19,13 @@ export default function RootLayout({
       <body
         className={`${montserrat.className} bg-lightBlue text-base antialiased`}
       >
-        {children}
+        <div className="flex">
+          <SideNav />
+          <div className="flex-1">
+            <main>{children}</main>
+            <SleepifyNormalPlayer />
+          </div>
+        </div>
       </body>
     </html>
   )

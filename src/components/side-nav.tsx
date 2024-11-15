@@ -10,7 +10,7 @@ export default function SideNav() {
         "h-svh max-w-56 rounded-r-md border border-black bg-softBlue shadow-half-full max-sm:hidden",
         "px-6 py-10",
         "lg:max-w-80",
-        "flex flex-col justify-between",
+        "z-20 flex flex-col justify-between",
       )}
     >
       <div>
