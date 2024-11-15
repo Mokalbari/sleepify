@@ -26,7 +26,7 @@ export default {
         sm: "20px",
         base: "16px",
         xs: "14px",
-        "2xl": "12px",
+        "2xs": "12px",
       },
     },
   },
