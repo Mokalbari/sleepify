@@ -8,6 +8,11 @@ export default {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        full: "4px 6px black",
+        "half-full": "2px 4px black",
+      },
+
       colors: {
         lightBlue: "#DFE5F2",
         softBlue: "#88AAEE",
