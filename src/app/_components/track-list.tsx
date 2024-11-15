@@ -1,13 +1,21 @@
 import TrackCard from "@/components/track-card"
+import { getTracks } from "../actions"
 
-export default function TrackList() {
+export default async function TrackList() {
+  const tracks = await getTracks()
+  console.log(tracks)
   return (
-    <section className="mt-10 flex flex-col gap-4 sm:mt-24 lg:mt-10">
-      <TrackCard />
-      <TrackCard />
-      <TrackCard />
-      <TrackCard />
-      <TrackCard />
+    <section className="mt-10 flex flex-col gap-4 sm:mt-24 lg:mt-32">
+      <ul className="flex flex-col gap-4">
+        {tracks.map((track) => (
+          <TrackCard
+            key={track.track_id}
+            trackName={track.track_name}
+            artistName={track.artist_name}
+            trackImage={track.track_image}
+          />
+        ))}
+      </ul>
     </section>
   )
 }
