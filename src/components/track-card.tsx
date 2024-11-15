@@ -1,5 +1,4 @@
 import Image from "next/image"
-import cover from "../../public/cover-album_placeholder.webp"
 import HeartButton from "./ui/heart-button"
 
 interface Props {
@@ -17,10 +16,10 @@ export default function TrackCard({
       <div className="flex items-center">
         <div className="relative w-12 sm:w-16">
           <Image
-            src={trackImage || cover}
-            alt="album cover"
-            width={777}
-            height={777}
+            src={trackImage}
+            alt={`Album cover of ${trackName}`}
+            width={640}
+            height={640}
             style={{ borderRadius: "50%" }}
           />
         </div>
