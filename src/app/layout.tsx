@@ -1,8 +1,9 @@
 import SideNav from "@/components/side-nav"
 import SleepifyNormalPlayer from "@/components/sleepify-normal-player"
+import AudioProvider from "@/context/audio-context"
+import { montserrat } from "@/styles/font"
 import "@/styles/globals.css"
 import type { Metadata } from "next"
-import { montserrat } from "../styles/font"
 
 export const metadata: Metadata = {
   title: "Sleepify",
@@ -22,8 +23,10 @@ export default function RootLayout({
         <div className="flex min-h-screen">
           <SideNav />
           <div className="flex-1">
-            <main>{children}</main>
-            <SleepifyNormalPlayer />
+            <AudioProvider>
+              <main>{children}</main>
+              <SleepifyNormalPlayer />
+            </AudioProvider>
           </div>
         </div>
       </body>

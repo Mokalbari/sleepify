@@ -18,8 +18,10 @@ export default function UserBadge() {
         />
       </div>
       <div>
-        <div className="font-bold">Juste Leblanc</div>
-        <div className="hover:cursor-pointer hover:underline">Sign out</div>
+        <div className="text-xs font-bold">Juste Leblanc</div>
+        <div className="text-2xs hover:cursor-pointer hover:underline">
+          Sign out
+        </div>
       </div>
     </div>
   )
