@@ -30,7 +30,12 @@ export default function TrackCard({
           <div className="text-2xs sm:text-xs">{artistName}</div>
         </div>
       </div>
-      <CardPlayControl trackUrl={trackUrl} />
+      <CardPlayControl
+        trackUrl={trackUrl}
+        trackName={trackName}
+        artistName={artistName}
+        previewImage={trackImage}
+      />
     </li>
   )
 }

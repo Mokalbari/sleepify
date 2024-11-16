@@ -2,11 +2,18 @@
 
 import { createContext, ReactNode, useContext, useRef, useState } from "react"
 
+type AudioTrack = {
+  trackUrl: string | null
+  trackName: string | null
+  artistName: string | null
+  previewImage: string | null
+}
+
 type AudioContextType = {
   isPlaying: boolean
   togglePlayPause: () => void
-  setAudioSource: (src: string) => void
-  audioSource: string | null
+  setAudioTrack: (track: AudioTrack) => void
+  currentTrack: AudioTrack | null
 }
 
 type AudioProviderProps = {
@@ -16,7 +23,13 @@ type AudioProviderProps = {
 const AudioContext = createContext<AudioContextType | undefined>(undefined)
 
 export default function AudioProvider({ children }: AudioProviderProps) {
-  const [audioSource, setAudioSource] = useState<string | null>(null)
+  const [currentTrack, setCurrentTrack] = useState<AudioTrack | null>({
+    trackUrl: null,
+    trackName: "Sleepify",
+    artistName: "Choose a track and start listening",
+    previewImage: null,
+  })
+
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
@@ -31,13 +44,15 @@ export default function AudioProvider({ children }: AudioProviderProps) {
     setIsPlaying(!isPlaying)
   }
 
-  const handleSetAudioSource = (src: string) => {
+  const setAudioTrack = (track: AudioTrack) => {
     if (!audioRef.current) return
 
-    setAudioSource(src)
-    audioRef.current.src = src
-    audioRef.current.play()
-    setIsPlaying(true)
+    if (currentTrack?.trackUrl !== track.trackUrl) {
+      setCurrentTrack(track)
+      audioRef.current.src = track.trackUrl || ""
+      audioRef.current.play()
+      setIsPlaying(true)
+    }
   }
 
   return (
@@ -45,8 +60,8 @@ export default function AudioProvider({ children }: AudioProviderProps) {
       value={{
         isPlaying,
         togglePlayPause,
-        setAudioSource: handleSetAudioSource,
-        audioSource,
+        setAudioTrack,
+        currentTrack,
       }}
     >
       {children}

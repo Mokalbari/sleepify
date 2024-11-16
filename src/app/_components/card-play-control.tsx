@@ -6,15 +6,23 @@ import HeartButton from "../../components/ui/heart-button"
 
 interface Props {
   trackUrl: string | null
+  trackName: string
+  artistName: string
+  previewImage: string
 }
 
-export default function CardPlayControl({ trackUrl }: Props) {
-  const { audioSource, isPlaying, setAudioSource, togglePlayPause } = useAudio()
+export default function CardPlayControl({
+  trackUrl,
+  trackName,
+  artistName,
+  previewImage,
+}: Props) {
+  const { currentTrack, isPlaying, setAudioTrack, togglePlayPause } = useAudio()
 
   const handlePlayPause = () => {
     if (!trackUrl) return
-    if (audioSource !== trackUrl) {
-      setAudioSource(trackUrl)
+    if (currentTrack?.trackUrl !== trackUrl) {
+      setAudioTrack({ trackUrl, trackName, artistName, previewImage })
     } else {
       togglePlayPause()
     }
@@ -32,7 +40,7 @@ export default function CardPlayControl({ trackUrl }: Props) {
       >
         {trackUrl === null ? (
           <Bug />
-        ) : isPlaying && audioSource === trackUrl ? (
+        ) : isPlaying && currentTrack?.trackUrl === trackUrl ? (
           <Pause />
         ) : (
           <Play />
