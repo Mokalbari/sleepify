@@ -2,24 +2,21 @@
 
 import { createContext, ReactNode, useContext, useRef, useState } from "react"
 
-type AudioContext = {
+type AudioContextType = {
   isPlaying: boolean
   togglePlayPause: () => void
   setAudioSource: (src: string) => void
   audioSource: string | null
 }
 
-type AudioProvider = {
+type AudioProviderProps = {
   children: ReactNode
 }
 
-const AudioContext = createContext<AudioContext | undefined>(undefined)
+const AudioContext = createContext<AudioContextType | undefined>(undefined)
 
-const TEST_TRACK =
-  "https://p.scdn.co/mp3-preview/6edd9be30e44cd80e3700ad3334151e8696c2d2d?cid=b644138492164b009229f271bdc7b751"
-
-export default function AudioProvider({ children }: AudioProvider) {
-  const [audioSource, setAudioSource] = useState<string | null>(TEST_TRACK)
+export default function AudioProvider({ children }: AudioProviderProps) {
+  const [audioSource, setAudioSource] = useState<string | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
@@ -34,14 +31,29 @@ export default function AudioProvider({ children }: AudioProvider) {
     setIsPlaying(!isPlaying)
   }
 
+  const handleSetAudioSource = (src: string) => {
+    if (!audioRef.current) return
+
+    setAudioSource(src)
+    audioRef.current.src = src
+    audioRef.current.play()
+    setIsPlaying(true)
+  }
+
   return (
     <AudioContext.Provider
-      value={{ isPlaying, togglePlayPause, setAudioSource, audioSource }}
+      value={{
+        isPlaying,
+        togglePlayPause,
+        setAudioSource: handleSetAudioSource,
+        audioSource,
+      }}
     >
       {children}
       <audio
         ref={audioRef}
-        src={audioSource || undefined}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
         onEnded={() => setIsPlaying(false)}
       />
     </AudioContext.Provider>
@@ -50,9 +62,8 @@ export default function AudioProvider({ children }: AudioProvider) {
 
 export const useAudio = () => {
   const context = useContext(AudioContext)
-
   if (!context) {
-    throw new Error("useAudio must be used within an Audio Provider")
+    throw new Error("useAudio must be used within an AudioProvider")
   }
   return context
 }

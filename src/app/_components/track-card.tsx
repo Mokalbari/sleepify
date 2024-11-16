@@ -1,15 +1,17 @@
-import HeartButton from "@/components/ui/heart-button"
+import CardPlayControl from "@/components/ui/card-play-control"
 import Image from "next/image"
 
 interface Props {
   trackName: string
   artistName: string
   trackImage: string
+  trackUrl: string
 }
 export default function TrackCard({
   trackName,
   artistName,
   trackImage,
+  trackUrl,
 }: Props) {
   return (
     <li className="brutal flex items-center justify-between rounded-md bg-white px-6 py-3 sm:py-3">
@@ -28,7 +30,7 @@ export default function TrackCard({
           <div className="text-2xs sm:text-xs">{artistName}</div>
         </div>
       </div>
-      <HeartButton isFavorite={false} className="sm:mr-12" />
+      <CardPlayControl trackUrl={trackUrl} />
     </li>
   )
 }
