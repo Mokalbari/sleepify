@@ -3,11 +3,10 @@ import TrackList from "./_components/track-list"
 import TracksHeader from "./_components/tracks-header"
 import { getTotalPages } from "./actions"
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: { page?: string }
-}) {
+type SearchParams = Promise<{ page?: string }>
+
+export default async function Page(props: { searchParams: SearchParams }) {
+  const searchParams = await props.searchParams
   const currentPage = Number(searchParams?.page) || 1
   const totalPages = await getTotalPages()
 
