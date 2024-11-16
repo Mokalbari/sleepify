@@ -27,7 +27,7 @@ export default function BadgeStack() {
           maxWidth: "36px",
           border: "1px solid black",
           borderRadius: "50%",
-          marginLeft: "-1.5%",
+          marginLeft: "-15%",
           zIndex: 2,
         }}
       />
@@ -40,7 +40,7 @@ export default function BadgeStack() {
           maxWidth: "36px",
           border: "1px solid black",
           borderRadius: "50%",
-          marginLeft: "-1.5%",
+          marginLeft: "-15%",
         }}
       />
     </div>
