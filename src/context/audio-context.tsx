@@ -15,8 +15,11 @@ type AudioProvider = {
 
 const AudioContext = createContext<AudioContext | undefined>(undefined)
 
+const TEST_TRACK =
+  "https://p.scdn.co/mp3-preview/6edd9be30e44cd80e3700ad3334151e8696c2d2d?cid=b644138492164b009229f271bdc7b751"
+
 export default function AudioProvider({ children }: AudioProvider) {
-  const [audioSource, setAudioSource] = useState<string | null>(null)
+  const [audioSource, setAudioSource] = useState<string | null>(TEST_TRACK)
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
