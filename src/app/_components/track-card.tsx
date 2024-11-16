@@ -5,7 +5,7 @@ interface Props {
   trackName: string
   artistName: string
   trackImage: string
-  trackUrl: string
+  trackUrl: string | null
 }
 export default function TrackCard({
   trackName,
