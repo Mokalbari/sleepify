@@ -1,10 +1,14 @@
+"use client"
+
 import SleepifyLogo from "@/components/ui/sleepify-logo"
 import UserBadge from "@/components/ui/user-badge"
 import { cn } from "@/helpers/style"
 import { AudioLines, Heart } from "lucide-react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 export default function SideNav() {
+  const pathname = usePathname()
   return (
     <div
       className={cn(
@@ -26,14 +30,22 @@ export default function SideNav() {
         </Link>
         <nav role="navigation" className="mt-12 text-xs">
           <menu className="flex flex-col gap-4">
-            <li className="brutal flex items-center gap-4 bg-white px-5 py-1">
+            <li
+              className={cn("flex items-center gap-4 px-5 py-1", {
+                "brutal bg-white": pathname === "/",
+              })}
+            >
               <AudioLines aria-hidden />
               <span>
                 <Link href={"/"}>Tracks (5)</Link>
               </span>
             </li>
 
-            <li className="flex items-center gap-4 px-5 py-1">
+            <li
+              className={cn("flex items-center gap-4 px-5 py-1", {
+                "brutal bg-white": pathname === "/likes",
+              })}
+            >
               <Heart aria-hidden />
               <span>
                 <Link href={"/likes"}>Likes (0)</Link>
