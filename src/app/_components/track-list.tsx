@@ -1,4 +1,4 @@
-import TrackCard from "@/components/track-card"
+import TrackCard from "@/app/_components/track-card"
 import { getTracks } from "../actions"
 
 export default async function TrackList() {
