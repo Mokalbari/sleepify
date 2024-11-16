@@ -6,9 +6,7 @@ import { getTotalPages } from "./actions"
 export default async function Page({
   searchParams,
 }: {
-  searchParams?: {
-    page?: string
-  }
+  searchParams?: { page?: string }
 }) {
   const currentPage = Number(searchParams?.page) || 1
   const totalPages = await getTotalPages()
