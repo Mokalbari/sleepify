@@ -1,9 +1,9 @@
-import { Heart } from "lucide-react"
+import Header from "./_components/header"
 
 export default function Page() {
   return (
     <div>
-      Page Likes <Heart />
+      <Header />
     </div>
   )
 }
