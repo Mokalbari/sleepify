@@ -3,7 +3,7 @@ import Image from "next/image"
 
 interface Props {
   trackName: string
-  artistName: string
+  artistName: string[]
   trackImage: string
   trackUrl: string | null
 }
@@ -27,7 +27,7 @@ export default function TrackCard({
         </div>
         <div className="ml-4">
           <h3 className="text-xs font-bold sm:text-base">{trackName}</h3>
-          <div className="text-2xs sm:text-xs">{artistName}</div>
+          <div className="text-2xs sm:text-xs">{artistName.join(", ")}</div>
         </div>
       </div>
       <CardPlayControl

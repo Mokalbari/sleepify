@@ -293,7 +293,7 @@ export const trackArtists = [
   { track_id: "3MDkws8QGzLrMrWVAbzoXO", artist_id: "4TIrC99WSg0tOtBCGDjMRY" },
   { track_id: "0W2275seLSrfjHxeWmDb6l", artist_id: "3hteYQFiMFbJY7wS0xDymP" },
   { track_id: "1UgmrHPpLFB0tmg99MGcya", artist_id: "5nPOO9iTcrs9k6yFffPxjH" },
-  // { track_id: "1UgmrHPpLFB0tmg99MGcya", artist_id: "3TXQ1ddouwQAI78hV4hXDj" },
+  { track_id: "1UgmrHPpLFB0tmg99MGcya", artist_id: "3TXQ1ddouwQAI78hV4hXDj" },
   { track_id: "0RFduQOfkrP1jhoV0m8US2", artist_id: "1P6U1dCeHxPui5pIrGmndZ" },
   { track_id: "3DK6m7It6Pw857FcQftMds", artist_id: "5K4W6rqBFWDnAN6FQUkS6x" },
   { track_id: "3DK6m7It6Pw857FcQftMds", artist_id: "0ONHkAv9pCAFxb0zJwDNTy" },

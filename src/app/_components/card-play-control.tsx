@@ -7,7 +7,7 @@ import HeartButton from "../../components/ui/heart-button"
 interface Props {
   trackUrl: string | null
   trackName: string
-  artistName: string
+  artistName: string[]
   previewImage: string
 }
 
