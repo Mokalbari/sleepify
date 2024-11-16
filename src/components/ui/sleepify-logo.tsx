@@ -11,6 +11,7 @@ export default function SleepifyLogo({ sizes = "93" }: Props) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
+      <title>Sleepify Logo. Back to main page.</title>
       <path
         d="M40.5946 21.6135L66.1062 47.125L40.5946 72.6366L40.5946 21.6135Z"
         fill="#746BEB"
