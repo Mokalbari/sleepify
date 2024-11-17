@@ -2,10 +2,11 @@
 
 import type { TrackList } from "@/lib/types/definitions"
 import { sql } from "@vercel/postgres"
+import { cache } from "react"
 
 const ITEMS_PER_PAGE = 10
 // GET
-export const getTracks = async (currentPage: number) => {
+export const getTracks = cache(async (currentPage: number) => {
   try {
     const offset = (currentPage - 1) * ITEMS_PER_PAGE
     const { rows } = await sql<TrackList>/* SQL */ `
@@ -31,9 +32,9 @@ export const getTracks = async (currentPage: number) => {
     console.error(error)
     throw new Error("Error while fetching tracklist")
   }
-}
+})
 
-export const getTotalPages = async () => {
+export const getTotalPages = cache(async () => {
   try {
     const count = await sql/* SQL */ `
     SELECT COUNT(*) FROM tracks`
@@ -43,4 +44,4 @@ export const getTotalPages = async () => {
     console.error("Error while getting page count", error)
     throw new Error("Failed to fetch the total number of pages.")
   }
-}
+})

@@ -1,9 +1,10 @@
 import { LikedSongs } from "@/lib/types/definitions"
 import { sql } from "@vercel/postgres"
+import { cache } from "react"
 
 const USER_ID = "410544b2-4001-4271-9855-fec4b6a6442a"
 
-export const getUsersLikes = async () => {
+export const getUsersLikes = cache(async () => {
   try {
     const { rows } = await sql<LikedSongs>/*SQL*/ `
         SELECT 
@@ -32,4 +33,4 @@ export const getUsersLikes = async () => {
     console.error("Error while getting users' liked songs: ", error)
     throw new Error("Failed to fetch users liked songs")
   }
-}
+})
