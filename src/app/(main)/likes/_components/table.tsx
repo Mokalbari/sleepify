@@ -1,12 +1,13 @@
 import HeartButton from "@/components/ui/heart-button"
 import TrackArtistBadge from "@/components/ui/track-artist-badge"
 import { cn } from "@/helpers/style"
+import { LikedSongs } from "@/lib/types/definitions"
 import { Play } from "lucide-react"
 import { getUsersLikes } from "../actions"
 import BadgeStack from "./badge-stack"
 
 export default async function Table() {
-  const likedSongs = await getUsersLikes()
+  const likedSongs: LikedSongs[] = await getUsersLikes()
 
   return (
     <table className="w-full">
@@ -19,12 +20,15 @@ export default async function Table() {
       </thead>
       <tbody>
         {likedSongs.map((song) => (
-          <tr key={song.track_id} className="border-b border-black">
+          <tr
+            key={song.track_id}
+            className="border-b border-black last-of-type:border-b-0"
+          >
             <td className="p-2">
               <TrackArtistBadge
-                trackImage={song.image_url}
-                artistName={song.artists}
-                trackName={song.track_name}
+                track_image={song.image_url}
+                artist_name={song.artists}
+                track_name={song.track_name}
               />
             </td>
             <td className="max-lg:hidden">34 plays... You okay?</td>
