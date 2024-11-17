@@ -1,15 +1,12 @@
+import { TrackList } from "@/lib/types/definitions"
 import Image from "next/image"
 
-interface Props {
-  trackImage: string
-  trackName: string
-  artistName: string[]
-}
+type Props = Pick<TrackList, "track_image" | "track_name" | "artist_name">
 
 export default function TrackArtistBadge({
-  trackImage,
-  trackName,
-  artistName,
+  track_image: trackImage,
+  track_name: trackName,
+  artist_name: artistName,
 }: Props) {
   return (
     <div className="flex items-center">

@@ -1,23 +1,18 @@
 "use client"
 
 import { useAudio } from "@/context/audio-context"
+import { TrackList } from "@/lib/types/definitions"
 import { Bug, Pause, Play } from "lucide-react"
 import HeartButton from "../../../components/ui/heart-button"
 
-interface Props {
-  trackUrl: string | null
-  trackName: string
-  artistName: string[]
-  previewImage: string
-  isFavorite: boolean
-}
+type Props = Omit<TrackList, "track_id">
 
 export default function CardPlayControl({
-  trackUrl,
-  trackName,
-  artistName,
-  previewImage,
-  isFavorite,
+  track_name: trackName,
+  artist_name: artistName,
+  track_image: previewImage,
+  music_url: trackUrl,
+  is_favorite: isFavorite,
 }: Props) {
   const { currentTrack, isPlaying, setAudioTrack, togglePlayPause } = useAudio()
 
