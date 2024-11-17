@@ -3,13 +3,20 @@
 import SleepifyLogo from "@/components/ui/sleepify-logo"
 import UserBadge from "@/components/ui/user-badge"
 import { cn } from "@/helpers/style"
-import { UserInfo } from "@/lib/types/definitions"
+import { Count, UserInfo } from "@/lib/types/definitions"
 import { AudioLines, Heart } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-export default function SideNav(props: UserInfo) {
+interface Props {
+  tracksCount: Count
+  likedCount: Count
+  userInfo: UserInfo
+}
+
+export default function SideNav({ tracksCount, likedCount, userInfo }: Props) {
   const pathname = usePathname()
+
   return (
     <div
       className={cn(
@@ -38,7 +45,7 @@ export default function SideNav(props: UserInfo) {
             >
               <AudioLines aria-hidden />
               <span>
-                <Link href={"/"}>Tracks (5)</Link>
+                <Link href={"/"}>Tracks ({tracksCount.count})</Link>
               </span>
             </li>
 
@@ -49,13 +56,13 @@ export default function SideNav(props: UserInfo) {
             >
               <Heart aria-hidden />
               <span>
-                <Link href={"/likes"}>Likes (0)</Link>
+                <Link href={"/likes"}>Likes ({likedCount.count})</Link>
               </span>
             </li>
           </menu>
         </nav>
       </div>
-      <UserBadge {...props} />
+      <UserBadge {...userInfo} />
     </div>
   )
 }
