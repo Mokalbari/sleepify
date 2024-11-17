@@ -22,3 +22,7 @@ export type LikedSongs = {
   artists: string[]
   image_url: string
 }
+
+export type Count = {
+  count: number
+}
