@@ -1,4 +1,10 @@
-import { artists, trackArtists, tracks } from "@/lib/placeholder-data"
+import {
+  artists,
+  favorites,
+  testUser,
+  trackArtists,
+  tracks,
+} from "@/lib/placeholder-data"
 import { db } from "@vercel/postgres"
 
 const client = await db.connect()
@@ -72,12 +78,57 @@ async function seedTrackArtists() {
   )
 }
 
+async function seedUsers() {
+  await client.sql/*SQL*/ `CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`
+  await client.sql/*SQL*/ `
+  CREATE TABLE IF NOT EXISTS users (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    firstname VARCHAR NOT NULL,
+    lastname VARCHAR NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL  
+  )
+  `
+
+  await Promise.all(
+    testUser.map(
+      (user) => client.sql/*SQL*/ `
+      INSERT INTO users (id, firstname, lastname, email, password)
+      VALUES (${user.id}, ${user.firstname}, ${user.lastname}, ${user.email}, ${user.password})
+      ON CONFLICT (id) DO NOTHING
+    `,
+    ),
+  )
+}
+
+async function seedFavorites() {
+  await client.sql/*SQL*/ `
+  CREATE TABLE IF NOT EXISTS favorites (
+    user_id UUID NOT NULL,
+    track_id VARCHAR NOT NULL,
+    PRIMARY KEY (user_id, track_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (track_id) REFERENCES tracks(id) ON DELETE CASCADE
+  )`
+
+  await Promise.all(
+    favorites.map(
+      (fav) => client.sql/*SQL*/ `
+   INSERT INTO favorites (user_id, track_id)
+   VALUES (${fav.user_id}, ${fav.track_id})
+   ON CONFLICT DO NOTHING`,
+    ),
+  )
+}
+
 export async function GET() {
   try {
     await client.sql`BEGIN`
     await seedArtists()
     await seedTracks()
     await seedTrackArtists()
+    await seedUsers()
+    await seedFavorites()
     await client.sql`COMMIT`
 
     return new Response(
