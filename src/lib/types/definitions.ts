@@ -14,3 +14,11 @@ export type UserInfo = {
   lastname: string
   avatar: string
 }
+
+export type LikedSongs = {
+  track_id: string
+  track_name: string
+  duration_ms: number
+  artists: string[]
+  image_url: string
+}

@@ -1,15 +1,17 @@
+import { LikedSongs } from "@/lib/types/definitions"
 import { sql } from "@vercel/postgres"
 
 const USER_ID = "410544b2-4001-4271-9855-fec4b6a6442a"
 
 export const getUsersLikes = async () => {
   try {
-    const { rows } = await sql/*SQL*/ `
+    const { rows } = await sql<LikedSongs>/*SQL*/ `
         SELECT 
             t.id AS track_id,
             t.name AS track_name,
             t.duration_ms,
-            STRING_AGG(a.name, ', ') AS artists
+            ARRAY_AGG(a.name) AS artists,
+            t.image_url
         FROM 
             favorites f
         INNER JOIN 
