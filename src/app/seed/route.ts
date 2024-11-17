@@ -79,22 +79,23 @@ async function seedTrackArtists() {
 }
 
 async function seedUsers() {
-  await client.sql/*SQL*/ `CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`
+  await client.sql/*SQL*/ `DROP TABLE IF EXISTS users CASCADE`
   await client.sql/*SQL*/ `
   CREATE TABLE IF NOT EXISTS users (
-    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    id VARCHAR PRIMARY KEY,
     firstname VARCHAR NOT NULL,
     lastname VARCHAR NOT NULL,
     email TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL  
+    password TEXT NOT NULL,
+    avatar TEXT NOT NULL  
   )
   `
 
   await Promise.all(
     testUser.map(
       (user) => client.sql/*SQL*/ `
-      INSERT INTO users (id, firstname, lastname, email, password)
-      VALUES (${user.id}, ${user.firstname}, ${user.lastname}, ${user.email}, ${user.password})
+      INSERT INTO users (id, firstname, lastname, email, password, avatar)
+      VALUES (${user.id}, ${user.firstname}, ${user.lastname}, ${user.email}, ${user.password}, ${user.avatar})
       ON CONFLICT (id) DO NOTHING
     `,
     ),
@@ -102,9 +103,10 @@ async function seedUsers() {
 }
 
 async function seedFavorites() {
+  await client.sql/*SQL*/ `DROP TABLE IF EXISTS favorites CASCADE`
   await client.sql/*SQL*/ `
   CREATE TABLE IF NOT EXISTS favorites (
-    user_id UUID NOT NULL,
+    user_id VARCHAR NOT NULL,
     track_id VARCHAR NOT NULL,
     PRIMARY KEY (user_id, track_id),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,

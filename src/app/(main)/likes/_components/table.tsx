@@ -2,7 +2,7 @@ import HeartButton from "@/components/ui/heart-button"
 import TrackArtistBadge from "@/components/ui/track-artist-badge"
 import { cn } from "@/helpers/style"
 import { Play } from "lucide-react"
-import cover from "../../../../public/cover-album_placeholder.webp"
+import cover from "../../../../../public/cover-album_placeholder.webp"
 import BadgeStack from "./badge-stack"
 
 export default function Table() {

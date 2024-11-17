@@ -1,7 +1,7 @@
 import Image from "next/image"
-import fakePersonA from "../../../../public/25.jpg"
-import fakePersonB from "../../../../public/34.jpg"
-import fakePersonC from "../../../../public/76.jpg"
+import fakePersonA from "../../../../../public/25.jpg"
+import fakePersonB from "../../../../../public/34.jpg"
+import fakePersonC from "../../../../../public/76.jpg"
 
 export default function BadgeStack() {
   return (
