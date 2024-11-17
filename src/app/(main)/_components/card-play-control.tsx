@@ -9,6 +9,7 @@ interface Props {
   trackName: string
   artistName: string[]
   previewImage: string
+  isFavorite: boolean
 }
 
 export default function CardPlayControl({
@@ -16,6 +17,7 @@ export default function CardPlayControl({
   trackName,
   artistName,
   previewImage,
+  isFavorite,
 }: Props) {
   const { currentTrack, isPlaying, setAudioTrack, togglePlayPause } = useAudio()
 
@@ -30,7 +32,7 @@ export default function CardPlayControl({
 
   return (
     <div className="flex gap-4">
-      <HeartButton isFavorite={false} />
+      <HeartButton isFavorite={isFavorite} />
       <button
         onClick={handlePlayPause}
         disabled={!trackUrl}

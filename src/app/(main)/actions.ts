@@ -4,6 +4,7 @@ import type { TrackList } from "@/lib/types/definitions"
 import { sql } from "@vercel/postgres"
 import { cache } from "react"
 
+const USER_ID = "410544b2-4001-4271-9855-fec4b6a6442a"
 const ITEMS_PER_PAGE = 10
 // GET
 export const getTracks = cache(async (currentPage: number) => {
@@ -16,7 +17,13 @@ export const getTracks = cache(async (currentPage: number) => {
         tracks.preview_url AS music_url,
         tracks.duration_ms AS track_duration,
         tracks.image_url AS track_image,
-        ARRAY_AGG(artists.name) AS artist_name
+        ARRAY_AGG(artists.name) AS artist_name,
+        EXISTS (
+          SELECT 1
+          FROM favorites
+          WHERE favorites.track_id = tracks.id
+          AND favorites.user_id = ${USER_ID}
+        ) AS is_favorite
     FROM tracks
     INNER JOIN 
         track_artists ON tracks.id = track_artists.track_id

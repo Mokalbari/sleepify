@@ -18,6 +18,7 @@ export default async function TrackList({ currentPage }: Props) {
             artistName={track.artist_name}
             trackImage={track.track_image}
             trackUrl={track.music_url}
+            isFavorite={track.is_favorite}
           />
         ))}
       </ul>

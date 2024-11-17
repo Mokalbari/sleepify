@@ -6,6 +6,7 @@ export type TrackList = {
   track_image: string
   artist_id: string
   artist_name: string[]
+  is_favorite: boolean
 }
 
 export type UserInfo = {
