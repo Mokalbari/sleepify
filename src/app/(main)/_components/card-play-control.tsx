@@ -2,7 +2,7 @@
 
 import { useAudio } from "@/context/audio-context"
 import { Bug, Pause, Play } from "lucide-react"
-import HeartButton from "../../components/ui/heart-button"
+import HeartButton from "../../../components/ui/heart-button"
 
 interface Props {
   trackUrl: string | null

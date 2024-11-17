@@ -1,4 +1,4 @@
-import CardPlayControl from "@/app/_components/card-play-control"
+import CardPlayControl from "@/app/(main)/_components/card-play-control"
 import Image from "next/image"
 
 interface Props {
