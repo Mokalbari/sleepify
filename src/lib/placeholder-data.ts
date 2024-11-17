@@ -325,3 +325,36 @@ export const trackArtists = [
   { track_id: "2C0gvcWSmU3JGsORO2HjjM", artist_id: "4e2vkCt29CaALUaIvhQCql" },
   { track_id: "1aXWYqpdI601RhN7dhLSuR", artist_id: "08jywfUS0hp8XYlYs0cvz8" },
 ]
+
+export const testUser = [
+  {
+    id: "410544b2-4001-4271-9855-fec4b6a6442a",
+    firstname: "Juste",
+    lastname: "Leblanc",
+    email: "juste@lbc.com",
+    password: "123456",
+  },
+]
+
+export const favorites = [
+  {
+    user_id: "410544b2-4001-4271-9855-fec4b6a6442a",
+    track_id: "1aXWYqpdI601RhN7dhLSuR",
+  },
+  {
+    user_id: "410544b2-4001-4271-9855-fec4b6a6442a",
+    track_id: "2fFo3cr969sHB8gBMS5SVo",
+  },
+  {
+    user_id: "410544b2-4001-4271-9855-fec4b6a6442a",
+    track_id: "0tcnTUmn7IxllWoC0XohhJ",
+  },
+  {
+    user_id: "410544b2-4001-4271-9855-fec4b6a6442a",
+    track_id: "39cHfFYBVsIgj07SzenRW2",
+  },
+  {
+    user_id: "410544b2-4001-4271-9855-fec4b6a6442a",
+    track_id: "0W2275seLSrfjHxeWmDb6l",
+  },
+]
