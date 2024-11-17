@@ -341,7 +341,7 @@ export const testUser = [
     lastname: "Durand",
     email: "alice.durand@example.com",
     password: "abcdef",
-    avatar: "http://randomuser.me/api/portraits/women/34.jpg",
+    avatar: "https://randomuser.me/api/portraits/women/34.jpg",
   },
   {
     id: "610544b2-6003-6271-9855-fec4b6a6442c",
@@ -349,7 +349,7 @@ export const testUser = [
     lastname: "Martin",
     email: "louis.martin@example.com",
     password: "password123",
-    avatar: "http://randomuser.me/api/portraits/men/12.jpg",
+    avatar: "https://randomuser.me/api/portraits/men/12.jpg",
   },
   {
     id: "710544b2-7004-7271-9855-fec4b6a6442d",
@@ -357,7 +357,7 @@ export const testUser = [
     lastname: "Dupont",
     email: "emma.dupont@example.com",
     password: "qwerty",
-    avatar: "http://randomuser.me/api/portraits/women/15.jpg",
+    avatar: "https://randomuser.me/api/portraits/women/15.jpg",
   },
   {
     id: "810544b2-8005-8271-9855-fec4b6a6442e",
@@ -365,7 +365,7 @@ export const testUser = [
     lastname: "Bernard",
     email: "hugo.bernard@example.com",
     password: "letmein",
-    avatar: "http://randomuser.me/api/portraits/men/25.jpg",
+    avatar: "https://randomuser.me/api/portraits/men/25.jpg",
   },
   {
     id: "910544b2-9006-9271-9855-fec4b6a6442f",
@@ -373,7 +373,7 @@ export const testUser = [
     lastname: "Moreau",
     email: "chloe.moreau@example.com",
     password: "pass1234",
-    avatar: "http://randomuser.me/api/portraits/women/31.jpg",
+    avatar: "https://randomuser.me/api/portraits/women/31.jpg",
   },
   {
     id: "a10544b2-a007-a271-9855-fec4b6a6442a",
@@ -381,7 +381,7 @@ export const testUser = [
     lastname: "Rousseau",
     email: "lucas.rousseau@example.com",
     password: "securepass",
-    avatar: "http://randomuser.me/api/portraits/men/32.jpg",
+    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
   },
   {
     id: "b10544b2-b008-b271-9855-fec4b6a6442b",
@@ -389,7 +389,7 @@ export const testUser = [
     lastname: "Lemoine",
     email: "sophie.lemoine@example.com",
     password: "mypassword",
-    avatar: "http://randomuser.me/api/portraits/women/17.jpg",
+    avatar: "https://randomuser.me/api/portraits/women/17.jpg",
   },
   {
     id: "c10544b2-c009-c271-9855-fec4b6a6442c",
@@ -397,7 +397,7 @@ export const testUser = [
     lastname: "Faure",
     email: "arthur.faure@example.com",
     password: "arthur123",
-    avatar: "http://randomuser.me/api/portraits/men/29.jpg",
+    avatar: "https://randomuser.me/api/portraits/men/29.jpg",
   },
   {
     id: "d10544b2-d010-d271-9855-fec4b6a6442d",
@@ -405,7 +405,7 @@ export const testUser = [
     lastname: "Perret",
     email: "julie.perret@example.com",
     password: "juliepass",
-    avatar: "http://randomuser.me/api/portraits/women/29.jpg",
+    avatar: "https://randomuser.me/api/portraits/women/29.jpg",
   },
 ]
 

@@ -1,12 +1,12 @@
+import { UserInfo } from "@/lib/types/definitions"
 import Image from "next/image"
-import userPhoto from "../../../public/userphoto.jpg"
 
-export default function UserBadge() {
+export default function UserBadge({ firstname, lastname, avatar }: UserInfo) {
   return (
     <div className="flex flex-col items-center gap-4 text-center lg:flex-row lg:text-left">
       <div className="max-w-12">
         <Image
-          src={userPhoto}
+          src={avatar}
           width={128}
           height={128}
           alt="utilisateur"
@@ -18,7 +18,9 @@ export default function UserBadge() {
         />
       </div>
       <div>
-        <div className="text-xs font-bold">Juste Leblanc</div>
+        <div className="text-xs font-bold">
+          {firstname} {lastname}
+        </div>
         <div className="text-2xs hover:cursor-pointer hover:underline">
           Sign out
         </div>

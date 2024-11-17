@@ -7,3 +7,10 @@ export type TrackList = {
   artist_id: string
   artist_name: string[]
 }
+
+export type UserInfo = {
+  id: string
+  firstname: string
+  lastname: string
+  avatar: string
+}

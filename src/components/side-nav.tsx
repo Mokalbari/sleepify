@@ -3,11 +3,12 @@
 import SleepifyLogo from "@/components/ui/sleepify-logo"
 import UserBadge from "@/components/ui/user-badge"
 import { cn } from "@/helpers/style"
+import { UserInfo } from "@/lib/types/definitions"
 import { AudioLines, Heart } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-export default function SideNav() {
+export default function SideNav(props: UserInfo) {
   const pathname = usePathname()
   return (
     <div
@@ -54,7 +55,7 @@ export default function SideNav() {
           </menu>
         </nav>
       </div>
-      <UserBadge />
+      <UserBadge {...props} />
     </div>
   )
 }
