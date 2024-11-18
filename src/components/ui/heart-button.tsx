@@ -1,4 +1,5 @@
 "use client"
+import { useLikesContext } from "@/context/likes-context"
 import { Heart } from "lucide-react"
 import { useState } from "react"
 
@@ -15,6 +16,7 @@ export default function HeartButton({
   ...props
 }: Props) {
   const [isFavorite, setIsFavorite] = useState(initialFavorite)
+  const { incrementLikes, decrementLikes } = useLikesContext()
 
   const handleClick = async (trackId: string) => {
     try {
@@ -26,6 +28,7 @@ export default function HeartButton({
         })
 
         if (!res.ok) throw new Error("Failed to remove favorite")
+        decrementLikes()
         setIsFavorite(false)
       } else {
         const res = await fetch("/api/likes", {
@@ -35,6 +38,7 @@ export default function HeartButton({
         })
 
         if (!res.ok) throw new Error("Failed to add a new favorite track")
+        incrementLikes()
         setIsFavorite(true)
       }
     } catch (error) {

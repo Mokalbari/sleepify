@@ -2,6 +2,7 @@
 
 import SleepifyLogo from "@/components/ui/sleepify-logo"
 import UserBadge from "@/components/ui/user-badge"
+import { useLikesContext } from "@/context/likes-context"
 import { cn } from "@/helpers/style"
 import { Count, UserInfo } from "@/lib/types/definitions"
 import { AudioLines, Heart } from "lucide-react"
@@ -10,11 +11,11 @@ import { usePathname } from "next/navigation"
 
 interface Props {
   tracksCount: Count
-  likedCount: Count
   userInfo: UserInfo
 }
 
-export default function SideNav({ tracksCount, likedCount, userInfo }: Props) {
+export default function SideNav({ tracksCount, userInfo }: Props) {
+  const { likedCount } = useLikesContext()
   const pathname = usePathname()
 
   return (
