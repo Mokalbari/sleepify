@@ -21,7 +21,11 @@ export default function PlayerTrack() {
       <div>
         <div className="flex">
           <div className="font-bold sm:text-sm">{currentTrack?.trackName}</div>
-          <HeartButton isFavorite={false} className="ml-8 max-sm:hidden" />
+          <HeartButton
+            trackId=""
+            isFavorite={false}
+            className="ml-8 max-sm:hidden"
+          />
         </div>
         <div className="text-xs sm:text-base">
           {currentTrack?.artistName?.join(", ")}
