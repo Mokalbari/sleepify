@@ -20,7 +20,7 @@ export default function CardPlayControl({
   const handlePlayPause = () => {
     if (!trackUrl) return
     if (currentTrack?.trackUrl !== trackUrl) {
-      setAudioTrack({ trackUrl, trackName, artistName, previewImage })
+      setAudioTrack({ trackId, trackUrl, trackName, artistName, previewImage })
     } else {
       togglePlayPause()
     }
