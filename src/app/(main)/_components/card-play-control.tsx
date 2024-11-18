@@ -1,28 +1,26 @@
 "use client"
 
 import { useAudio } from "@/context/audio-context"
+import { TrackList } from "@/lib/types/definitions"
 import { Bug, Pause, Play } from "lucide-react"
-import HeartButton from "../../components/ui/heart-button"
+import HeartButton from "../../../components/ui/heart-button"
 
-interface Props {
-  trackUrl: string | null
-  trackName: string
-  artistName: string
-  previewImage: string
-}
+type Props = TrackList
 
 export default function CardPlayControl({
-  trackUrl,
-  trackName,
-  artistName,
-  previewImage,
+  track_name: trackName,
+  artist_name: artistName,
+  track_image: previewImage,
+  music_url: trackUrl,
+  is_favorite: isFavorite,
+  track_id: trackId,
 }: Props) {
   const { currentTrack, isPlaying, setAudioTrack, togglePlayPause } = useAudio()
 
   const handlePlayPause = () => {
     if (!trackUrl) return
     if (currentTrack?.trackUrl !== trackUrl) {
-      setAudioTrack({ trackUrl, trackName, artistName, previewImage })
+      setAudioTrack({ trackId, trackUrl, trackName, artistName, previewImage })
     } else {
       togglePlayPause()
     }
@@ -30,7 +28,7 @@ export default function CardPlayControl({
 
   return (
     <div className="flex gap-4">
-      <HeartButton isFavorite={false} />
+      <HeartButton isFavorite={isFavorite} trackId={trackId} />
       <button
         onClick={handlePlayPause}
         disabled={!trackUrl}

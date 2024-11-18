@@ -3,9 +3,10 @@
 import { createContext, ReactNode, useContext, useRef, useState } from "react"
 
 type AudioTrack = {
+  trackId: string
   trackUrl: string | null
   trackName: string | null
-  artistName: string | null
+  artistName: string[] | null
   previewImage: string | null
 }
 
@@ -24,9 +25,10 @@ const AudioContext = createContext<AudioContextType | undefined>(undefined)
 
 export default function AudioProvider({ children }: AudioProviderProps) {
   const [currentTrack, setCurrentTrack] = useState<AudioTrack | null>({
+    trackId: "",
     trackUrl: null,
     trackName: "Sleepify",
-    artistName: "Choose a track and start listening",
+    artistName: ["Choose a track and start listening"],
     previewImage: null,
   })
 

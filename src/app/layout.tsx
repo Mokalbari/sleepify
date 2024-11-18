@@ -1,6 +1,3 @@
-import SideNav from "@/components/side-nav"
-import SleepifyNormalPlayer from "@/components/sleepify-normal-player"
-import AudioProvider from "@/context/audio-context"
 import { montserrat } from "@/styles/font"
 import "@/styles/globals.css"
 import type { Metadata } from "next"
@@ -17,18 +14,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${montserrat.className} bg-lightBlue text-base antialiased`}
-      >
-        <div className="flex min-h-screen">
-          <SideNav />
-          <div className="flex-1">
-            <AudioProvider>
-              <main>{children}</main>
-              <SleepifyNormalPlayer />
-            </AudioProvider>
-          </div>
-        </div>
+      <body className={`${montserrat.className} text-base antialiased`}>
+        {children}
       </body>
     </html>
   )

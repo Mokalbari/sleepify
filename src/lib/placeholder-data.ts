@@ -325,3 +325,308 @@ export const trackArtists = [
   { track_id: "2C0gvcWSmU3JGsORO2HjjM", artist_id: "4e2vkCt29CaALUaIvhQCql" },
   { track_id: "1aXWYqpdI601RhN7dhLSuR", artist_id: "08jywfUS0hp8XYlYs0cvz8" },
 ]
+
+export const testUser = [
+  {
+    id: "410544b2-4001-4271-9855-fec4b6a6442a",
+    firstname: "Juste",
+    lastname: "Leblanc",
+    email: "juste@example.com",
+    password: "123456",
+    avatar: "https://randomuser.me/api/portraits/men/34.jpg",
+  },
+  {
+    id: "510544b2-5002-5271-9855-fec4b6a6442b",
+    firstname: "Alice",
+    lastname: "Durand",
+    email: "alice.durand@example.com",
+    password: "abcdef",
+    avatar: "https://randomuser.me/api/portraits/women/34.jpg",
+  },
+  {
+    id: "610544b2-6003-6271-9855-fec4b6a6442c",
+    firstname: "Louis",
+    lastname: "Martin",
+    email: "louis.martin@example.com",
+    password: "password123",
+    avatar: "https://randomuser.me/api/portraits/men/12.jpg",
+  },
+  {
+    id: "710544b2-7004-7271-9855-fec4b6a6442d",
+    firstname: "Emma",
+    lastname: "Dupont",
+    email: "emma.dupont@example.com",
+    password: "qwerty",
+    avatar: "https://randomuser.me/api/portraits/women/15.jpg",
+  },
+  {
+    id: "810544b2-8005-8271-9855-fec4b6a6442e",
+    firstname: "Hugo",
+    lastname: "Bernard",
+    email: "hugo.bernard@example.com",
+    password: "letmein",
+    avatar: "https://randomuser.me/api/portraits/men/25.jpg",
+  },
+  {
+    id: "910544b2-9006-9271-9855-fec4b6a6442f",
+    firstname: "Chloe",
+    lastname: "Moreau",
+    email: "chloe.moreau@example.com",
+    password: "pass1234",
+    avatar: "https://randomuser.me/api/portraits/women/31.jpg",
+  },
+  {
+    id: "a10544b2-a007-a271-9855-fec4b6a6442a",
+    firstname: "Lucas",
+    lastname: "Rousseau",
+    email: "lucas.rousseau@example.com",
+    password: "securepass",
+    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+  },
+  {
+    id: "b10544b2-b008-b271-9855-fec4b6a6442b",
+    firstname: "Sophie",
+    lastname: "Lemoine",
+    email: "sophie.lemoine@example.com",
+    password: "mypassword",
+    avatar: "https://randomuser.me/api/portraits/women/17.jpg",
+  },
+  {
+    id: "c10544b2-c009-c271-9855-fec4b6a6442c",
+    firstname: "Arthur",
+    lastname: "Faure",
+    email: "arthur.faure@example.com",
+    password: "arthur123",
+    avatar: "https://randomuser.me/api/portraits/men/29.jpg",
+  },
+  {
+    id: "d10544b2-d010-d271-9855-fec4b6a6442d",
+    firstname: "Julie",
+    lastname: "Perret",
+    email: "julie.perret@example.com",
+    password: "juliepass",
+    avatar: "https://randomuser.me/api/portraits/women/29.jpg",
+  },
+]
+
+export const favorites = [
+  // Pairings for user "410544b2-4001-4271-9855-fec4b6a6442a" (Juste Leblanc)
+  {
+    user_id: "410544b2-4001-4271-9855-fec4b6a6442a",
+    track_id: "1aXWYqpdI601RhN7dhLSuR",
+  },
+  {
+    user_id: "410544b2-4001-4271-9855-fec4b6a6442a",
+    track_id: "70X5rI8LU3uUwIX3NE7HYP",
+  },
+  {
+    user_id: "410544b2-4001-4271-9855-fec4b6a6442a",
+    track_id: "2aJDlirz6v2a4HREki98cP",
+  },
+  {
+    user_id: "410544b2-4001-4271-9855-fec4b6a6442a",
+    track_id: "3MDkws8QGzLrMrWVAbzoXO",
+  },
+  {
+    user_id: "410544b2-4001-4271-9855-fec4b6a6442a",
+    track_id: "0W2275seLSrfjHxeWmDb6l",
+  },
+
+  // Pairings for user "510544b2-5002-5271-9855-fec4b6a6442b" (Alice Durand)
+  {
+    user_id: "510544b2-5002-5271-9855-fec4b6a6442b",
+    track_id: "1UgmrHPpLFB0tmg99MGcya",
+  },
+  {
+    user_id: "510544b2-5002-5271-9855-fec4b6a6442b",
+    track_id: "0RFduQOfkrP1jhoV0m8US2",
+  },
+  {
+    user_id: "510544b2-5002-5271-9855-fec4b6a6442b",
+    track_id: "3DK6m7It6Pw857FcQftMds",
+  },
+  {
+    user_id: "510544b2-5002-5271-9855-fec4b6a6442b",
+    track_id: "1NeLwFETswx8Fzxl2AFl91",
+  },
+  {
+    user_id: "510544b2-5002-5271-9855-fec4b6a6442b",
+    track_id: "5CwpQExnCUlLhKwLhBeTAc",
+  },
+
+  // Pairings for user "610544b2-6003-6271-9855-fec4b6a6442c" (Louis Martin)
+  {
+    user_id: "610544b2-6003-6271-9855-fec4b6a6442c",
+    track_id: "39cHfFYBVsIgj07SzenRW2",
+  },
+  {
+    user_id: "610544b2-6003-6271-9855-fec4b6a6442c",
+    track_id: "6J3aUG1y0zSJXOnsLhx41h",
+  },
+  {
+    user_id: "610544b2-6003-6271-9855-fec4b6a6442c",
+    track_id: "0oR9XRneKUIefSfy5y0IJ8",
+  },
+  {
+    user_id: "610544b2-6003-6271-9855-fec4b6a6442c",
+    track_id: "38zsOOcu31XbbYj9BIPUF1",
+  },
+  {
+    user_id: "610544b2-6003-6271-9855-fec4b6a6442c",
+    track_id: "4e4PGzYFYlHzirEtJciAfk",
+  },
+
+  // Pairings for user "710544b2-7004-7271-9855-fec4b6a6442d" (Emma Dupont)
+  {
+    user_id: "710544b2-7004-7271-9855-fec4b6a6442d",
+    track_id: "1Dl0E86yorhNRMYZ20RIfY",
+  },
+  {
+    user_id: "710544b2-7004-7271-9855-fec4b6a6442d",
+    track_id: "4P38U9lsi2iOZKlq1CbyH4",
+  },
+  {
+    user_id: "710544b2-7004-7271-9855-fec4b6a6442d",
+    track_id: "0tcnTUmn7IxllWoC0XohhJ",
+  },
+  {
+    user_id: "710544b2-7004-7271-9855-fec4b6a6442d",
+    track_id: "2gOkHU7TZ0uDuLP597KZ3y",
+  },
+  {
+    user_id: "710544b2-7004-7271-9855-fec4b6a6442d",
+    track_id: "38UODEjT3rRr7yNEYrYpUA",
+  },
+
+  // Pairings for user "810544b2-8005-8271-9855-fec4b6a6442e" (Hugo Bernard)
+  {
+    user_id: "810544b2-8005-8271-9855-fec4b6a6442e",
+    track_id: "2VEZx7NWsZ1D0eJ4uv5Fym",
+  },
+  {
+    user_id: "810544b2-8005-8271-9855-fec4b6a6442e",
+    track_id: "6cH0SUbd7WTIui51L6NxZf",
+  },
+  {
+    user_id: "810544b2-8005-8271-9855-fec4b6a6442e",
+    track_id: "2fFo3cr969sHB8gBMS5SVo",
+  },
+  {
+    user_id: "810544b2-8005-8271-9855-fec4b6a6442e",
+    track_id: "3FlYQ4cpdpT1JObsSy0zy3",
+  },
+  {
+    user_id: "810544b2-8005-8271-9855-fec4b6a6442e",
+    track_id: "7aVGlNd40UZOnaT7Gqrjdd",
+  },
+
+  // Pairings for user "910544b2-9006-9271-9855-fec4b6a6442f" (Chloe Moreau)
+  {
+    user_id: "910544b2-9006-9271-9855-fec4b6a6442f",
+    track_id: "7FgWlF6VAk4ZpZLaKRWZ7B",
+  },
+  {
+    user_id: "910544b2-9006-9271-9855-fec4b6a6442f",
+    track_id: "5LY2bzz5XpXiTEQ6MOzcnv",
+  },
+  {
+    user_id: "910544b2-9006-9271-9855-fec4b6a6442f",
+    track_id: "2C0gvcWSmU3JGsORO2HjjM",
+  },
+  {
+    user_id: "910544b2-9006-9271-9855-fec4b6a6442f",
+    track_id: "1aXWYqpdI601RhN7dhLSuR",
+  },
+  {
+    user_id: "910544b2-9006-9271-9855-fec4b6a6442f",
+    track_id: "70X5rI8LU3uUwIX3NE7HYP",
+  },
+
+  // Pairings for user "a10544b2-a007-a271-9855-fec4b6a6442a" (Lucas Rousseau)
+  {
+    user_id: "a10544b2-a007-a271-9855-fec4b6a6442a",
+    track_id: "2aJDlirz6v2a4HREki98cP",
+  },
+  {
+    user_id: "a10544b2-a007-a271-9855-fec4b6a6442a",
+    track_id: "3MDkws8QGzLrMrWVAbzoXO",
+  },
+  {
+    user_id: "a10544b2-a007-a271-9855-fec4b6a6442a",
+    track_id: "0W2275seLSrfjHxeWmDb6l",
+  },
+  {
+    user_id: "a10544b2-a007-a271-9855-fec4b6a6442a",
+    track_id: "1UgmrHPpLFB0tmg99MGcya",
+  },
+  {
+    user_id: "a10544b2-a007-a271-9855-fec4b6a6442a",
+    track_id: "0RFduQOfkrP1jhoV0m8US2",
+  },
+
+  // Pairings for user "b10544b2-b008-b271-9855-fec4b6a6442b" (Sophie Lemoine)
+  {
+    user_id: "b10544b2-b008-b271-9855-fec4b6a6442b",
+    track_id: "3DK6m7It6Pw857FcQftMds",
+  },
+  {
+    user_id: "b10544b2-b008-b271-9855-fec4b6a6442b",
+    track_id: "1NeLwFETswx8Fzxl2AFl91",
+  },
+  {
+    user_id: "b10544b2-b008-b271-9855-fec4b6a6442b",
+    track_id: "5CwpQExnCUlLhKwLhBeTAc",
+  },
+  {
+    user_id: "b10544b2-b008-b271-9855-fec4b6a6442b",
+    track_id: "39cHfFYBVsIgj07SzenRW2",
+  },
+  {
+    user_id: "b10544b2-b008-b271-9855-fec4b6a6442b",
+    track_id: "6J3aUG1y0zSJXOnsLhx41h",
+  },
+
+  // Pairings for user "c10544b2-c009-c271-9855-fec4b6a6442c" (Arthur Faure)
+  {
+    user_id: "c10544b2-c009-c271-9855-fec4b6a6442c",
+    track_id: "0oR9XRneKUIefSfy5y0IJ8",
+  },
+  {
+    user_id: "c10544b2-c009-c271-9855-fec4b6a6442c",
+    track_id: "38zsOOcu31XbbYj9BIPUF1",
+  },
+  {
+    user_id: "c10544b2-c009-c271-9855-fec4b6a6442c",
+    track_id: "4e4PGzYFYlHzirEtJciAfk",
+  },
+  {
+    user_id: "c10544b2-c009-c271-9855-fec4b6a6442c",
+    track_id: "1Dl0E86yorhNRMYZ20RIfY",
+  },
+  {
+    user_id: "c10544b2-c009-c271-9855-fec4b6a6442c",
+    track_id: "4P38U9lsi2iOZKlq1CbyH4",
+  },
+
+  // Pairings for user "d10544b2-d010-d271-9855-fec4b6a6442d" (Julie Perret)
+  {
+    user_id: "d10544b2-d010-d271-9855-fec4b6a6442d",
+    track_id: "0tcnTUmn7IxllWoC0XohhJ",
+  },
+  {
+    user_id: "d10544b2-d010-d271-9855-fec4b6a6442d",
+    track_id: "2gOkHU7TZ0uDuLP597KZ3y",
+  },
+  {
+    user_id: "d10544b2-d010-d271-9855-fec4b6a6442d",
+    track_id: "38UODEjT3rRr7yNEYrYpUA",
+  },
+  {
+    user_id: "d10544b2-d010-d271-9855-fec4b6a6442d",
+    track_id: "2VEZx7NWsZ1D0eJ4uv5Fym",
+  },
+  {
+    user_id: "d10544b2-d010-d271-9855-fec4b6a6442d",
+    track_id: "6cH0SUbd7WTIui51L6NxZf",
+  },
+]
