@@ -1,4 +1,5 @@
 import { sql } from "@vercel/postgres"
+import { revalidatePath } from "next/cache"
 import { NextResponse } from "next/server"
 
 const USER_ID = "410544b2-4001-4271-9855-fec4b6a6442a"
@@ -31,6 +32,7 @@ export async function DELETE(req: Request) {
       )
     }
 
+    revalidatePath("/likes")
     return NextResponse.json({ success: true }, { status: 200 })
   } catch (error) {
     let message = "Unknown Error"
@@ -58,7 +60,7 @@ export async function POST(req: Request) {
     }
 
     const { rows } = await sql/*sql*/ `
-    SELECT COUNT(*)::INTEGER FROM favorites
+    SELECT COUNT(*)::INTEGER 
     FROM favorites
     WHERE user_id = ${USER_ID} AND track_id = ${track_id}`
 
@@ -74,8 +76,10 @@ export async function POST(req: Request) {
     const result = await sql/*sql*/ `
     INSERT INTO favorites (user_id, track_id)
     VALUES (${USER_ID}, ${track_id})
+    RETURNING *
     `
-
+    revalidatePath("/")
+    revalidatePath("/likes")
     return NextResponse.json(
       {
         success: true,

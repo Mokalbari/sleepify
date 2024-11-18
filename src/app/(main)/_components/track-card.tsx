@@ -2,7 +2,7 @@ import CardPlayControl from "@/app/(main)/_components/card-play-control"
 import TrackArtistBadge from "@/components/ui/track-artist-badge"
 import { TrackList } from "@/lib/types/definitions"
 
-type Props = Omit<TrackList, "track_id">
+type Props = TrackList
 
 export default function TrackCard(props: Props) {
   const { artist_name, track_image, track_name } = props

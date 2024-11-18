@@ -35,6 +35,7 @@ export default async function Table() {
               <div className="text-2xs lg:hidden">34 plays</div>
               <div className="flex justify-end gap-4">
                 <HeartButton
+                  trackId={song.track_id}
                   isFavorite={true}
                   className={cn("w-4 sm:w-5 lg:w-6")}
                 />

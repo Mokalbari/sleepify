@@ -5,7 +5,7 @@ import { TrackList } from "@/lib/types/definitions"
 import { Bug, Pause, Play } from "lucide-react"
 import HeartButton from "../../../components/ui/heart-button"
 
-type Props = Omit<TrackList, "track_id">
+type Props = TrackList
 
 export default function CardPlayControl({
   track_name: trackName,
@@ -13,6 +13,7 @@ export default function CardPlayControl({
   track_image: previewImage,
   music_url: trackUrl,
   is_favorite: isFavorite,
+  track_id: trackId,
 }: Props) {
   const { currentTrack, isPlaying, setAudioTrack, togglePlayPause } = useAudio()
 
@@ -27,7 +28,7 @@ export default function CardPlayControl({
 
   return (
     <div className="flex gap-4">
-      <HeartButton isFavorite={isFavorite} />
+      <HeartButton isFavorite={isFavorite} trackId={trackId} />
       <button
         onClick={handlePlayPause}
         disabled={!trackUrl}

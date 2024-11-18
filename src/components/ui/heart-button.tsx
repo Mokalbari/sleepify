@@ -1,5 +1,6 @@
 "use client"
 import { Heart } from "lucide-react"
+import { useState } from "react"
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isFavorite: boolean
@@ -7,30 +8,34 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export default function HeartButton({
-  isFavorite,
+  isFavorite: initialFavorite,
   trackId,
   className,
   type = "button",
   ...props
 }: Props) {
+  const [isFavorite, setIsFavorite] = useState(initialFavorite)
+
   const handleClick = async (trackId: string) => {
     try {
       if (isFavorite) {
-        const res = await fetch("/api", {
+        const res = await fetch("/api/likes", {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ track_id: trackId }),
         })
 
         if (!res.ok) throw new Error("Failed to remove favorite")
+        setIsFavorite(false)
       } else {
-        const res = await fetch("/api", {
+        const res = await fetch("/api/likes", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ track_id: trackId }),
         })
 
         if (!res.ok) throw new Error("Failed to add a new favorite track")
+        setIsFavorite(true)
       }
     } catch (error) {
       console.error(error)
