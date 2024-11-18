@@ -21,7 +21,7 @@ export default function PlayerControl({ isPlaying, togglePlayPause }: Props) {
 
       {/* Mobile version */}
       <div className="flex gap-4 sm:hidden">
-        <HeartButton isFavorite={false} />
+        <HeartButton trackId="" isFavorite={false} />
         <Play />
       </div>
     </>
