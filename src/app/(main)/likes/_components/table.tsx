@@ -4,7 +4,6 @@ import { cn } from "@/helpers/style"
 import { LikedSongs } from "@/lib/types/definitions"
 import { Play } from "lucide-react"
 import { getUsersLikes } from "../actions"
-import BadgeStack from "./badge-stack"
 
 export default async function Table() {
   const likedSongs: LikedSongs[] = await getUsersLikes()
@@ -34,9 +33,6 @@ export default async function Table() {
             <td className="max-lg:hidden">34 plays... You okay?</td>
             <td className="p-2 text-right lg:flex lg:h-full lg:items-center lg:justify-end lg:gap-8">
               <div className="text-2xs lg:hidden">34 plays</div>
-              <div className="max-lg:hidden">
-                <BadgeStack />
-              </div>
               <div className="flex justify-end gap-4">
                 <HeartButton
                   isFavorite={true}
