@@ -12,7 +12,7 @@ export default function SleepifyNormalPlayer() {
   const { currentTrack } = useAudio()
   return (
     <div
-      className={cn("sticky bottom-0 left-0 z-10 max-sm:mt-12", {
+      className={cn("sticky bottom-0 left-0 max-sm:mt-12", {
         hidden: !currentTrack,
         "animate-slide-up": currentTrack,
       })}
