@@ -5,3 +5,35 @@
 .brutal {
   @apply shadow-half-full border border-black;
 }
+
+/* *** */
+/* PROGRESS BAR */
+/* *** */
+
+.slider {
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 5px;
+  background: #ddd; 
+  outline: none;
+  transition: background 0.3s ease-in-out;
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #88AAEE;
+  cursor: pointer;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #88AAEE;
+  cursor: pointer;
+}
