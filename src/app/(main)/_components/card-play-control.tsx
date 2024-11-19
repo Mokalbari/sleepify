@@ -36,6 +36,7 @@ export default function CardPlayControl({
           ? track.artist_name
           : [track.artist_name],
         previewImage: track.track_image,
+        isFavorite: track.is_favorite,
       }))
 
       const index = audioPlaylist.findIndex(
