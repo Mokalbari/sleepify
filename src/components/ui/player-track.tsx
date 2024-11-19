@@ -3,7 +3,6 @@
 import { useAudio } from "@/context/audio-context"
 import Image from "next/image"
 import cover from "../../../public/cover-album_placeholder.webp"
-import HeartButton from "./heart-button"
 
 export default function PlayerTrack() {
   const { currentTrack } = useAudio()
@@ -21,11 +20,6 @@ export default function PlayerTrack() {
       <div>
         <div className="flex">
           <div className="font-bold sm:text-sm">{currentTrack?.trackName}</div>
-          <HeartButton
-            trackId=""
-            isFavorite={false}
-            className="ml-8 max-sm:hidden"
-          />
         </div>
         <div className="text-xs sm:text-base">
           {currentTrack?.artistName?.join(", ")}
