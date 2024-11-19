@@ -1,3 +1,6 @@
+import { useSleepifyPlayer } from "@/hooks/useSleepifyPlayer"
+import { ReactNode } from "react"
+
 export type TrackList = {
   track_id: string
   track_name: string
@@ -20,8 +23,9 @@ export type LikedSongs = {
   track_id: string
   track_name: string
   duration_ms: number
-  artists: string[]
-  image_url: string
+  artist_name: string[]
+  track_image: string
+  music_url: string
 }
 
 export type Count = {
@@ -30,4 +34,16 @@ export type Count = {
 
 export type Avatar = {
   avatar: string
+}
+
+export type AudioContextType = ReturnType<typeof useSleepifyPlayer>
+
+export interface ContextProvider {
+  children: ReactNode
+}
+
+export type LikesContextType = {
+  likedCount: Count
+  incrementLikes: () => void
+  decrementLikes: () => void
 }

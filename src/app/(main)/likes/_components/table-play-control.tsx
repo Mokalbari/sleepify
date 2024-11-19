@@ -1,17 +1,21 @@
 "use client"
 
+import HeartButton from "@/components/ui/heart-button"
 import { useAudio } from "@/context/audio-context"
-import { usePlaylistContext } from "@/context/playlist-context"
-import { TrackList } from "@/lib/types/definitions"
+import { cn } from "@/helpers/style"
+import { LikedSongs } from "@/lib/types/definitions"
 import { Bug, Pause, Play } from "lucide-react"
-import HeartButton from "../../../components/ui/heart-button"
 
-type Props = TrackList
+type Props = {
+  trackUrl: string
+  trackId: string
+  playlist: LikedSongs[]
+}
 
-export default function CardPlayControl({
-  music_url: trackUrl,
-  is_favorite: isFavorite,
-  track_id: trackId,
+export default function TablePlayControl({
+  trackUrl,
+  trackId,
+  playlist,
 }: Props) {
   const {
     currentTrack,
@@ -21,8 +25,6 @@ export default function CardPlayControl({
     setCurrentPlaylist,
     setCurrentTrackIndex,
   } = useAudio()
-
-  const { playlist } = usePlaylistContext()
 
   const handlePlayPause = () => {
     if (!trackUrl) return
@@ -36,7 +38,6 @@ export default function CardPlayControl({
           ? track.artist_name
           : [track.artist_name],
         previewImage: track.track_image,
-        isFavorite: track.is_favorite,
       }))
 
       const index = audioPlaylist.findIndex(
@@ -49,6 +50,8 @@ export default function CardPlayControl({
         setCurrentPlaylist(audioPlaylist)
         setCurrentTrackIndex(index)
         setAudioTrack(audioTrack)
+      } else {
+        console.error("La piste n'a pas été trouvée dans la playlist.")
       }
     } else {
       togglePlayPause()
@@ -56,23 +59,24 @@ export default function CardPlayControl({
   }
 
   return (
-    <div className="flex gap-4">
-      <HeartButton isFavorite={isFavorite} trackId={trackId} />
-      <button
-        onClick={handlePlayPause}
-        disabled={!trackUrl}
-        className={`flex items-center justify-center ${
-          !trackUrl ? "cursor-not-allowed opacity-50" : ""
-        }`}
-      >
-        {trackUrl === null ? (
-          <Bug />
-        ) : isPlaying && currentTrack?.trackUrl === trackUrl ? (
-          <Pause />
-        ) : (
-          <Play />
-        )}
-      </button>
-    </div>
+    <>
+      <div className="flex justify-end gap-4">
+        <HeartButton
+          trackId={trackId}
+          isFavorite={true}
+          className={cn("w-4 sm:w-5 lg:w-6")}
+        />
+
+        <button onClick={handlePlayPause}>
+          {currentTrack?.trackUrl === null ? (
+            <Bug />
+          ) : isPlaying && currentTrack?.trackUrl === trackUrl ? (
+            <Pause />
+          ) : (
+            <Play />
+          )}
+        </button>
+      </div>
+    </>
   )
 }
