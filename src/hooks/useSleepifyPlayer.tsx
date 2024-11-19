@@ -7,6 +7,7 @@ export type AudioTrack = {
   trackName: string
   artistName: string[]
   previewImage: string
+  isFavorite: boolean
 }
 
 export const useSleepifyPlayer = () => {

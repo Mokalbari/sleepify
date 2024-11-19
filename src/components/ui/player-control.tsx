@@ -24,10 +24,15 @@ export default function PlayerControl() {
       {/* Mobile version */}
       <div className="flex gap-4 sm:hidden">
         <HeartButton
-          trackId={currentTrack?.track_id || ""}
-          isFavorite={currentTrack?.is_favorite || false}
+          trackId={currentTrack?.trackId || ""}
+          isFavorite={currentTrack?.isFavorite || false}
         />
-        <Play onClick={togglePlayPause} />
+
+        {isPlaying ? (
+          <Pause onClick={togglePlayPause} className="cursor-pointer" />
+        ) : (
+          <Play onClick={togglePlayPause} className="cursor-pointer" />
+        )}
       </div>
     </>
   )
