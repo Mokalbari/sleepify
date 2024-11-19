@@ -50,6 +50,7 @@ export default function CardPlayControl({
         setCurrentTrackIndex(index)
         setAudioTrack(audioTrack)
       }
+      console.log("current index is:", index)
     } else {
       togglePlayPause()
     }
