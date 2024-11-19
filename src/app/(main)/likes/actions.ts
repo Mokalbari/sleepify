@@ -1,4 +1,4 @@
-import { Avatar, Count, LikedSongs } from "@/lib/types/definitions"
+import { Count, LikedSongs } from "@/lib/types/definitions"
 import { sql } from "@vercel/postgres"
 import { cache } from "react"
 
@@ -10,9 +10,10 @@ export const getUsersLikes = cache(async () => {
         SELECT 
             t.id AS track_id,
             t.name AS track_name,
+            t.preview_url AS music_url,
             t.duration_ms,
-            ARRAY_AGG(a.name) AS artists,
-            t.image_url
+            t.image_url AS track_image,
+            ARRAY_AGG(a.name) AS artists
         FROM 
             favorites f
         INNER JOIN 
@@ -24,7 +25,7 @@ export const getUsersLikes = cache(async () => {
         WHERE 
             f.user_id = ${USER_ID} 
         GROUP BY 
-            t.id, t.name, t.duration_ms
+            t.id, t.name, t.duration_ms, t.image_url
         ORDER BY 
             t.name
         `
@@ -45,22 +46,5 @@ export const getTotalLikes = cache(async (trackId: string) => {
   } catch (error) {
     console.error("error while getting total counts: ", error)
     throw new Error("Error while fetching total likes")
-  }
-})
-
-export const getAvatarFromUsers = cache(async (trackId: string) => {
-  try {
-    const { rows } = await sql<Avatar>/*SQL*/ `
-        SELECT u.avatar
-        FROM users u
-        INNER JOIN favorites f ON u.id = f.user_id
-        WHERE f.track_id = ${trackId}
-        ORDER BY RANDOM()
-        LIMIT 3;
-        `
-    return rows
-  } catch (error) {
-    console.error("Error while getting avatars from users", error)
-    throw new Error("Failed to fetch avatar from users")
   }
 })

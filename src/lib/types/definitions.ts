@@ -23,12 +23,13 @@ export type LikedSongs = {
   track_id: string
   track_name: string
   duration_ms: number
-  artists: string[]
-  image_url: string
+  artist_name: string[]
+  track_image: string
+  music_url: string
 }
 
 export type Count = {
-  count: number
+  total_likes: number
 }
 
 export type Avatar = {

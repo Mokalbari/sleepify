@@ -6,15 +6,15 @@ import { createContext, useContext } from "react"
 const AudioContext = createContext<AudioContextType | undefined>(undefined)
 
 export default function AudioProvider({ children }: ContextProvider) {
-  const sleepifyPlayerProps = useSleepifyPlayer()
+  const sleepifyPlayer = useSleepifyPlayer()
 
   return (
-    <AudioContext.Provider value={sleepifyPlayerProps}>
+    <AudioContext.Provider value={sleepifyPlayer}>
       {children}
       <audio
-        ref={sleepifyPlayerProps.audioRef}
-        onPlay={() => sleepifyPlayerProps.isPlaying}
-        onPause={() => sleepifyPlayerProps.isPlaying}
+        ref={sleepifyPlayer.audioRef}
+        onPlay={() => sleepifyPlayer.isPlaying}
+        onPause={() => sleepifyPlayer.isPlaying}
       />
     </AudioContext.Provider>
   )
