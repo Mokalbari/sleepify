@@ -46,7 +46,7 @@ export default function SideNav({ tracksCount, userInfo }: Props) {
             >
               <AudioLines aria-hidden />
               <span>
-                <Link href={"/"}>Tracks ({tracksCount.count})</Link>
+                <Link href={"/"}>Tracks ({tracksCount.total_likes})</Link>
               </span>
             </li>
 
@@ -57,7 +57,7 @@ export default function SideNav({ tracksCount, userInfo }: Props) {
             >
               <Heart aria-hidden />
               <span>
-                <Link href={"/likes"}>Likes ({likedCount.count})</Link>
+                <Link href={"/likes"}>Likes ({likedCount.total_likes})</Link>
               </span>
             </li>
           </menu>
