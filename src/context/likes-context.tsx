@@ -1,24 +1,15 @@
 "use client"
 
-import { Count } from "@/lib/types/definitions"
-import { createContext, ReactNode, useContext, useState } from "react"
+import type {
+  ContextProvider,
+  Count,
+  LikesContextType,
+} from "@/lib/types/definitions"
+import { createContext, useContext, useState } from "react"
 
-// Créer un context
-// Ce contexte prend en paramètre un initial count qui vient du serveur
-// ce contexte propose une state avec un counteur qui est initialisé = serveur
-// ce contexte propose deux fonctions : une fonction pour incrémenter + décrémenter une valeur
-
-// Enrober le layout.tsx du context
-// update heart button pour incrémenter / décrémenter
-// updatesidenav avec les valeurs du context.
-
-type LikesContextType = {
-  likedCount: Count
-  incrementLikes: () => void
-  decrementLikes: () => void
+interface LikesContextProvider extends ContextProvider {
+  initialCount: number
 }
-
-type LikesProviderProps = { children: ReactNode; initialCount: number }
 
 const LikesContext = createContext<LikesContextType>({
   likedCount: { count: 0 },
@@ -29,8 +20,10 @@ const LikesContext = createContext<LikesContextType>({
 export default function LikesProvider({
   children,
   initialCount,
-}: LikesProviderProps) {
-  const [likedCount, setLikedCount] = useState<Count>({ count: initialCount })
+}: LikesContextProvider) {
+  const [likedCount, setLikedCount] = useState<Count>({
+    count: initialCount,
+  })
   const incrementLikes = () => {
     setLikedCount((prev) => ({ count: prev.count + 1 }))
   }

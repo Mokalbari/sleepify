@@ -16,6 +16,7 @@ interface Props {
 
 export default function SideNav({ tracksCount, userInfo }: Props) {
   const { likedCount } = useLikesContext()
+  console.log(likedCount)
   const pathname = usePathname()
 
   return (
