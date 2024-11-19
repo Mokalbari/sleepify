@@ -14,7 +14,6 @@ export default async function SleepifyLayout({
     getTracksCount(),
     getLikesCount(),
   ])
-  console.log("like count", likedCount, "track count", tracksCount)
 
   return (
     <LikesProvider initialCount={likedCount.count}>
