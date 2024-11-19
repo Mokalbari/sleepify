@@ -6,7 +6,7 @@ import { TrackList } from "@/lib/types/definitions"
 import { Bug, Pause, Play } from "lucide-react"
 import HeartButton from "../../../components/ui/heart-button"
 
-type Props = TrackList
+type Props = Pick<TrackList, "music_url" | "is_favorite" | "track_id">
 
 export default function CardPlayControl({
   music_url: trackUrl,

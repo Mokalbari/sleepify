@@ -72,6 +72,7 @@ export const getPlaylist = cache(async () => {
         artists ON artists.id = track_artists.artist_id
     GROUP BY 
         tracks.id, tracks.name, tracks.preview_url, tracks.duration_ms, tracks.image_url
+    ORDER BY track_id ASC
 `
     return rows
   } catch (error) {

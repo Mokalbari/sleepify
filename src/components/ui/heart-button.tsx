@@ -4,7 +4,7 @@ import { Heart } from "lucide-react"
 import { useState } from "react"
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  isFavorite: boolean
+  isFavorite: boolean | undefined
   trackId: string
 }
 

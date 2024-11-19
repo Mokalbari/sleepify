@@ -14,7 +14,6 @@ export default async function SleepifyLayout({
     getTracksCount(),
     getLikesCount(),
   ])
-  console.log("like count", likedCount, "track count", tracksCount)
 
   return (
     <LikesProvider initialCount={likedCount.count}>
@@ -30,7 +29,7 @@ export default async function SleepifyLayout({
         />
         <div className="flex-1">
           <AudioProvider>
-            <main>{children}</main>
+            <main className="">{children}</main>
             <SleepifyNormalPlayer />
           </AudioProvider>
         </div>
