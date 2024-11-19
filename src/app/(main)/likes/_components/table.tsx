@@ -1,9 +1,7 @@
-import HeartButton from "@/components/ui/heart-button"
 import TrackArtistBadge from "@/components/ui/track-artist-badge"
-import { cn } from "@/helpers/style"
 import { LikedSongs } from "@/lib/types/definitions"
-import { Play } from "lucide-react"
 import { getUsersLikes } from "../actions"
+import TablePlayControl from "./table-play-control"
 
 export default async function Table() {
   const likedSongs: LikedSongs[] = await getUsersLikes()
@@ -25,22 +23,19 @@ export default async function Table() {
           >
             <td className="p-2">
               <TrackArtistBadge
-                track_image={song.image_url}
-                artist_name={song.artists}
+                track_image={song.track_image}
+                artist_name={song.artist_name}
                 track_name={song.track_name}
               />
             </td>
             <td className="max-lg:hidden">34 plays... You okay?</td>
             <td className="p-2 text-right lg:flex lg:h-full lg:items-center lg:justify-end lg:gap-8">
               <div className="text-2xs lg:hidden">34 plays</div>
-              <div className="flex justify-end gap-4">
-                <HeartButton
-                  trackId={song.track_id}
-                  isFavorite={true}
-                  className={cn("w-4 sm:w-5 lg:w-6")}
-                />
-                <Play className={cn("w-4 sm:w-5 lg:w-6")} />
-              </div>
+              <TablePlayControl
+                trackUrl={song.music_url}
+                playlist={likedSongs}
+                trackId={song.track_id}
+              />
             </td>
           </tr>
         ))}
