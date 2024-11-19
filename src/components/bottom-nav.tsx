@@ -34,7 +34,7 @@ export default function BottomNav() {
           <li className="flex items-center gap-4 px-5 py-1">
             <Link href={"/likes"}>
               <Heart />
-              <span>Likes ({likedCount.total_likes})</span>
+              <span>Likes ({likedCount.count})</span>
             </Link>
           </li>
         </menu>

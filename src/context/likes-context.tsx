@@ -12,7 +12,7 @@ interface LikesContextProvider extends ContextProvider {
 }
 
 const LikesContext = createContext<LikesContextType>({
-  likedCount: { total_likes: 0 },
+  likedCount: { count: 0 },
   incrementLikes: () => {},
   decrementLikes: () => {},
 })
@@ -22,14 +22,14 @@ export default function LikesProvider({
   initialCount,
 }: LikesContextProvider) {
   const [likedCount, setLikedCount] = useState<Count>({
-    total_likes: initialCount,
+    count: initialCount,
   })
   const incrementLikes = () => {
-    setLikedCount((prev) => ({ total_likes: prev.total_likes + 1 }))
+    setLikedCount((prev) => ({ count: prev.count + 1 }))
   }
 
   const decrementLikes = () => {
-    setLikedCount((prev) => ({ total_likes: prev.total_likes - 1 }))
+    setLikedCount((prev) => ({ count: prev.count - 1 }))
   }
 
   return (

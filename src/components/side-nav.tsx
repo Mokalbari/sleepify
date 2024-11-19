@@ -16,6 +16,7 @@ interface Props {
 
 export default function SideNav({ tracksCount, userInfo }: Props) {
   const { likedCount } = useLikesContext()
+  console.log(likedCount)
   const pathname = usePathname()
 
   return (
@@ -46,7 +47,7 @@ export default function SideNav({ tracksCount, userInfo }: Props) {
             >
               <AudioLines aria-hidden />
               <span>
-                <Link href={"/"}>Tracks ({tracksCount.total_likes})</Link>
+                <Link href={"/"}>Tracks ({tracksCount.count})</Link>
               </span>
             </li>
 
@@ -57,7 +58,7 @@ export default function SideNav({ tracksCount, userInfo }: Props) {
             >
               <Heart aria-hidden />
               <span>
-                <Link href={"/likes"}>Likes ({likedCount.total_likes})</Link>
+                <Link href={"/likes"}>Likes ({likedCount.count})</Link>
               </span>
             </li>
           </menu>

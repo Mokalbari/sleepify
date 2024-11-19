@@ -29,7 +29,7 @@ export type LikedSongs = {
 }
 
 export type Count = {
-  total_likes: number
+  count: number
 }
 
 export type Avatar = {

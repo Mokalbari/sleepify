@@ -14,9 +14,10 @@ export default async function SleepifyLayout({
     getTracksCount(),
     getLikesCount(),
   ])
+  console.log("like count", likedCount, "track count", tracksCount)
 
   return (
-    <LikesProvider initialCount={likedCount.total_likes}>
+    <LikesProvider initialCount={likedCount.count}>
       <div className="flex min-h-screen bg-lightBlue">
         <SideNav
           tracksCount={tracksCount}
