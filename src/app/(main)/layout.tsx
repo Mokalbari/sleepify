@@ -29,7 +29,7 @@ export default async function SleepifyLayout({
         />
         <div className="flex-1">
           <AudioProvider>
-            <main>{children}</main>
+            <main className="">{children}</main>
             <SleepifyNormalPlayer />
           </AudioProvider>
         </div>
