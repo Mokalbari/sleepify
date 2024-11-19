@@ -15,6 +15,8 @@ export const useSleepifyPlayer = () => {
   const [currentPlaylist, setCurrentPlaylist] = useState<AudioTrack[]>([])
   const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(-1)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [currentTime, setCurrentTime] = useState(0)
+  const [duration, setDuration] = useState(0)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
   const initializeAudioRef = useCallback(() => {
@@ -40,6 +42,10 @@ export const useSleepifyPlayer = () => {
       audioRef.current.onplay = () => setIsPlaying(true)
       audioRef.current.onpause = () => setIsPlaying(false)
       audioRef.current.onended = handleEnded
+      audioRef.current.ontimeupdate = () =>
+        setCurrentTime(audioRef.current?.currentTime || 0)
+      audioRef.current.onloadedmetadata = () =>
+        setDuration(audioRef.current?.duration || 0)
     }
 
     return audioRef.current
@@ -93,6 +99,17 @@ export const useSleepifyPlayer = () => {
     setCurrentTrackIndex(prevIndex)
   }, [currentTrackIndex, currentPlaylist, setAudioTrack])
 
+  const seekTo = useCallback(
+    (time: number) => {
+      const audio = initializeAudioRef()
+      if (audio) {
+        audio.currentTime = time
+        setCurrentTime(time)
+      }
+    },
+    [initializeAudioRef],
+  )
+
   // Cleanup effect to remove audio event listeners
   useEffect(() => {
     const audio = audioRef.current
@@ -115,6 +132,9 @@ export const useSleepifyPlayer = () => {
     setAudioTrack,
     skipNext,
     skipPrevious,
+    seekTo,
     audioRef,
+    currentTime,
+    duration,
   }
 }
