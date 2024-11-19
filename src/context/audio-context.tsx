@@ -1,20 +1,33 @@
 "use client"
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
 
-import { createContext, ReactNode, useContext, useRef, useState } from "react"
-
-type AudioTrack = {
+export type AudioTrack = {
   trackId: string
   trackUrl: string | null
-  trackName: string | null
-  artistName: string[] | null
-  previewImage: string | null
+  trackName: string
+  artistName: string[]
+  previewImage: string
 }
 
 type AudioContextType = {
   isPlaying: boolean
+  currentTrack: AudioTrack | null
+  currentPlaylist: AudioTrack[]
+  currentTrackIndex: number
   togglePlayPause: () => void
   setAudioTrack: (track: AudioTrack) => void
-  currentTrack: AudioTrack | null
+  skipNext: () => void
+  skipPrevious: () => void
+  setCurrentPlaylist: (playlist: AudioTrack[]) => void
+  setCurrentTrackIndex: (index: number) => void
 }
 
 type AudioProviderProps = {
@@ -24,18 +37,13 @@ type AudioProviderProps = {
 const AudioContext = createContext<AudioContextType | undefined>(undefined)
 
 export default function AudioProvider({ children }: AudioProviderProps) {
-  const [currentTrack, setCurrentTrack] = useState<AudioTrack | null>({
-    trackId: "",
-    trackUrl: null,
-    trackName: "Sleepify",
-    artistName: ["Choose a track and start listening"],
-    previewImage: null,
-  })
-
+  const [currentTrack, setCurrentTrack] = useState<AudioTrack | null>(null)
+  const [currentPlaylist, setCurrentPlaylist] = useState<AudioTrack[]>([])
+  const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(-1)
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
-  const togglePlayPause = () => {
+  const togglePlayPause = useCallback(() => {
     if (!audioRef.current) return
 
     if (isPlaying) {
@@ -44,26 +52,67 @@ export default function AudioProvider({ children }: AudioProviderProps) {
       audioRef.current.play()
     }
     setIsPlaying(!isPlaying)
-  }
+  }, [isPlaying])
 
-  const setAudioTrack = (track: AudioTrack) => {
-    if (!audioRef.current) return
+  const setAudioTrack = useCallback((track: AudioTrack) => {
+    if (!audioRef.current || !track.trackUrl) return
 
-    if (currentTrack?.trackUrl !== track.trackUrl) {
-      setCurrentTrack(track)
-      audioRef.current.src = track.trackUrl || ""
-      audioRef.current.play()
-      setIsPlaying(true)
+    setCurrentTrack(track)
+    audioRef.current.src = track.trackUrl
+    audioRef.current.play()
+    setIsPlaying(true)
+  }, [])
+
+  const skipNext = useCallback(() => {
+    if (!audioRef.current || currentPlaylist.length === 0) return
+
+    const nextIndex = (currentTrackIndex + 1) % currentPlaylist.length
+    const nextTrack = currentPlaylist[nextIndex]
+
+    setAudioTrack(nextTrack)
+    setCurrentTrackIndex(nextIndex)
+  }, [currentTrackIndex, currentPlaylist, setAudioTrack])
+
+  const skipPrevious = useCallback(() => {
+    if (!audioRef.current || currentPlaylist.length === 0) return
+
+    const prevIndex =
+      (currentTrackIndex - 1 + currentPlaylist.length) % currentPlaylist.length
+    const prevTrack = currentPlaylist[prevIndex]
+
+    setAudioTrack(prevTrack)
+    setCurrentTrackIndex(prevIndex)
+  }, [currentTrackIndex, currentPlaylist, setAudioTrack])
+
+  // Auto-play next track when current track ends
+  useEffect(() => {
+    const audioElement = audioRef.current
+
+    const handleEnded = () => {
+      skipNext()
     }
-  }
+
+    if (audioElement) {
+      audioElement.addEventListener("ended", handleEnded)
+      return () => {
+        audioElement.removeEventListener("ended", handleEnded)
+      }
+    }
+  }, [skipNext])
 
   return (
     <AudioContext.Provider
       value={{
         isPlaying,
+        currentTrack,
+        currentPlaylist,
+        currentTrackIndex,
+        setCurrentPlaylist,
+        setCurrentTrackIndex,
         togglePlayPause,
         setAudioTrack,
-        currentTrack,
+        skipNext,
+        skipPrevious,
       }}
     >
       {children}
@@ -71,7 +120,6 @@ export default function AudioProvider({ children }: AudioProviderProps) {
         ref={audioRef}
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
-        onEnded={() => setIsPlaying(false)}
       />
     </AudioContext.Provider>
   )

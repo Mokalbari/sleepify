@@ -1,28 +1,33 @@
+"use client"
+
+import { useAudio } from "@/context/audio-context"
 import { Pause, Play, SkipBack, SkipForward } from "lucide-react"
 import HeartButton from "./heart-button"
-interface Props {
-  isPlaying: boolean
-  togglePlayPause: () => void
-}
 
-export default function PlayerControl({ isPlaying, togglePlayPause }: Props) {
+export default function PlayerControl() {
+  const { isPlaying, togglePlayPause, skipNext, skipPrevious, currentTrack } =
+    useAudio()
+
   return (
     <>
       {/* Tablet + Desktop version */}
       <div className="flex gap-4 max-sm:hidden">
-        <SkipBack />
+        <SkipBack onClick={skipPrevious} className="cursor-pointer" />
         {isPlaying ? (
-          <Pause onClick={togglePlayPause} />
+          <Pause onClick={togglePlayPause} className="cursor-pointer" />
         ) : (
-          <Play onClick={togglePlayPause} />
+          <Play onClick={togglePlayPause} className="cursor-pointer" />
         )}
-        <SkipForward />
+        <SkipForward onClick={skipNext} className="cursor-pointer" />
       </div>
 
       {/* Mobile version */}
       <div className="flex gap-4 sm:hidden">
-        <HeartButton trackId="" isFavorite={false} />
-        <Play />
+        <HeartButton
+          trackId={currentTrack?.track_id || ""}
+          isFavorite={currentTrack?.is_favorite || false}
+        />
+        <Play onClick={togglePlayPause} />
       </div>
     </>
   )
