@@ -47,3 +47,12 @@ export type LikesContextType = {
   incrementLikes: () => void
   decrementLikes: () => void
 }
+
+export type AudioTrack = {
+  trackId: string
+  trackUrl: string | null
+  trackName: string
+  artistName: string[]
+  previewImage: string
+  isFavorite?: boolean
+}

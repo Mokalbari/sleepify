@@ -1,27 +1,29 @@
 "use client"
+
 import { useSleepifyPlayer } from "@/hooks/useSleepifyPlayer"
 import { ContextProvider } from "@/lib/types/definitions"
-import { createContext, useContext } from "react"
+import { createContext, useContext, useRef } from "react"
 
-type AudioContextType = ReturnType<typeof useSleepifyPlayer>
+type SleepifyContextType = ReturnType<typeof useSleepifyPlayer>
 
-const AudioContext = createContext<AudioContextType | null>(null)
+const SleepifyContext = createContext<SleepifyContextType | null>(null)
 
-export default function AudioProvider({ children }: ContextProvider) {
-  const sleepifyPlayer = useSleepifyPlayer()
+export default function SleepifyProvider({ children }: ContextProvider) {
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+  const sleepifyPlayer = useSleepifyPlayer(audioRef)
 
   return (
-    <AudioContext.Provider value={sleepifyPlayer}>
+    <SleepifyContext.Provider value={sleepifyPlayer}>
       {children}
-      <audio ref={sleepifyPlayer.audioRef} />
-    </AudioContext.Provider>
+      <audio ref={audioRef} />
+    </SleepifyContext.Provider>
   )
 }
 
-export const useAudio = () => {
-  const context = useContext(AudioContext)
+export const useSleepify = () => {
+  const context = useContext(SleepifyContext)
   if (!context) {
-    throw new Error("useAudio must be used within an AudioProvider")
+    throw new Error("useSleepify must be used within a SleepifyProvider")
   }
   return context
 }

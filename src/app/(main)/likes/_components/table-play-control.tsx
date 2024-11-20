@@ -1,7 +1,7 @@
 "use client"
 
 import HeartButton from "@/components/ui/heart-button"
-import { useAudio } from "@/context/audio-context"
+import { useSleepify } from "@/context/audio-context"
 import { cn } from "@/helpers/style"
 import { LikedSongs } from "@/lib/types/definitions"
 import { Bug, Pause, Play } from "lucide-react"
@@ -24,7 +24,7 @@ export default function TablePlayControl({
     togglePlayPause,
     setCurrentPlaylist,
     setCurrentTrackIndex,
-  } = useAudio()
+  } = useSleepify()
 
   const handlePlayPause = () => {
     if (!trackUrl) return

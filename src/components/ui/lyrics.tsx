@@ -1,6 +1,6 @@
 "use client"
 
-import { useAudio } from "@/context/audio-context"
+import { useSleepify } from "@/context/audio-context"
 import { useFullPlayer } from "@/context/full-player-context"
 import { cn } from "@/helpers/style"
 import "@/styles/animations.css"
@@ -10,7 +10,7 @@ type Props = {
   lyrics: string
 }
 export default function Lyrics({ lyrics }: Props) {
-  const { currentTrack } = useAudio()
+  const { currentTrack } = useSleepify()
   const { isLyricsOpen, handleLyricsVisibility } = useFullPlayer()
 
   if (isLyricsOpen) return null

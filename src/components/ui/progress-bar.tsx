@@ -1,8 +1,8 @@
-import { useAudio } from "@/context/audio-context"
+import { useSleepify } from "@/context/audio-context"
 import "@/styles/globals.css"
 
 export default function ProgressBar() {
-  const { currentTime, duration, seekTo } = useAudio()
+  const { currentTime, duration, seekTo } = useSleepify()
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTime = parseFloat(e.target.value)

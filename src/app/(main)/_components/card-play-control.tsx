@@ -1,6 +1,6 @@
 "use client"
 
-import { useAudio } from "@/context/audio-context"
+import { useSleepify } from "@/context/audio-context"
 import { usePlaylistContext } from "@/context/playlist-context"
 import { TrackList } from "@/lib/types/definitions"
 import { Bug, Pause, Play } from "lucide-react"
@@ -20,7 +20,7 @@ export default function CardPlayControl({
     togglePlayPause,
     setCurrentPlaylist,
     setCurrentTrackIndex,
-  } = useAudio()
+  } = useSleepify()
 
   const { playlist } = usePlaylistContext()
 

@@ -1,5 +1,5 @@
 "use client"
-import { useAudio } from "@/context/audio-context"
+import { useSleepify } from "@/context/audio-context"
 import {
   Pause,
   Play,
@@ -18,7 +18,7 @@ export default function PlayerControl() {
     skipPrevious,
     volume,
     setAudioVolume,
-  } = useAudio()
+  } = useSleepify()
 
   const [showVolumeSlider, setShowVolumeSlider] = useState(false)
 

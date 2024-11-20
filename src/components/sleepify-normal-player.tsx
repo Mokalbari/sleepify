@@ -4,14 +4,14 @@ import BottomNav from "@/components/bottom-nav"
 import PlayerControl from "@/components/ui/player-control"
 import PlayerTrack from "@/components/ui/player-track"
 import ProgressBar from "@/components/ui/progress-bar"
-import { useAudio } from "@/context/audio-context"
+import { useSleepify } from "@/context/audio-context"
 import { useFullPlayer } from "@/context/full-player-context"
 import { cn } from "@/helpers/style"
 import "@/styles/animations.css"
 
 export default function SleepifyNormalPlayer() {
   const { handleFullPlayerVisibility } = useFullPlayer()
-  const { currentTrack } = useAudio()
+  const { currentTrack } = useSleepify()
   return (
     <div
       className={cn("sticky bottom-0 left-0 max-sm:mt-12", {

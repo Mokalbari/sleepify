@@ -3,7 +3,7 @@
 import { CircleX } from "lucide-react"
 import { useEffect } from "react"
 
-import { useAudio } from "@/context/audio-context"
+import { useSleepify } from "@/context/audio-context"
 import { useFullPlayer } from "@/context/full-player-context"
 import { cn } from "@/helpers/style"
 import { useLyrics } from "@/hooks/useLyrics"
@@ -13,7 +13,7 @@ import SleepifyFSPlayer from "./sleepify-fs-player"
 
 export default function LyricsPlayer() {
   const { isOpen, handleFullPlayerVisibility } = useFullPlayer()
-  const { currentTrack } = useAudio()
+  const { currentTrack } = useSleepify()
   const { lyricsData, fetchLyrics } = useLyrics()
 
   useEffect(() => {

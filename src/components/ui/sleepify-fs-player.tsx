@@ -1,6 +1,6 @@
 "use client"
 
-import { useAudio } from "@/context/audio-context"
+import { useSleepify } from "@/context/audio-context"
 import { useFullPlayer } from "@/context/full-player-context"
 import { ChevronDown } from "lucide-react"
 import Image from "next/image"
@@ -9,7 +9,7 @@ import PlayerControlFS from "./player-control-fs"
 import ProgressBarFS from "./progress-bar-fs"
 
 export default function SleepifyFSPlayer() {
-  const { currentTrack } = useAudio()
+  const { currentTrack } = useSleepify()
   const { handleFullPlayerVisibility, handleLyricsVisibility } = useFullPlayer()
 
   return (
