@@ -13,7 +13,7 @@ export default function PlayerTrack() {
           src={currentTrack?.previewImage || cover}
           width={650}
           height={650}
-          alt="cover album"
+          alt={`Cover album ${currentTrack?.trackName || ""}`}
           style={{ borderRadius: "6px" }}
         />
       </div>

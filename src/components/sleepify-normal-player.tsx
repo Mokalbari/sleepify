@@ -23,7 +23,7 @@ export default function SleepifyNormalPlayer() {
       <ProgressBar />
       <div className="flex w-full items-center justify-between bg-white px-4 py-3">
         <PlayerTrack />
-        <button className="font-bold text-[#2664E1] hover:cursor-pointer hover:underline max-sm:hidden">
+        <button className="text-accessBlue font-bold hover:cursor-pointer hover:underline max-sm:hidden">
           <span className="max-lg:hidden">View</span> Lyrics
         </button>
         <PlayerControl />
