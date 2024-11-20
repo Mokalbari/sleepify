@@ -31,7 +31,7 @@ export default function SleepifyFSPlayer() {
           {currentTrack?.trackName || "Choose a song"}
         </h3>
         <div className="">
-          {currentTrack?.artistName.join("") || "Choose a song"}
+          {currentTrack?.artistName.join(", ") || "Choose a song"}
         </div>
       </div>
       <div className="w-full">

@@ -1,38 +1,26 @@
 "use client"
+
+import { CircleX } from "lucide-react"
+import { useEffect } from "react"
+
 import { useAudio } from "@/context/audio-context"
 import { useFullPlayer } from "@/context/full-player-context"
 import { cn } from "@/helpers/style"
-import { CircleX } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useLyrics } from "@/hooks/useLyrics"
+
 import Lyrics from "./lyrics"
 import SleepifyFSPlayer from "./sleepify-fs-player"
 
 export default function LyricsPlayer() {
   const { isOpen, handleFullPlayerVisibility } = useFullPlayer()
   const { currentTrack } = useAudio()
-  const [lyrics, setLyrics] = useState("Loading lyrics...")
+  const { lyricsData, fetchLyrics } = useLyrics()
 
   useEffect(() => {
-    const fetchLyrics = async () => {
-      if (currentTrack?.artistName && currentTrack?.trackName) {
-        try {
-          const response = await fetch(
-            `https://api.lyrics.ovh/v1/${currentTrack.artistName[0].toLowerCase()}/${currentTrack.trackName.toLowerCase()}`,
-          )
-          const data = await response.json()
-          setLyrics(
-            data.lyrics ||
-              "Sorry!\r\nSeems like there's not lyrics for this song.\r\nPerhaps try inventing them?",
-          )
-        } catch (error) {
-          console.error(error)
-          setLyrics("Failed to load lyrics.")
-        }
-      }
+    if (currentTrack?.artistName && currentTrack?.trackName) {
+      fetchLyrics(currentTrack.artistName[0], currentTrack.trackName)
     }
-
-    fetchLyrics()
-  }, [currentTrack])
+  }, [currentTrack, fetchLyrics])
 
   if (!isOpen) return null
 
@@ -48,26 +36,36 @@ export default function LyricsPlayer() {
         <div className="sm:max-lg:hidden">
           <SleepifyFSPlayer />
         </div>
+
         <div className="ml-5 mt-10 max-w-[45ch] max-sm:hidden lg:m-0">
           <div className="flex items-center justify-between lg:hidden">
             <div className="flex flex-col">
               <h3 className="text-md font-bold">
-                {currentTrack?.trackName || "Choose a song"}
+                {currentTrack?.trackName || "No track selected"}
               </h3>
-              <div className="">
-                {currentTrack?.artistName.join("") || "Choose a song"}
+              <div>
+                {currentTrack?.artistName?.join(", ") || "No artist selected"}
               </div>
             </div>
-            <button onClick={handleFullPlayerVisibility}>
+
+            <button
+              onClick={handleFullPlayerVisibility}
+              aria-label="Close lyrics"
+            >
               <CircleX />
             </button>
           </div>
-          <p className="mt-10 overflow-auto whitespace-pre-wrap py-8 lg:m-0">
-            {lyrics}
+
+          <p
+            className="mt-10 overflow-auto whitespace-pre-wrap py-8 lg:m-0"
+            aria-live="polite"
+          >
+            {lyricsData.lyrics}
           </p>
         </div>
       </div>
-      <Lyrics lyrics={lyrics} />
+
+      <Lyrics lyrics={lyricsData.lyrics} />
     </>
   )
 }
