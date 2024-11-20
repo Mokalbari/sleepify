@@ -1,6 +1,7 @@
 import SideNav from "@/components/side-nav"
 import SleepifyNormalPlayer from "@/components/sleepify-normal-player"
 import AudioProvider from "@/context/audio-context"
+import FullPlayerProvider from "@/context/full-player-context"
 import LikesProvider from "@/context/likes-context"
 import { getLikesCount, getTracksCount, getUserInfo } from "@/lib/db/actions"
 
@@ -29,8 +30,10 @@ export default async function SleepifyLayout({
         />
         <div className="flex-1">
           <AudioProvider>
-            <main className="">{children}</main>
-            <SleepifyNormalPlayer />
+            <FullPlayerProvider>
+              <main className="">{children}</main>
+              <SleepifyNormalPlayer />
+            </FullPlayerProvider>
           </AudioProvider>
         </div>
       </div>
