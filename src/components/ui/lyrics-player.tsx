@@ -6,7 +6,7 @@ import SleepifyFSPlayer from "./sleepify-fs-player"
 export default function LyricsPlayer() {
   const { currentTrack } = useAudio()
   return (
-    <div className="fixed top-0 z-20 h-screen w-full overflow-auto bg-lightBlue lg:flex lg:justify-center lg:gap-16 lg:pt-16">
+    <div className="fixed top-0 z-10 h-screen w-full overflow-auto bg-lightBlue lg:flex lg:justify-center lg:gap-16 lg:pt-16">
       <div className="sm-max-lg:hidden">
         <SleepifyFSPlayer />
       </div>
