@@ -10,7 +10,7 @@ import ProgressBarFS from "./progress-bar-fs"
 
 export default function SleepifyFSPlayer() {
   const { currentTrack } = useAudio()
-  const { handleFullPlayerVisibility } = useFullPlayer()
+  const { handleFullPlayerVisibility, handleLyricsVisibility } = useFullPlayer()
 
   return (
     <div className="flex flex-col items-center px-8 lg:p-0">
@@ -38,9 +38,12 @@ export default function SleepifyFSPlayer() {
         <ProgressBarFS />
         <PlayerControlFS />
       </div>
-      <div className="text-bold mt-5 text-sm font-bold text-accessBlue sm:hidden">
+      <button
+        onClick={handleLyricsVisibility}
+        className="text-bold mt-5 text-sm font-bold text-accessBlue sm:hidden"
+      >
         View Lyrics
-      </div>
+      </button>
       <button
         onClick={handleFullPlayerVisibility}
         className="flex flex-col items-center"

@@ -4,6 +4,7 @@ import { useFullPlayer } from "@/context/full-player-context"
 import { cn } from "@/helpers/style"
 import { CircleX } from "lucide-react"
 import { useEffect, useState } from "react"
+import Lyrics from "./lyrics"
 import SleepifyFSPlayer from "./sleepify-fs-player"
 
 export default function LyricsPlayer() {
@@ -36,32 +37,35 @@ export default function LyricsPlayer() {
   if (!isOpen) return null
 
   return (
-    <div
-      className={cn(
-        "fixed top-0 z-10 h-screen w-full overflow-auto bg-lightBlue",
-        "sm:px-8",
-        "lg:flex lg:justify-center lg:gap-32 lg:pt-16",
-      )}
-    >
-      <div className="sm:max-lg:hidden">
-        <SleepifyFSPlayer />
-      </div>
-      <div className="ml-5 mt-10 max-w-[45ch] max-sm:hidden lg:m-0">
-        <div className="flex items-center justify-between lg:hidden">
-          <div className="flex flex-col">
-            <h3 className="text-md font-bold">
-              {currentTrack?.trackName || "Choose a song"}
-            </h3>
-            <div className="">
-              {currentTrack?.artistName.join("") || "Choose a song"}
-            </div>
-          </div>
-          <button onClick={handleFullPlayerVisibility}>
-            <CircleX />
-          </button>
+    <>
+      <div
+        className={cn(
+          "fixed top-0 z-10 h-screen w-full overflow-auto bg-lightBlue",
+          "sm:px-8",
+          "lg:flex lg:justify-center lg:gap-32 lg:pt-16",
+        )}
+      >
+        <div className="sm:max-lg:hidden">
+          <SleepifyFSPlayer />
         </div>
-        <pre className="mt-10 overflow-auto py-8 lg:m-0">{lyrics}</pre>
+        <div className="ml-5 mt-10 max-w-[45ch] max-sm:hidden lg:m-0">
+          <div className="flex items-center justify-between lg:hidden">
+            <div className="flex flex-col">
+              <h3 className="text-md font-bold">
+                {currentTrack?.trackName || "Choose a song"}
+              </h3>
+              <div className="">
+                {currentTrack?.artistName.join("") || "Choose a song"}
+              </div>
+            </div>
+            <button onClick={handleFullPlayerVisibility}>
+              <CircleX />
+            </button>
+          </div>
+          <pre className="mt-10 overflow-auto py-8 lg:m-0">{lyrics}</pre>
+        </div>
       </div>
-    </div>
+      <Lyrics lyrics={lyrics} />
+    </>
   )
 }
