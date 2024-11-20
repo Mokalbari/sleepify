@@ -62,7 +62,9 @@ export default function LyricsPlayer() {
               <CircleX />
             </button>
           </div>
-          <pre className="mt-10 overflow-auto py-8 lg:m-0">{lyrics}</pre>
+          <p className="mt-10 overflow-auto whitespace-pre-wrap py-8 lg:m-0">
+            {lyrics}
+          </p>
         </div>
       </div>
       <Lyrics lyrics={lyrics} />
