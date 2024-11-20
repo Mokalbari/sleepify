@@ -1,6 +1,6 @@
 "use client"
 
-import { useSleepifyPlayer } from "@/hooks/useSleepify/useSleepifyPlayer"
+import { useSleepifyPlayer } from "@/hooks/use-sleepify/useSleepifyPlayer"
 import { ContextProvider } from "@/lib/types/definitions"
 import { createContext, useContext, useRef } from "react"
 

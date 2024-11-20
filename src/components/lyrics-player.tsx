@@ -5,11 +5,11 @@ import { useEffect } from "react"
 
 import { useFullPlayer } from "@/context/full-player-context"
 import { useSleepify } from "@/context/sleepify-context"
-import { cn } from "@/helpers/style"
 import { useLyrics } from "@/hooks/useLyrics"
+import { cn } from "@/utils/helpers/style"
 
-import Lyrics from "./lyrics"
 import SleepifyFSPlayer from "./sleepify-fs-player"
+import Lyrics from "./ui/lyrics"
 
 export default function LyricsPlayer() {
   const { isOpen, handleFullPlayerVisibility } = useFullPlayer()

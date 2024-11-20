@@ -1,4 +1,4 @@
-import { useSleepifyPlayer } from "@/hooks/useSleepify/useSleepifyPlayer"
+import { useSleepifyPlayer } from "@/hooks/use-sleepify/useSleepifyPlayer"
 import { ReactNode } from "react"
 
 export type TrackList = {

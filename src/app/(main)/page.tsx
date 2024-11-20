@@ -1,5 +1,5 @@
+import LyricsPlayer from "@/components/lyrics-player"
 import Pagination from "@/components/pagination"
-import LyricsPlayer from "@/components/ui/lyrics-player"
 import TrackList from "./_components/track-list"
 import TracksHeader from "./_components/tracks-header"
 import { getTotalPages } from "./actions"

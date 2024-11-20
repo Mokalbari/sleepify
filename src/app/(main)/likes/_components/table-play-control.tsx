@@ -2,8 +2,8 @@
 
 import HeartButton from "@/components/ui/heart-button"
 import { useSleepify } from "@/context/sleepify-context"
-import { cn } from "@/helpers/style"
 import { LikedSongs } from "@/lib/types/definitions"
+import { cn } from "@/utils/helpers/style"
 import { Bug, Pause, Play } from "lucide-react"
 
 type Props = {

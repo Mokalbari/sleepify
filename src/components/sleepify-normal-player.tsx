@@ -6,8 +6,8 @@ import PlayerTrack from "@/components/ui/player-track"
 import ProgressBar from "@/components/ui/progress-bar"
 import { useFullPlayer } from "@/context/full-player-context"
 import { useSleepify } from "@/context/sleepify-context"
-import { cn } from "@/helpers/style"
 import "@/styles/animations.css"
+import { cn } from "@/utils/helpers/style"
 
 export default function SleepifyNormalPlayer() {
   const { handleFullPlayerVisibility } = useFullPlayer()

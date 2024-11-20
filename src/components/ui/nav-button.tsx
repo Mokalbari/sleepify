@@ -1,4 +1,4 @@
-import { cn } from "@/helpers/style"
+import { cn } from "@/utils/helpers/style"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import type { ButtonHTMLAttributes } from "react"
 

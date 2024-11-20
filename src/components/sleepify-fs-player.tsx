@@ -4,9 +4,9 @@ import { useFullPlayer } from "@/context/full-player-context"
 import { useSleepify } from "@/context/sleepify-context"
 import { ChevronDown } from "lucide-react"
 import Image from "next/image"
-import cover from "../../../public/cover-album_placeholder.webp"
-import PlayerControlFS from "./player-control-fs"
-import ProgressBarFS from "./progress-bar-fs"
+import cover from "../../public/cover-album_placeholder.webp"
+import PlayerControlFS from "./ui/player-control-fs"
+import ProgressBarFS from "./ui/progress-bar-fs"
 
 export default function SleepifyFSPlayer() {
   const { currentTrack } = useSleepify()
