@@ -10,7 +10,7 @@ export default function PlayerControlFS() {
       <button>
         <SkipBack onClick={skipPrevious} className="cursor-pointer" />
       </button>
-      <button className="rounded-full bg-deepBlue p-2">
+      <button className="brutal rounded-full bg-deepBlue p-2">
         {isPlaying ? (
           <Pause
             onClick={togglePlayPause}
