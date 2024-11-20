@@ -1,4 +1,3 @@
-"use client"
 import { useCallback, useEffect, useRef, useState } from "react"
 
 export type AudioTrack = {
@@ -11,126 +10,125 @@ export type AudioTrack = {
 }
 
 export const useSleepifyPlayer = () => {
+  /* ************* */
+  /* STATE MANAGER */
+  /* ************* */
+
   const [currentTrack, setCurrentTrack] = useState<AudioTrack | null>(null)
   const [currentPlaylist, setCurrentPlaylist] = useState<AudioTrack[]>([])
   const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(-1)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [volume, setVolume] = useState(1)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
-  const [volume, setVolume] = useState(1)
 
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
-  const initializeAudioRef = useCallback(() => {
-    if (!audioRef.current) {
-      audioRef.current = new Audio()
+  /* ********************** */
+  /* SLEEPIFY AUDIO TOOLBOX */
+  /* ********************** */
+
+  // Sets a track
+  const playTrack = (track: AudioTrack) => {
+    setCurrentTrack(track)
+    const index = currentPlaylist.findIndex((t) => t.trackId === track.trackId)
+    if (index !== -1) {
+      setCurrentTrackIndex(index)
     }
-    if (audioRef.current) {
-      const handleEnded = () => {
-        if (currentPlaylist.length > 0) {
-          const nextIndex = (currentTrackIndex + 1) % currentPlaylist.length
-          const nextTrack = currentPlaylist[nextIndex]
-          if (nextTrack && nextTrack.trackUrl && audioRef.current) {
-            audioRef.current.src = nextTrack.trackUrl
-            audioRef.current.play()
-            setCurrentTrack(nextTrack)
-            setCurrentTrackIndex(nextIndex)
-          }
-        }
-      }
-      audioRef.current.onplay = () => setIsPlaying(true)
-      audioRef.current.onpause = () => setIsPlaying(false)
-      audioRef.current.onended = handleEnded
-      audioRef.current.ontimeupdate = () =>
-        setCurrentTime(audioRef.current?.currentTime || 0)
-      audioRef.current.onloadedmetadata = () =>
-        setDuration(audioRef.current?.duration || 0)
+  }
 
-      // Set initial volume
-      audioRef.current.volume = volume
-    }
-    return audioRef.current
-  }, [
-    currentPlaylist,
-    currentTrackIndex,
-    volume,
-    setCurrentTrack,
-    setCurrentTrackIndex,
-    setIsPlaying,
-  ])
-
-  const togglePlayPause = useCallback(() => {
-    const audio = initializeAudioRef()
-    if (isPlaying) {
-      audio.pause()
-    } else {
-      audio.play()
-    }
-    setIsPlaying(!isPlaying)
-  }, [isPlaying, initializeAudioRef])
-
-  const setAudioTrack = useCallback(
-    (track: AudioTrack) => {
-      const audio = initializeAudioRef()
-      if (!track.trackUrl) return
-      setCurrentTrack(track)
-      audio.src = track.trackUrl
-      audio.play()
-      setIsPlaying(true)
-    },
-    [initializeAudioRef],
-  )
-
+  // Depending on the playlist and current track index
+  // Allows to get to the next / previous track index
   const skipNext = useCallback(() => {
     if (currentPlaylist.length === 0) return
     const nextIndex = (currentTrackIndex + 1) % currentPlaylist.length
-    const nextTrack = currentPlaylist[nextIndex]
-    setAudioTrack(nextTrack)
+    setCurrentTrack(currentPlaylist[nextIndex])
     setCurrentTrackIndex(nextIndex)
-  }, [currentTrackIndex, currentPlaylist, setAudioTrack])
+  }, [currentPlaylist, currentTrackIndex])
 
-  const skipPrevious = useCallback(() => {
+  const skipPrevious = () => {
     if (currentPlaylist.length === 0) return
     const prevIndex =
       (currentTrackIndex - 1 + currentPlaylist.length) % currentPlaylist.length
-    const prevTrack = currentPlaylist[prevIndex]
-    setAudioTrack(prevTrack)
+    setCurrentTrack(currentPlaylist[prevIndex])
     setCurrentTrackIndex(prevIndex)
-  }, [currentTrackIndex, currentPlaylist, setAudioTrack])
+  }
 
-  const seekTo = useCallback(
-    (time: number) => {
-      const audio = initializeAudioRef()
-      if (audio) {
-        audio.currentTime = time
-        setCurrentTime(time)
-      }
-    },
-    [initializeAudioRef],
-  )
+  // Navigate in the track's dureation
+  const seekTo = (time: number) => {
+    const audio = audioRef.current
+    if (audio) {
+      audio.currentTime = time
+    }
+  }
 
-  const setAudioVolume = useCallback(
-    (newVolume: number) => {
-      const clampedVolume = Math.max(0, Math.min(1, newVolume))
-      const audio = initializeAudioRef()
+  // Sets the volume constraints between 0 and 1
+  const setAudioVolume = (newVolume: number) => {
+    const clampedVolume = Math.max(0, Math.min(1, newVolume))
+    const audio = audioRef.current
 
-      if (audio) {
-        audio.volume = clampedVolume
-        setVolume(clampedVolume)
-      }
-    },
-    [initializeAudioRef],
-  )
+    if (audio) {
+      audio.volume = clampedVolume
+      setVolume(clampedVolume)
+    }
+  }
+
+  // Toggles between play and pause states for the current track
+  const togglePlayPause = () => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    if (audio.paused) {
+      audio.play()
+    } else {
+      audio.pause()
+    }
+  }
+
+  /* ********************************* */
+  /* LIFECYCLE AND SIDE EFFECT MANAGER */
+  /* ********************************* */
 
   useEffect(() => {
     const audio = audioRef.current
-    return () => {
-      if (audio) {
-        audio.pause()
-        audio.src = ""
+    if (!audio) return
+
+    const handlePlay = () => setIsPlaying(true)
+    const handlePause = () => setIsPlaying(false)
+    const handleTimeUpdate = () => setCurrentTime(audio.currentTime)
+    const handleLoadedMetadata = () => setDuration(audio.duration)
+    const handleEnded = () => {
+      if (currentPlaylist.length > 0) {
+        skipNext()
       }
     }
-  }, [])
+
+    audio.addEventListener("play", handlePlay)
+    audio.addEventListener("pause", handlePause)
+    audio.addEventListener("timeupdate", handleTimeUpdate)
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata)
+    audio.addEventListener("ended", handleEnded)
+
+    // Set initial volume
+    audio.volume = volume
+
+    return () => {
+      audio.removeEventListener("play", handlePlay)
+      audio.removeEventListener("pause", handlePause)
+      audio.removeEventListener("timeupdate", handleTimeUpdate)
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata)
+      audio.removeEventListener("ended", handleEnded)
+    }
+  }, [currentPlaylist, volume, skipNext])
+
+  // Update audio source when currentTrack changes
+  useEffect(() => {
+    const audio = audioRef.current
+    if (audio && currentTrack && currentTrack.trackUrl) {
+      audio.src = currentTrack.trackUrl
+      audio.play()
+    }
+  }, [currentTrack])
 
   return {
     isPlaying,
@@ -140,7 +138,7 @@ export const useSleepifyPlayer = () => {
     setCurrentPlaylist,
     setCurrentTrackIndex,
     togglePlayPause,
-    setAudioTrack,
+    playTrack,
     skipNext,
     skipPrevious,
     seekTo,

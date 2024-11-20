@@ -16,7 +16,7 @@ export default function CardPlayControl({
   const {
     currentTrack,
     isPlaying,
-    setAudioTrack,
+    playTrack,
     togglePlayPause,
     setCurrentPlaylist,
     setCurrentTrackIndex,
@@ -48,7 +48,7 @@ export default function CardPlayControl({
 
         setCurrentPlaylist(audioPlaylist)
         setCurrentTrackIndex(index)
-        setAudioTrack(audioTrack)
+        playTrack(audioTrack)
       }
     } else {
       togglePlayPause()

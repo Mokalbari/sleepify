@@ -1,9 +1,11 @@
 "use client"
 import { useSleepifyPlayer } from "@/hooks/useSleepifyPlayer"
-import type { AudioContextType, ContextProvider } from "@/lib/types/definitions"
+import { ContextProvider } from "@/lib/types/definitions"
 import { createContext, useContext } from "react"
 
-const AudioContext = createContext<AudioContextType | undefined>(undefined)
+type AudioContextType = ReturnType<typeof useSleepifyPlayer>
+
+const AudioContext = createContext<AudioContextType | null>(null)
 
 export default function AudioProvider({ children }: ContextProvider) {
   const sleepifyPlayer = useSleepifyPlayer()
@@ -11,11 +13,7 @@ export default function AudioProvider({ children }: ContextProvider) {
   return (
     <AudioContext.Provider value={sleepifyPlayer}>
       {children}
-      <audio
-        ref={sleepifyPlayer.audioRef}
-        onPlay={() => sleepifyPlayer.isPlaying}
-        onPause={() => sleepifyPlayer.isPlaying}
-      />
+      <audio ref={sleepifyPlayer.audioRef} />
     </AudioContext.Provider>
   )
 }

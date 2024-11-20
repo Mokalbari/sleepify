@@ -20,7 +20,7 @@ export default function TablePlayControl({
   const {
     currentTrack,
     isPlaying,
-    setAudioTrack,
+    playTrack,
     togglePlayPause,
     setCurrentPlaylist,
     setCurrentTrackIndex,
@@ -49,7 +49,7 @@ export default function TablePlayControl({
 
         setCurrentPlaylist(audioPlaylist)
         setCurrentTrackIndex(index)
-        setAudioTrack(audioTrack)
+        playTrack(audioTrack)
       } else {
         console.error("La piste n'a pas été trouvée dans la playlist.")
       }
