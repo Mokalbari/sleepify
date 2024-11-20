@@ -1,28 +1,17 @@
 "use client"
 
-import { AudioTrack } from "@/lib/types/definitions"
+import { UseSleepifyAudioParams } from "@/lib/types/definitions"
 import { useEffect } from "react"
-
-type UseSleepifyAudioParams = {
-  audioRef: React.RefObject<HTMLAudioElement>
-  playerState: {
-    currentTrack: AudioTrack | null
-    isPlaying: boolean
-    volume: number
-    setIsPlaying: (isPlaying: boolean) => void
-    setCurrentTime: (time: number) => void
-    setDuration: (duration: number) => void
-    currentPlaylist: AudioTrack[]
-    skipNext: () => void
-    skipPrevious: () => void
-    skipDirection: "prev" | "next"
-  }
-}
 
 export const useSleepifyAudio = ({
   audioRef,
   playerState,
 }: UseSleepifyAudioParams) => {
+  /* *************************** */
+  /* LIFECYCLE AND EVENT MANAGER */
+  /* *************************** */
+
+  // These should reflect var extracted from the state manager
   const {
     currentTrack,
     volume,
@@ -35,6 +24,11 @@ export const useSleepifyAudio = ({
     skipDirection,
   } = playerState
 
+  /*
+    This effect manages the core feature of Sleepify
+    It binds event listeners to the core states defined in the state manager
+    It also ensures the volume is always in sync with the state.
+  */
   useEffect(() => {
     const audio = audioRef.current
     if (!audio) return
@@ -57,6 +51,7 @@ export const useSleepifyAudio = ({
 
     audio.volume = volume
 
+    // Cleanup f()
     return () => {
       audio.removeEventListener("play", handlePlay)
       audio.removeEventListener("pause", handlePause)
@@ -74,6 +69,11 @@ export const useSleepifyAudio = ({
     setDuration,
   ])
 
+  /*
+    This effect manages the audio source update
+    Like it's parent feature, it keeps the state in sync with events
+    It ensures that each tracks keeps flowing depending on the direction state
+  */
   useEffect(() => {
     const audio = audioRef.current
     if (audio && currentTrack && currentTrack.trackUrl) {

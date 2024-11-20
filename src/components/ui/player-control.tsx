@@ -1,5 +1,5 @@
 "use client"
-import { useSleepify } from "@/context/audio-context"
+import { useSleepify } from "@/context/sleepify-context"
 import {
   Pause,
   Play,

@@ -3,8 +3,8 @@
 import { CircleX } from "lucide-react"
 import { useEffect } from "react"
 
-import { useSleepify } from "@/context/audio-context"
 import { useFullPlayer } from "@/context/full-player-context"
+import { useSleepify } from "@/context/sleepify-context"
 import { cn } from "@/helpers/style"
 import { useLyrics } from "@/hooks/useLyrics"
 

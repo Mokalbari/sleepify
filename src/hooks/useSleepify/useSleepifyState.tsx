@@ -33,9 +33,9 @@ export const useSleepifyState = () => {
   /* SLEEPIFY SKIPPING FUNCTIONS */
   /*
       skipNext() allows the user to move toward the end of the playlist
-      It is designed with a state keeping the direction for the useEffect down below
+      It is designed with a state keeping the direction. It will later be used in useSleepifyAudio hook
       It handles the next action and handles the logic if the tracks' url is null
-      It has an early return if the playlist length is somehow empty (this should not happen...)
+      It has an early return if the playlist length is somehow empty (this should not happen, it's a failsafe)
       
       The next index is calculated with a modulo, keeping the range between 0 and -1
         (Without this the index would go crazy when getting to last index)

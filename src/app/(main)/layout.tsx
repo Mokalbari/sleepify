@@ -1,8 +1,8 @@
 import SideNav from "@/components/side-nav"
 import SleepifyNormalPlayer from "@/components/sleepify-normal-player"
-import AudioProvider from "@/context/audio-context"
 import FullPlayerProvider from "@/context/full-player-context"
 import LikesProvider from "@/context/likes-context"
+import AudioProvider from "@/context/sleepify-context"
 import { getLikesCount, getTracksCount, getUserInfo } from "@/lib/db/actions"
 
 export default async function SleepifyLayout({

@@ -1,4 +1,4 @@
-import { useSleepify } from "@/context/audio-context"
+import { useSleepify } from "@/context/sleepify-context"
 import "@/styles/globals.css"
 
 export default function ProgressBar() {
