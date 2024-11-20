@@ -11,11 +11,13 @@ export default function BottomNav() {
   return (
     <div className="bg-white py-2 text-xs">
       <nav className="">
-        <menu className="flex justify-between gap-4">
+        <menu className="flex items-center justify-between gap-4">
           <li className="-white flex items-center gap-4 px-5 py-1">
             <Link href={"/"}>
-              <AudioLines />
-              <span>Tracks (28)</span>
+              <div className="flex flex-col items-center">
+                <AudioLines />
+                <span>Tracks (28)</span>
+              </div>
             </Link>
           </li>
           <li className="max-w-9">
@@ -33,8 +35,10 @@ export default function BottomNav() {
           </li>
           <li className="flex items-center gap-4 px-5 py-1">
             <Link href={"/likes"}>
-              <Heart />
-              <span>Likes ({likedCount.count})</span>
+              <div className="flex flex-col items-center">
+                <Heart />
+                <span>Likes ({likedCount.count})</span>
+              </div>
             </Link>
           </li>
         </menu>
