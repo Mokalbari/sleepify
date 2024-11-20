@@ -1,13 +1,49 @@
 "use client"
 import { useAudio } from "@/context/audio-context"
+import { useFullPlayer } from "@/context/full-player-context"
+import { cn } from "@/helpers/style"
 import { CircleX } from "lucide-react"
+import { useEffect, useState } from "react"
 import SleepifyFSPlayer from "./sleepify-fs-player"
 
 export default function LyricsPlayer() {
+  const { isOpen, handleFullPlayerVisibility } = useFullPlayer()
   const { currentTrack } = useAudio()
+  const [lyrics, setLyrics] = useState("Loading lyrics...")
+
+  useEffect(() => {
+    const fetchLyrics = async () => {
+      if (currentTrack?.artistName && currentTrack?.trackName) {
+        try {
+          const response = await fetch(
+            `https://api.lyrics.ovh/v1/${currentTrack.artistName[0].toLowerCase()}/${currentTrack.trackName.toLowerCase()}`,
+          )
+          const data = await response.json()
+          setLyrics(
+            data.lyrics ||
+              "Sorry!\r\nSeems like there's not lyrics for this song.\r\nPerhaps try inventing them?",
+          )
+        } catch (error) {
+          console.error(error)
+          setLyrics("Failed to load lyrics.")
+        }
+      }
+    }
+
+    fetchLyrics()
+  }, [currentTrack])
+
+  if (!isOpen) return null
+
   return (
-    <div className="fixed top-0 z-10 h-screen w-full overflow-auto bg-lightBlue lg:flex lg:justify-center lg:gap-16 lg:pt-16">
-      <div className="sm-max-lg:hidden">
+    <div
+      className={cn(
+        "fixed top-0 z-10 h-screen w-full overflow-auto bg-lightBlue",
+        "sm:px-8",
+        "lg:flex lg:justify-center lg:gap-32 lg:pt-16",
+      )}
+    >
+      <div className="sm:max-lg:hidden">
         <SleepifyFSPlayer />
       </div>
       <div className="ml-5 mt-10 max-w-[45ch] max-sm:hidden lg:m-0">
@@ -20,19 +56,11 @@ export default function LyricsPlayer() {
               {currentTrack?.artistName.join("") || "Choose a song"}
             </div>
           </div>
-          <CircleX />
+          <button onClick={handleFullPlayerVisibility}>
+            <CircleX />
+          </button>
         </div>
-        <p className="mt-10 lg:m-0">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error rerum
-          temporibus delectus iure possimus. Animi laudantium, totam enim
-          debitis ab dicta. Beatae voluptate ipsam officiis quo harum vero
-          repellat suscipit rem amet, nam, et voluptatum. Pariatur accusantium
-          illum inventore placeatt. Lorem ipsum dolor, sit amet consectetur
-          adipisicing elit. Error rerum temporibus delectus iure possimus. Animi
-          laudantium, totam enim debitis ab dicta. Beatae voluptate ipsam
-          officiis quo harum vero repellat suscipit rem amet, nam, et
-          voluptatum. Pariatur accusantium illum inventore placeatt.
-        </p>
+        <pre className="mt-10 overflow-auto py-8 lg:m-0">{lyrics}</pre>
       </div>
     </div>
   )

@@ -1,13 +1,18 @@
 "use client"
 
 import { useAudio } from "@/context/audio-context"
+import { useFullPlayer } from "@/context/full-player-context"
 import Image from "next/image"
 import cover from "../../../public/cover-album_placeholder.webp"
 
 export default function PlayerTrack() {
   const { currentTrack } = useAudio()
+  const { handleFullPlayerVisibility } = useFullPlayer()
   return (
-    <div className="flex items-center gap-4 sm:ml-16">
+    <div
+      className="flex items-center gap-4 sm:ml-16"
+      onClick={handleFullPlayerVisibility}
+    >
       <div className="brutal w-14 rounded-md sm:w-16">
         <Image
           src={currentTrack?.previewImage || cover}

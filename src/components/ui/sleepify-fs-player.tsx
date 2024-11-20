@@ -1,6 +1,7 @@
 "use client"
 
 import { useAudio } from "@/context/audio-context"
+import { useFullPlayer } from "@/context/full-player-context"
 import { ChevronDown } from "lucide-react"
 import Image from "next/image"
 import cover from "../../../public/cover-album_placeholder.webp"
@@ -9,6 +10,7 @@ import ProgressBarFS from "./progress-bar-fs"
 
 export default function SleepifyFSPlayer() {
   const { currentTrack } = useAudio()
+  const { handleFullPlayerVisibility } = useFullPlayer()
 
   return (
     <div className="flex flex-col items-center px-8 lg:p-0">
@@ -39,12 +41,15 @@ export default function SleepifyFSPlayer() {
       <div className="text-bold mt-5 text-sm font-bold text-accessBlue sm:hidden">
         View Lyrics
       </div>
-      <div className="flex flex-col items-center">
+      <button
+        onClick={handleFullPlayerVisibility}
+        className="flex flex-col items-center"
+      >
         <div className="mt-14 text-black/80">Back to playlist</div>
         <div>
           <ChevronDown />
         </div>
-      </div>
+      </button>
     </div>
   )
 }

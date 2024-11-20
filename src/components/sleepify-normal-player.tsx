@@ -5,10 +5,12 @@ import PlayerControl from "@/components/ui/player-control"
 import PlayerTrack from "@/components/ui/player-track"
 import ProgressBar from "@/components/ui/progress-bar"
 import { useAudio } from "@/context/audio-context"
+import { useFullPlayer } from "@/context/full-player-context"
 import { cn } from "@/helpers/style"
 import "@/styles/animations.css"
 
 export default function SleepifyNormalPlayer() {
+  const { handleFullPlayerVisibility } = useFullPlayer()
   const { currentTrack } = useAudio()
   return (
     <div
@@ -23,7 +25,10 @@ export default function SleepifyNormalPlayer() {
       <ProgressBar />
       <div className="flex w-full items-center justify-between bg-white px-4 py-3">
         <PlayerTrack />
-        <button className="text-accessBlue font-bold hover:cursor-pointer hover:underline max-sm:hidden">
+        <button
+          onClick={handleFullPlayerVisibility}
+          className="font-bold text-accessBlue hover:cursor-pointer hover:underline max-sm:hidden"
+        >
           <span className="max-lg:hidden">View</span> Lyrics
         </button>
         <PlayerControl />
