@@ -35,7 +35,6 @@ export const useSleepifyPlayer = (
     }
   }
 
-  // play pause logic
   const togglePlayPause = () => {
     const audio = audioRef.current
     if (!audio) return
@@ -62,7 +61,7 @@ export const useSleepifyPlayer = (
 
   /*
     Returns the whole interface
-    As mentionned, it combines the state and the effect + the toolbox
+    state + effect + toolbox
     This integration allows the context to only call a single hook
   */
   return {

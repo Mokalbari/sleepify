@@ -55,14 +55,9 @@ export const useSleepifyState = () => {
   }, [currentPlaylist, currentTrackIndex])
 
   /*
-      skipPrevious() works much like skipNext()
-      It is designed with a state keeping the direction for the useEffect down below
-      It allows the user to skip back a track with a catch:
-      The previous track url may be null and if that's the case:
-      
-      it keeps an internal state with the attempts var = to the playlists length
-      it loops from possibles index to find an index where the track's url not null
-      attempts is necessary to prevent an infinite loop.
+    Skips to the previous track. If the previous track's URL is null,
+    it loops through the playlist to find a valid track, with a maximum
+    of `playlist.length` attempts to avoid infinite loops.
   */
   const skipPrevious = useCallback(() => {
     setSkipDirection("prev")
@@ -89,6 +84,7 @@ export const useSleepifyState = () => {
     }
   }, [currentPlaylist, currentTrackIndex])
 
+  /* SLEEPIFY VOLUME FUNCTION */
   // Sets the volume constraints between 0 and 1
   const setAudioVolume = (newVolume: number) => {
     const clampedVolume = Math.max(0, Math.min(1, newVolume))
