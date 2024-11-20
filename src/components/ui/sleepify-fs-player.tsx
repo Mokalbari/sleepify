@@ -11,9 +11,11 @@ export default function SleepifyFSPlayer() {
   const { currentTrack } = useAudio()
 
   return (
-    <div className="fixed top-0 z-20 flex h-full w-full flex-col items-center bg-lightBlue px-8">
-      <div className="mb-12 mt-6 text-md font-bold uppercase">Sleepify</div>
-      <div className="brutal rounded-md">
+    <div className="flex flex-col items-center px-8 lg:p-0">
+      <div className="mb-12 mt-6 text-md font-bold uppercase lg:hidden">
+        Sleepify
+      </div>
+      <div className="brutal rounded-md lg:max-w-sm">
         <Image
           src={currentTrack?.previewImage || cover}
           alt={`Cover album ${currentTrack?.trackName || ""}`}
@@ -34,7 +36,7 @@ export default function SleepifyFSPlayer() {
         <ProgressBarFS />
         <PlayerControlFS />
       </div>
-      <div className="text-bold mt-5 text-sm font-bold text-accessBlue">
+      <div className="text-bold mt-5 text-sm font-bold text-accessBlue sm:hidden">
         View Lyrics
       </div>
       <div className="flex flex-col items-center">

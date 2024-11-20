@@ -1,8 +1,8 @@
 import Pagination from "@/components/pagination"
+import LyricsPlayer from "@/components/ui/lyrics-player"
 import TrackList from "./_components/track-list"
 import TracksHeader from "./_components/tracks-header"
 import { getTotalPages } from "./actions"
-import SleepifyFSPlayer from "@/components/ui/sleepify-fs-player"
 
 type SearchParams = Promise<{ page?: string }>
 
@@ -18,7 +18,7 @@ export default async function Page(props: { searchParams: SearchParams }) {
         <TrackList currentPage={currentPage} />
         <Pagination currentPage={currentPage} totalPages={totalPages} />
       </div>
-      <SleepifyFSPlayer />
+      <LyricsPlayer />
     </>
   )
 }
