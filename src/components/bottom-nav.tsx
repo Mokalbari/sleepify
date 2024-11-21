@@ -1,13 +1,17 @@
 "use client"
 
 import { useLikesContext } from "@/context/likes-context"
+import { cn } from "@/utils/helpers/style"
 import { AudioLines, Heart } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import userPhoto from "../../public/userphoto.jpg"
 
 export default function BottomNav() {
   const { likedCount } = useLikesContext()
+  const pathname = usePathname()
+
   return (
     <div className="bg-white py-2 text-xs">
       <nav className="">
@@ -16,7 +20,13 @@ export default function BottomNav() {
             <Link href={"/"}>
               <div className="flex flex-col items-center">
                 <AudioLines />
-                <span>Tracks (28)</span>
+                <span
+                  className={cn({
+                    "font-bold text-accessBlue": pathname === "/",
+                  })}
+                >
+                  Tracks (28)
+                </span>
               </div>
             </Link>
           </li>
@@ -37,7 +47,13 @@ export default function BottomNav() {
             <Link href={"/likes"}>
               <div className="flex flex-col items-center">
                 <Heart />
-                <span>Likes ({likedCount.count})</span>
+                <span
+                  className={cn({
+                    "font-bold text-accessBlue": pathname === "/likes",
+                  })}
+                >
+                  Likes ({likedCount.count})
+                </span>
               </div>
             </Link>
           </li>
