@@ -1,8 +1,7 @@
 # Sleepify App
-Sleepify is a Spotify-inspired music streaming app with a unique twist:
-it embraces a 90s' aesthetic with a neobrutalist design.
+Remember when the internet was a chaotic wonderland, and streaming meant "buffering"? Sleepify is here to take you back while letting you live in 2024.
 
-Dive in the nostalgia while enjoying 2024 Next Features.
+Think Spotify, but wrapped in a 90s aesthetic and dipped in neobrutalist vibes. Functional? Yes. Gorgeous? Sure. Ironic? You bet.
 
 ## Table of content
 1. [Features](#features)
@@ -23,16 +22,16 @@ Dive in the nostalgia while enjoying 2024 Next Features.
 
 ## Features
 With Sleepify, you can:
-- Play, pause, skip back and forth a playlist.
-- Get to your favorite part of the song with a built-in time seeker.
+- Play, pause, and skip through playlists like it’s 1999 (but better).
+- Precisely time-seek your favorite parts of the song
 - Adjust the volume so your neighbor can enjoy your music better.
-- Add tracks to a favorite playlist and listen to your favorite playlist in one go.
+- Create and listen to your favorite playlists, curated by your superior taste.
 - View the app from mobile (from ~320px) to desktop.
-- Sing the lyrics while listening to the music like the start you're meant to be.
+- Sing along to lyrics because you are the star of your own nostalgic sitcom.
 
 ## Tech Stack
 With app was built using **NextJS15** and **React 19**.
-The main ingredients here are (but not limited to):
+The essentials include:
 - TypeScript
 - TailwindCSS
 - Vercel Postgres
@@ -41,23 +40,24 @@ The main ingredients here are (but not limited to):
 
 You can find the whole description out in package.json.
 Take some time to skim through it before initialising the project.
-Keep in mind this is a POC.
-The tools used here are minimal to keep this app as lightweight as possible.
+
+**Heads up**: this is a *POC* (Proof of Concept), so it’s intentionally minimal and snappy.
+I try to not rely on external packages unless the needs for it grows with the app.
 
 ## Getting Started
 ### Prerequisites
 Before you start, make sure you meet the following requirement:
-- Node.js 18.18+
-- pnpm 9+
+- `Node.js 18.18+`
+- `pnpm 9+`
 
 ### Installation
 1. `git clone git@github.com:Mokalbari/sleepify.git`
 2. `cd sleepify`
 3. `pnpm install`
 
-The database is hosted on vercel.
-So first time you fireup this project **it won't work**.
-Contact : `rahoarau@gmail.com` to get your database credentials.
+**Big warning**: It won’t work out of the box. The database is hosted on Vercel.
+You’ll need to email rahoarau@gmail.com to get your credentials.
+(Yes, we gatekeep.)
 
 When you are approved :
 4. Replace the `.env.sample` to `.env` and fill the fields with your credentials.
@@ -66,72 +66,43 @@ When you are approved :
 ## Project Structure
 This app uses NextJS 15 App Router with src directory.
 
-src
-.
-├── app                         # Everything a user can interact with
-│   └── (main)                  # (main) route grouping
-│       ├── api                 # API Layer for data fetching
-│       │   └── likes           
-│       ├── _components         # UI components related to the main page "/"
-│       └── likes               # page "/likes"
-│           └── _components     # UI components related to the page "/likes"
-├── assets                      # SVG, images
-├── components                  # Reusable components shared accross all pages
-│   └── ui                      # Atoms of UI, part of a greater component
-├── context                     # Global state management
-│   ├── full-player             
-│   ├── likes
-│   ├── lyrics
-│   ├── playlist
-│   └── sleepify
-├── hooks                       # Custom React Hooks
-│   └── use-sleepify            # **App Core Feature**
-├── lib                         # Collection of data and types definitions
-│   └── types
-├── seed                        # DB interaction for testing phase.
-├── server                      # Server actions that happen accross multiples pages
-├── styles                      # Globals.css and animations
-└── utils                       # General toolbox
-    ├── functions               # Reusable functions
-    └── helpers                 
+[!Tree structure](./docs//tree-structure.png)
 
 ## Core Feature Description
-Sleepify runs on three separate hooks (`@/hooks/use-sleepify`)
-- A state manager : useSleepifyState
-- An event and lifecycle manager : useSleepifyAudio
-- A hook supervisor and toolbox provider : useSleepifyPlayer
+At its core, Sleepify relies on three hooks in @/hooks/use-sleepify:
+- useSleepifyState
+- useSleepifyAudio
+- useSleepifyPlayer
 
-Those files are thoroughly commented, so feel free to read them out in this order.
-But here's a quick head's up of what you can find:
+Each plays a key role in managing the app's music playback. Here’s a closer look:
 
 ### useSleepifyState
-useSleepifyState relies under the hood on several useState.
-It keeps tracks of many things like the current track, the current playlist
-or the playing state, the duration the volume...
+This hook acts as a state manager and is the backbone of Sleepify.
+It tracks crucial aspects of the app like:
+- The current track and playlist.
+- The playback state (e.g., playing, paused).
+- Volume levels and duration.
 
-useSleepifyState provides several methods attached to it to interact with a track.
-It allows you to set a track, skip a song, or retrieve the duration of the track.
+Additionally, it provides methods to interact with the playback state, including:
+
+- Setting a track.
+- Skipping to the next/previous song.
+- Retrieving the duration of a track.
 
 ### useSleepifyAudio
-useSleepifyAudio takes as a parameter a full copy of the state.
-This hook binds the event listeners to the states defined above.
-It ensures everything is in sync.
+useSleepifyAudio is responsible for synchronizing the app’s state with the audio player.
+By binding event listeners to the state, it ensures that changes in playback (like pausing or seeking) are reflected correctly.
 
 ### useSleepifyPlayer
-This hooks initializes the state and the event listeners and provides a bunch of
-low-level interaction to the music. It acts as the main interface.
-It returns a full copy of the state and a toolbox.
+This hook combines the functionality of useSleepifyState and useSleepifyAudio. It initializes the state and event listeners, acting as the app’s primary interface for playback.
+It also provides a comprehensive toolbox for lower-level interactions with the audio player.
 
 ### useSleepify
-Leaving `@/hooks/use-sleepify` to `@/context/sleepify`
-Here the useSleepifyHook is initialized and the audioRef.
-Everything is passed down to the context that handles the distribution to the app.
+Located in `@/context/sleepify`, this hook integrates the Sleepify logic into the app’s context.
+It initializes the audio player reference (audioRef) and distributes state and methods across the app, ensuring seamless integration.
 
 ## Roadmap
-So what's up next?
-
-As mentioned above, Sleepify is at its early stage.
-To get it through its baby phase (and if I had two more days):
+Here’s what’s on the horizon (if I had 48 more hours and unlimited coffee):
 
 ### Authentification
 - The test `USER_ID` is hardcoded everywhere.
@@ -142,8 +113,8 @@ To get it through its baby phase (and if I had two more days):
 To prevent this, we can use NextJS with React useOptimistic hook to rely on server.
 
 ## Contributing
-All contributions and feedbacks are welcome.
-Fork this repo and make your changes. Submit a Pull Request.
-Please follow conventionnal commits as much as possible.
+Feeling inspired?
+Fork this repo, make your changes, and submit a Pull Request.
+Follow conventional commits, and we’re good to go.
 
-thsnks. Appreciate.
+Thanks for checking out Sleepify—because irony and nostalgia make everything better.
