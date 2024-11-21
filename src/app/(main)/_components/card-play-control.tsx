@@ -1,12 +1,13 @@
 "use client"
 
-import { usePlaylistContext } from "@/context/playlist-context"
-import { useSleepify } from "@/context/sleepify-context"
+import HeartButton from "@/components/ui/heart-button"
+import { usePlaylistContext } from "@/context/playlist/use-playlist-context"
+import { useSleepify } from "@/context/sleepify/use-sleepify"
 import { useErrorPopover } from "@/hooks/useErrorPopover"
 import { TrackList } from "@/lib/types/definitions"
+import "@/styles/animations.css"
 import { cn } from "@/utils/helpers/style"
-import { Bug, Pause, Play } from "lucide-react"
-import HeartButton from "../../../components/ui/heart-button"
+import { HeadphoneOff, Pause, Play } from "lucide-react"
 
 type Props = Pick<TrackList, "music_url" | "is_favorite" | "track_id">
 
@@ -19,6 +20,8 @@ export default function CardPlayControl({
   const { playlist } = usePlaylistContext()
   const { isPopoverOpen, openPopover } = useErrorPopover()
 
+  const isATrackPlaying = isPlaying && currentTrack?.trackUrl === trackUrl
+
   return (
     <div className="flex gap-4">
       <HeartButton isFavorite={isFavorite} trackId={trackId} />
@@ -30,12 +33,12 @@ export default function CardPlayControl({
             aria-label="Track unavailable"
             onClick={openPopover}
           >
-            <Bug />
+            <HeadphoneOff className="wiggle" />
           </button>
           {isPopoverOpen && (
             <div
               className={cn(
-                "brutal absolute bottom-10 right-0 z-10 w-80 rounded-md bg-deepBlue p-4 text-xs font-bold text-white transition-opacity duration-300",
+                "brutal absolute bottom-10 right-0 z-10 w-80 rounded-md bg-[#FFC6E7] p-4 text-xs font-bold transition-opacity duration-300",
                 "lg:text-base",
                 {
                   "opacity-100": isPopoverOpen,
@@ -54,17 +57,9 @@ export default function CardPlayControl({
             playTrackFromPlaylist(trackId, trackUrl, playlist)
           }}
           className="flex items-center justify-center"
-          aria-label={
-            isPlaying && currentTrack?.trackUrl === trackUrl
-              ? "Pause track"
-              : "Play track"
-          }
+          aria-label={isATrackPlaying ? "Pause track" : "Play track"}
         >
-          {isPlaying && currentTrack?.trackUrl === trackUrl ? (
-            <Pause />
-          ) : (
-            <Play />
-          )}
+          {isATrackPlaying ? <Pause /> : <Play className="play" />}
         </button>
       )}
     </div>

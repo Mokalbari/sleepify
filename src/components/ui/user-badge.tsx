@@ -10,11 +10,7 @@ export default function UserBadge({ firstname, lastname, avatar }: UserInfo) {
           width={128}
           height={128}
           alt="utilisateur"
-          style={{
-            borderRadius: "50%",
-            border: "1px solid black",
-            boxShadow: "2px 4px black",
-          }}
+          className="rounded-full border border-black shadow-half-full"
         />
       </div>
       <div>

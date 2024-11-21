@@ -1,5 +1,6 @@
-import { useSleepify } from "@/context/sleepify-context"
+import { useSleepify } from "@/context/sleepify/use-sleepify"
 import "@/styles/globals.css"
+import { formatTime } from "@/utils/functions/formatTime"
 
 export default function ProgressBar() {
   const { currentTime, duration, seekTo } = useSleepify()
@@ -24,6 +25,9 @@ export default function ProgressBar() {
         style={{
           background: `linear-gradient(to right, #88AAEE ${progressPercent}%, #ddd ${progressPercent}%)`,
         }}
+        aria-label={`Seek slider, current time: ${formatTime(
+          currentTime,
+        )}, duration: ${formatTime(duration)}`}
       />
     </div>
   )

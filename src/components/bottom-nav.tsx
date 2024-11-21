@@ -1,12 +1,12 @@
 "use client"
 
-import { useLikesContext } from "@/context/likes-context"
 import { cn } from "@/utils/helpers/style"
 import { AudioLines, Heart } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import userPhoto from "../../public/userphoto.jpg"
+import { useLikesContext } from "@/context/likes/use-likes-context"
 
 export default function BottomNav() {
   const { likedCount } = useLikesContext()
@@ -14,10 +14,16 @@ export default function BottomNav() {
 
   return (
     <div className="bg-white py-2 text-xs">
-      <nav className="">
+      <nav role="navigation">
         <menu className="flex items-center justify-between gap-4">
-          <li className="-white flex items-center gap-4 px-5 py-1">
-            <Link href={"/"}>
+          <li
+            role="menuitem"
+            className="-white flex items-center gap-4 px-5 py-1"
+          >
+            <Link
+              href={"/"}
+              aria-current={pathname === "/" ? "page" : undefined}
+            >
               <div className="flex flex-col items-center">
                 <AudioLines />
                 <span
@@ -30,21 +36,20 @@ export default function BottomNav() {
               </div>
             </Link>
           </li>
-          <li className="max-w-9">
+          <li role="menuitem" className="max-w-9">
             <Image
               src={userPhoto}
               width={128}
               height={128}
-              alt="user photo"
-              style={{
-                borderRadius: "50%",
-                border: "1px solid black",
-                boxShadow: "1px 2px black",
-              }}
+              alt="Profile photo of the current user"
+              className="rounded-full border border-black"
             />
           </li>
-          <li className="flex items-center gap-4 px-5 py-1">
-            <Link href={"/likes"}>
+          <li role="menuitem" className="flex items-center gap-4 px-5 py-1">
+            <Link
+              href={"/likes"}
+              aria-current={pathname === "/likes" ? "page" : undefined}
+            >
               <div className="flex flex-col items-center">
                 <Heart />
                 <span

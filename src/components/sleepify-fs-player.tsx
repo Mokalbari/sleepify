@@ -1,7 +1,7 @@
 "use client"
 
-import { useFullPlayer } from "@/context/full-player-context"
-import { useSleepify } from "@/context/sleepify-context"
+import { useFullPlayer } from "@/context/full-player/use-full-player"
+import { useSleepify } from "@/context/sleepify/use-sleepify"
 import { ChevronDown } from "lucide-react"
 import Image from "next/image"
 import cover from "../../public/cover-album_placeholder.webp"
@@ -24,6 +24,7 @@ export default function SleepifyFSPlayer() {
           width={640}
           height={640}
           style={{ borderRadius: "6px" }}
+          sizes="(max-width: 640px) 90vw, (min-width:1024px) 33vw"
         />
       </div>
       <div className="mt-5 text-center">

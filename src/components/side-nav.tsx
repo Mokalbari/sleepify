@@ -2,7 +2,7 @@
 
 import SleepifyLogo from "@/components/ui/sleepify-logo"
 import UserBadge from "@/components/ui/user-badge"
-import { useLikesContext } from "@/context/likes-context"
+import { useLikesContext } from "@/context/likes/use-likes-context"
 import { Count, UserInfo } from "@/lib/types/definitions"
 import { cn } from "@/utils/helpers/style"
 import { AudioLines, Heart } from "lucide-react"

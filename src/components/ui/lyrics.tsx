@@ -1,7 +1,7 @@
 "use client"
 
-import { useFullPlayer } from "@/context/full-player-context"
-import { useSleepify } from "@/context/sleepify-context"
+import { useFullPlayer } from "@/context/full-player/use-full-player"
+import { useSleepify } from "@/context/sleepify/use-sleepify"
 import "@/styles/animations.css"
 import { cn } from "@/utils/helpers/style"
 import { CircleX } from "lucide-react"
@@ -9,6 +9,7 @@ import { CircleX } from "lucide-react"
 type Props = {
   lyrics: string
 }
+
 export default function Lyrics({ lyrics }: Props) {
   const { currentTrack } = useSleepify()
   const { isLyricsOpen, handleLyricsVisibility } = useFullPlayer()
