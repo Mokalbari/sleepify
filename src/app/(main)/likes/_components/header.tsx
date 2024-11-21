@@ -1,4 +1,4 @@
-import { getUserInfo } from "@/lib/db/actions"
+import { getUserInfo } from "@/server/actions"
 
 export default async function Header() {
   const userInfo = await getUserInfo()

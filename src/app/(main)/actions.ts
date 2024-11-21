@@ -30,7 +30,8 @@ export const getTracks = cache(async (currentPage: number) => {
     INNER JOIN 
         artists ON artists.id = track_artists.artist_id
     GROUP BY 
-        tracks.id, tracks.name, tracks.preview_url, tracks.duration_ms, tracks.image_url
+        tracks.id, tracks.name, tracks.preview_url, tracks.duration_ms, tracks.image_url 
+    ORDER BY track_id ASC
     LIMIT ${ITEMS_PER_PAGE}
     OFFSET ${offset}
 `

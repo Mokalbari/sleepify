@@ -17,6 +17,7 @@ export default {
         lightBlue: "#DFE5F2",
         softBlue: "#88AAEE",
         deepBlue: "#4D80E6",
+        accessBlue: "#2664E1",
         red: "#FF5050",
       },
       fontSize: {

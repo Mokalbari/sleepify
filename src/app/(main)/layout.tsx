@@ -1,8 +1,9 @@
 import SideNav from "@/components/side-nav"
 import SleepifyNormalPlayer from "@/components/sleepify-normal-player"
-import AudioProvider from "@/context/audio-context"
+import FullPlayerProvider from "@/context/full-player-context"
 import LikesProvider from "@/context/likes-context"
-import { getLikesCount, getTracksCount, getUserInfo } from "@/lib/db/actions"
+import AudioProvider from "@/context/sleepify-context"
+import { getLikesCount, getTracksCount, getUserInfo } from "@/server/actions"
 
 export default async function SleepifyLayout({
   children,
@@ -14,7 +15,6 @@ export default async function SleepifyLayout({
     getTracksCount(),
     getLikesCount(),
   ])
-  console.log("like count", likedCount, "track count", tracksCount)
 
   return (
     <LikesProvider initialCount={likedCount.count}>
@@ -30,8 +30,10 @@ export default async function SleepifyLayout({
         />
         <div className="flex-1">
           <AudioProvider>
-            <main>{children}</main>
-            <SleepifyNormalPlayer />
+            <FullPlayerProvider>
+              <main className="">{children}</main>
+              <SleepifyNormalPlayer />
+            </FullPlayerProvider>
           </AudioProvider>
         </div>
       </div>
