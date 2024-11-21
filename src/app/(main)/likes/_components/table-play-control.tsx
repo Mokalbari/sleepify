@@ -25,7 +25,7 @@ export default function TablePlayControl({
     <div className="flex justify-end gap-4">
       <HeartButton
         trackId={trackId}
-        isFavorite={true} // Remplace par une prop dynamique si nécessaire
+        isFavorite={true}
         className={cn("w-4 sm:w-5 lg:w-6")}
       />
 
