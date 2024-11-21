@@ -7,15 +7,13 @@ import { LikedSongs } from "@/lib/types/definitions"
 import { cn } from "@/utils/helpers/style"
 import { HeadphoneOff, Pause, Play } from "lucide-react"
 
-type Props = {
-  trackUrl: string | null
-  trackId: string
+type Props = Pick<LikedSongs, "music_url" | "track_id"> & {
   playlist: LikedSongs[]
 }
 
 export default function TablePlayControl({
-  trackUrl,
-  trackId,
+  music_url: trackUrl,
+  track_id: trackId,
   playlist,
 }: Props) {
   const { currentTrack, isPlaying, playTrackFromPlaylist } = useSleepify()

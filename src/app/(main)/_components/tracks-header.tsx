@@ -2,7 +2,7 @@ import Sun from "@/components/ui/sun"
 
 export default function TracksHeader() {
   return (
-    <header role="banner" className="center flex items-center gap-4">
+    <header className="center flex items-center gap-4">
       <Sun sizes="96" className="min-w-20" />
       <div className="max-w-prose sm:ml-10 lg:ml-16">
         <h2 className="text-md font-bold sm:text-lg lg:text-xl">

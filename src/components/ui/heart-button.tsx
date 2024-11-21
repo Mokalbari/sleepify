@@ -26,10 +26,7 @@ export default function HeartButton({
       type={type}
       aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
       aria-pressed={isFavorite}
-      className={cn(
-        "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2",
-        className,
-      )}
+      className={cn(className)}
       {...props}
     >
       <Heart
