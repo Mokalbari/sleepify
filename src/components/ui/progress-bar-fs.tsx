@@ -1,5 +1,6 @@
 import { useSleepify } from "@/context/sleepify-context"
 import "@/styles/globals.css"
+import { formatTime } from "@/utils/functions/formatTime"
 
 export default function ProgressBarFS() {
   const { currentTime, duration, seekTo } = useSleepify()
@@ -10,17 +11,24 @@ export default function ProgressBarFS() {
   }
 
   const progressPercent = (currentTime / duration) * 100 || 0
-
-  const formatTime = (time: number) =>
-    new Date(time * 1000).toISOString().slice(14, 19)
+  const currentTimeFormatted = formatTime(currentTime)
+  const durationFormatted = formatTime(duration)
 
   return (
     <div className="z-10 flex w-full flex-col items-center space-x-4">
       <div className="flex w-full justify-between">
-        <span className="text-2xs text-gray-500">
-          {formatTime(currentTime)}
+        <span
+          aria-label={`Current time: ${currentTimeFormatted}`}
+          className="text-2xs text-gray-500"
+        >
+          {currentTimeFormatted}
         </span>
-        <span className="text-2xs text-gray-500">{formatTime(duration)}</span>
+        <span
+          aria-label={`Duration: ${durationFormatted}`}
+          className="text-2xs text-gray-500"
+        >
+          {durationFormatted}
+        </span>
       </div>
       <input
         type="range"
@@ -33,6 +41,9 @@ export default function ProgressBarFS() {
         style={{
           background: `linear-gradient(to right, #88AAEE ${progressPercent}%, #ddd ${progressPercent}%)`,
         }}
+        aria-label={`Seek slider, current time: ${formatTime(
+          currentTime,
+        )}, duration: ${formatTime(duration)}`}
       />
     </div>
   )

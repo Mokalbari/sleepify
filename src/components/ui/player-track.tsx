@@ -16,7 +16,7 @@ export default function PlayerTrack() {
     <div
       role="button"
       tabIndex={0}
-      className="flex items-center gap-4 sm:ml-16"
+      className="flex items-center gap-4 sm:ml-8 lg:ml-16"
       onClick={handleFullPlayerVisibility}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") {

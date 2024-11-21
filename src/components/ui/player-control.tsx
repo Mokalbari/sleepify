@@ -39,7 +39,7 @@ export default function PlayerControl() {
   useClickAway(volumeRef, closeVolume, showVolumeSlider)
 
   return (
-    <div className="relative px-4">
+    <div className="relative sm:px-4">
       {/* Player Controls */}
       <div className="flex items-center gap-4">
         <button
@@ -47,21 +47,25 @@ export default function PlayerControl() {
           aria-label="Skip to previous track"
           className="cursor-pointer"
         >
-          <SkipBack />
+          <SkipBack className="w-4 sm:w-5 lg:w-6" />
         </button>
         <button
           onClick={togglePlayPause}
           aria-label={isPlaying ? "Pause track" : "Play track"}
           className="cursor-pointer"
         >
-          {isPlaying ? <Pause /> : <Play />}
+          {isPlaying ? (
+            <Pause className="w-4 sm:w-5 lg:w-6" />
+          ) : (
+            <Play className="w-4 sm:w-5 lg:w-6" />
+          )}
         </button>
         <button
           onClick={skipNext}
           aria-label="Skip to next track"
           className="cursor-pointer"
         >
-          <SkipForward />
+          <SkipForward className="w-4 sm:w-5 lg:w-6" />
         </button>
 
         {/* Volume Control */}
@@ -71,7 +75,11 @@ export default function PlayerControl() {
             aria-label={volume === 0 ? "Unmute volume" : "Adjust volume"}
             className="cursor-pointer"
           >
-            {volume === 0 ? <VolumeX /> : <Volume2 />}
+            {volume === 0 ? (
+              <VolumeX className="w-4 sm:w-5 lg:w-6" />
+            ) : (
+              <Volume2 className="w-4 sm:w-5 lg:w-6" />
+            )}
           </button>
           {showVolumeSlider && (
             <div
