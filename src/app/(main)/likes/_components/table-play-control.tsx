@@ -32,7 +32,7 @@ export default function TablePlayControl({
       {trackUrl === null ? (
         <div className="relative">
           <button
-            className="flex cursor-help items-center justify-center opacity-50"
+            className="flex w-4 cursor-help items-center justify-center opacity-50 sm:w-5 lg:w-6"
             aria-label="Track unavailable"
             onClick={openPopover}
           >
@@ -57,7 +57,7 @@ export default function TablePlayControl({
       ) : (
         <button
           onClick={() => playTrackFromPlaylist(trackId, trackUrl, playlist)}
-          className="flex items-center justify-center"
+          className="flex w-4 items-center justify-center sm:w-5 lg:w-6"
           aria-label={
             isPlaying && currentTrack?.trackUrl === trackUrl
               ? "Pause track"

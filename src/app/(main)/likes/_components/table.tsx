@@ -13,7 +13,9 @@ export default async function Table() {
         <tr className="border-b border-b-black">
           <th className="p-2 text-left">Artist - Track</th>
           <th className="text-left max-lg:hidden">Track duration</th>
-          <th className="min-w-fit p-2 text-right">Social - Play</th>
+          <th className="min-w-fit p-2 text-right">
+            Play<span className="lg:hidden"> - Duration</span>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -33,7 +35,9 @@ export default async function Table() {
               {makeTimeReadable(song.duration_ms)}
             </td>
             <td className="p-2 text-right lg:flex lg:h-full lg:items-center lg:justify-end lg:gap-8">
-              <div className="text-2xs lg:hidden">34 plays</div>
+              <div className="text-2xs lg:hidden">
+                {makeTimeReadable(song.duration_ms)}
+              </div>
               <TablePlayControl
                 trackUrl={song.music_url}
                 playlist={likedSongs}
