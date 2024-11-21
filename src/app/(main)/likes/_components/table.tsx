@@ -1,5 +1,6 @@
 import TrackArtistBadge from "@/components/ui/track-artist-badge"
 import { LikedSongs } from "@/lib/types/definitions"
+import { makeTimeReadable } from "@/utils/functions/makeTimeReadable"
 import { getUsersLikes } from "../actions"
 import TablePlayControl from "./table-play-control"
 
@@ -11,7 +12,7 @@ export default async function Table() {
       <thead className="text-xs">
         <tr className="border-b border-b-black">
           <th className="p-2 text-left">Artist - Track</th>
-          <th className="text-left max-lg:hidden">Smashed play button</th>
+          <th className="text-left max-lg:hidden">Track duration</th>
           <th className="min-w-fit p-2 text-right">Social - Play</th>
         </tr>
       </thead>
@@ -28,7 +29,9 @@ export default async function Table() {
                 track_name={song.track_name}
               />
             </td>
-            <td className="max-lg:hidden">34 plays... You okay?</td>
+            <td className="max-lg:hidden">
+              {makeTimeReadable(song.duration_ms)}
+            </td>
             <td className="p-2 text-right lg:flex lg:h-full lg:items-center lg:justify-end lg:gap-8">
               <div className="text-2xs lg:hidden">34 plays</div>
               <TablePlayControl
