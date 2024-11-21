@@ -29,7 +29,7 @@ export default function PlayerControl() {
   }
 
   const toggleVolumeSlider = () => {
-    setShowVolumeSlider(!showVolumeSlider)
+    setShowVolumeSlider((prev) => !prev)
   }
 
   const closeVolume = () => {
@@ -39,30 +39,50 @@ export default function PlayerControl() {
   useClickAway(volumeRef, closeVolume, showVolumeSlider)
 
   return (
-    <div className="relative">
-      {/* Tablet + Desktop version */}
-      <div className="flex items-center gap-4 max-sm:hidden">
-        <SkipBack onClick={skipPrevious} className="cursor-pointer" />
-        {isPlaying ? (
-          <Pause onClick={togglePlayPause} className="cursor-pointer" />
-        ) : (
-          <Play onClick={togglePlayPause} className="cursor-pointer" />
-        )}
-        <SkipForward onClick={skipNext} className="cursor-pointer" />
+    <div className="relative px-4">
+      {/* Player Controls */}
+      <div className="flex items-center gap-4">
+        <button
+          onClick={skipPrevious}
+          aria-label="Skip to previous track"
+          className="cursor-pointer"
+        >
+          <SkipBack />
+        </button>
+        <button
+          onClick={togglePlayPause}
+          aria-label={isPlaying ? "Pause track" : "Play track"}
+          className="cursor-pointer"
+        >
+          {isPlaying ? <Pause /> : <Play />}
+        </button>
+        <button
+          onClick={skipNext}
+          aria-label="Skip to next track"
+          className="cursor-pointer"
+        >
+          <SkipForward />
+        </button>
 
         {/* Volume Control */}
-        <div className="relative">
-          {volume === 0 ? (
-            <VolumeX onClick={toggleVolumeSlider} className="cursor-pointer" />
-          ) : (
-            <Volume2 onClick={toggleVolumeSlider} className="cursor-pointer" />
-          )}
+        <div className="relative translate-y-[3px]">
+          <button
+            onClick={toggleVolumeSlider}
+            aria-label={volume === 0 ? "Unmute volume" : "Adjust volume"}
+            className="cursor-pointer"
+          >
+            {volume === 0 ? <VolumeX /> : <Volume2 />}
+          </button>
           {showVolumeSlider && (
             <div
               ref={volumeRef}
               className="brutal absolute bottom-full right-0 mb-2 w-32 bg-white p-2"
             >
+              <label htmlFor="volume-slider" className="sr-only">
+                Adjust volume
+              </label>
               <input
+                id="volume-slider"
                 type="range"
                 min="0"
                 max="1"
@@ -70,37 +90,10 @@ export default function PlayerControl() {
                 value={volume}
                 onChange={handleVolumeChange}
                 className="w-full"
-              />
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Mobile version */}
-      <div className="flex items-center gap-4 sm:hidden">
-        {isPlaying ? (
-          <Pause onClick={togglePlayPause} className="cursor-pointer" />
-        ) : (
-          <Play onClick={togglePlayPause} className="cursor-pointer" />
-        )}
-
-        {/* Mobile Volume Control */}
-        <div className="relative">
-          {volume === 0 ? (
-            <VolumeX onClick={toggleVolumeSlider} className="cursor-pointer" />
-          ) : (
-            <Volume2 onClick={toggleVolumeSlider} className="cursor-pointer" />
-          )}
-          {showVolumeSlider && (
-            <div className="brutal absolute bottom-full right-0 mb-2 w-32 bg-white p-2">
-              <input
-                type="range"
-                min="0"
-                max="1"
-                step="0.1"
-                value={volume}
-                onChange={handleVolumeChange}
-                className="w-full"
+                aria-valuemin={0}
+                aria-valuemax={1}
+                aria-valuenow={volume}
+                aria-label="Volume slider"
               />
             </div>
           )}
