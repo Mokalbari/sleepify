@@ -16,22 +16,32 @@ export default function NavButton({
   createPageUrl,
   ...props
 }: Props) {
-  const isDisabled = (pageTarget: number) => currentPage === pageTarget
+  const isDisabled =
+    direction === "left" ? currentPage <= 1 : currentPage >= totalPages
+
+  const newPage = direction === "left" ? currentPage - 1 : currentPage + 1
+
+  const handleClick = () => {
+    if (!isDisabled) {
+      window.location.href = createPageUrl(newPage)
+    }
+  }
 
   return (
     <button
-      onClick={() => {
-        const newPage = direction === "left" ? currentPage - 1 : currentPage + 1
-        window.location.href = createPageUrl(newPage)
-      }}
-      disabled={direction === "left" ? isDisabled(1) : isDisabled(totalPages)}
-      className={cn("rounded-md border border-black bg-white", {
-        "bg-grey-500 cursor-not-allowed":
-          direction === "left" ? isDisabled(1) : isDisabled(totalPages),
-      })}
+      onClick={handleClick}
+      disabled={isDisabled}
+      className={cn(
+        "rounded-md border border-black bg-white transition-all duration-200",
+        {
+          "bg-grey-500 text-grey-700 cursor-not-allowed": isDisabled,
+          "hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2":
+            !isDisabled,
+        },
+      )}
       {...props}
     >
-      <span>{direction === "left" ? <ChevronLeft /> : <ChevronRight />}</span>
+      {direction === "left" ? <ChevronLeft /> : <ChevronRight />}
     </button>
   )
 }

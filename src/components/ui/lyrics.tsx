@@ -9,6 +9,7 @@ import { CircleX } from "lucide-react"
 type Props = {
   lyrics: string
 }
+
 export default function Lyrics({ lyrics }: Props) {
   const { currentTrack } = useSleepify()
   const { isLyricsOpen, handleLyricsVisibility } = useFullPlayer()
