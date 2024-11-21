@@ -1,12 +1,12 @@
 "use client"
 
+import { useFullPlayer } from "@/context/full-player/use-full-player"
+import { useSleepify } from "@/context/sleepify/use-sleepify"
 import { useLyrics } from "@/hooks/useLyrics"
 import { cn } from "@/utils/helpers/style"
 import { CircleX } from "lucide-react"
 import SleepifyFSPlayer from "./sleepify-fs-player"
 import Lyrics from "./ui/lyrics"
-import { useFullPlayer } from "@/context/full-player/use-full-player"
-import { useSleepify } from "@/context/sleepify/use-sleepify"
 
 export default function LyricsPlayer() {
   const { isOpen, handleFullPlayerVisibility } = useFullPlayer()
@@ -27,12 +27,12 @@ export default function LyricsPlayer() {
       )}
     >
       {/* Full-Screen Player */}
-      <div className="sm:max-lg:hidden">
+      <div className="sm:max-lg:hidden lg:w-fit">
         <SleepifyFSPlayer />
       </div>
 
       {/* Lyrics Display */}
-      <div className="ml-5 mt-10 max-w-[45ch] max-sm:hidden lg:m-0">
+      <div className="ml-5 mt-10 max-w-[45ch] max-sm:hidden lg:m-0 lg:flex-1">
         {/* Track Info and Close Button */}
         <div className="flex items-center justify-between lg:hidden">
           <div className="flex flex-col">
