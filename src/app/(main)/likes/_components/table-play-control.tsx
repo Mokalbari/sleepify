@@ -17,46 +17,7 @@ export default function TablePlayControl({
   trackId,
   playlist,
 }: Props) {
-  const {
-    currentTrack,
-    isPlaying,
-    playTrack,
-    togglePlayPause,
-    setCurrentPlaylist,
-    setCurrentTrackIndex,
-  } = useSleepify()
-
-  const handlePlayPause = () => {
-    if (!trackUrl) return
-
-    if (currentTrack?.trackUrl !== trackUrl) {
-      const audioPlaylist = playlist.map((track) => ({
-        trackId: track.track_id,
-        trackUrl: track.music_url,
-        trackName: track.track_name,
-        artistName: Array.isArray(track.artist_name)
-          ? track.artist_name
-          : [track.artist_name],
-        previewImage: track.track_image,
-      }))
-
-      const index = audioPlaylist.findIndex(
-        (track) => track.trackId === trackId,
-      )
-
-      if (index !== -1) {
-        const audioTrack = audioPlaylist[index]
-
-        setCurrentPlaylist(audioPlaylist)
-        setCurrentTrackIndex(index)
-        playTrack(audioTrack)
-      } else {
-        console.error("La piste n'a pas été trouvée dans la playlist.")
-      }
-    } else {
-      togglePlayPause()
-    }
-  }
+  const { currentTrack, isPlaying, playTrackFromPlaylist } = useSleepify()
 
   return (
     <>
@@ -67,7 +28,9 @@ export default function TablePlayControl({
           className={cn("w-4 sm:w-5 lg:w-6")}
         />
 
-        <button onClick={handlePlayPause}>
+        <button
+          onClick={() => playTrackFromPlaylist(trackId, trackUrl, playlist)}
+        >
           {currentTrack?.trackUrl === null ? (
             <Bug />
           ) : isPlaying && currentTrack?.trackUrl === trackUrl ? (
