@@ -13,7 +13,7 @@ export default function Lyrics({ lyrics }: Props) {
   const { currentTrack } = useSleepify()
   const { isLyricsOpen, handleLyricsVisibility } = useFullPlayer()
 
-  if (isLyricsOpen) return null
+  if (!isLyricsOpen) return null
 
   return (
     <div
