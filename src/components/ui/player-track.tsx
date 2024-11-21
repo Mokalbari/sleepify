@@ -1,12 +1,12 @@
 "use client"
 
-import { useAudio } from "@/context/audio-context"
 import { useFullPlayer } from "@/context/full-player-context"
+import { useSleepify } from "@/context/sleepify-context"
 import Image from "next/image"
 import cover from "../../../public/cover-album_placeholder.webp"
 
 export default function PlayerTrack() {
-  const { currentTrack } = useAudio()
+  const { currentTrack } = useSleepify()
   const { handleFullPlayerVisibility } = useFullPlayer()
   return (
     <div

@@ -1,4 +1,4 @@
-import { useSleepifyPlayer } from "@/hooks/useSleepifyPlayer"
+import { useSleepifyPlayer } from "@/hooks/use-sleepify/useSleepifyPlayer"
 import { ReactNode } from "react"
 
 export type TrackList = {
@@ -46,4 +46,29 @@ export type LikesContextType = {
   likedCount: Count
   incrementLikes: () => void
   decrementLikes: () => void
+}
+
+export type AudioTrack = {
+  trackId: string
+  trackUrl: string | null
+  trackName: string
+  artistName: string[]
+  previewImage: string
+  isFavorite?: boolean
+}
+
+export type UseSleepifyAudioParams = {
+  audioRef: React.RefObject<HTMLAudioElement>
+  playerState: {
+    currentTrack: AudioTrack | null
+    isPlaying: boolean
+    volume: number
+    setIsPlaying: (isPlaying: boolean) => void
+    setCurrentTime: (time: number) => void
+    setDuration: (duration: number) => void
+    currentPlaylist: AudioTrack[]
+    skipNext: () => void
+    skipPrevious: () => void
+    skipDirection: "prev" | "next"
+  }
 }

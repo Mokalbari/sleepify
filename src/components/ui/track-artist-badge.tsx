@@ -21,11 +21,7 @@ export default function TrackArtistBadge({
       </div>
       <div className="ml-4">
         <h3 className="text-xs font-bold sm:text-base">{trackName}</h3>
-        <div className="text-2xs sm:text-xs">
-          {Array.isArray(artistName) && artistName.length > 0
-            ? artistName.join(", ")
-            : "Unknown Artist"}
-        </div>
+        <div className="text-2xs sm:text-xs">{artistName}</div>
       </div>
     </div>
   )

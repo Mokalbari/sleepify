@@ -1,7 +1,7 @@
 "use client"
 
-import { cn } from "@/helpers/style"
-import { generatePagination } from "@/lib/functions/generatePagination"
+import { generatePagination } from "@/utils/functions/generatePagination"
+import { cn } from "@/utils/helpers/style"
 import Link from "next/link"
 import { usePathname, useSearchParams } from "next/navigation"
 import NavButton from "./ui/nav-button"

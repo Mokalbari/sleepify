@@ -1,7 +1,7 @@
 import TrackCard from "@/app/(main)/_components/track-card"
 import PlaylistProvider from "@/context/playlist-context"
-import { getPlaylist } from "@/lib/db/actions"
 import type { TrackList } from "@/lib/types/definitions"
+import { getPlaylist } from "@/server/actions"
 import { getTracks } from "../actions"
 
 interface Props {

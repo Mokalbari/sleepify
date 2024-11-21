@@ -1,19 +1,19 @@
 "use client"
 
-import { useAudio } from "@/context/audio-context"
 import { useFullPlayer } from "@/context/full-player-context"
-import { cn } from "@/helpers/style"
+import { useSleepify } from "@/context/sleepify-context"
 import "@/styles/animations.css"
+import { cn } from "@/utils/helpers/style"
 import { CircleX } from "lucide-react"
 
 type Props = {
   lyrics: string
 }
 export default function Lyrics({ lyrics }: Props) {
-  const { currentTrack } = useAudio()
+  const { currentTrack } = useSleepify()
   const { isLyricsOpen, handleLyricsVisibility } = useFullPlayer()
 
-  if (isLyricsOpen) return null
+  if (!isLyricsOpen) return null
 
   return (
     <div

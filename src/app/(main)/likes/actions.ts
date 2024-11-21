@@ -13,7 +13,7 @@ export const getUsersLikes = cache(async () => {
             t.preview_url AS music_url,
             t.duration_ms,
             t.image_url AS track_image,
-            ARRAY_AGG(a.name) AS artists
+            ARRAY_AGG(a.name) AS artist_name
         FROM 
             favorites f
         INNER JOIN 
