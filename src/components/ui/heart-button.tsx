@@ -1,5 +1,6 @@
 "use client"
 import { useLikesContext } from "@/context/likes-context"
+import { cn } from "@/utils/helpers/style"
 import { Heart } from "lucide-react"
 import { useState } from "react"
 
@@ -49,9 +50,23 @@ export default function HeartButton({
   return (
     <button onClick={() => handleClick(trackId)} type={type} {...props}>
       {isFavorite ? (
-        <Heart className={className} fill="red" stroke="red" />
+        <Heart
+          className={cn({
+            className,
+            "hover:animate-pulse hover:fill-gray-500 hover:stroke-gray-500":
+              isFavorite,
+          })}
+          fill="red"
+          stroke="red"
+        />
       ) : (
-        <Heart className={className} />
+        <Heart
+          className={cn({
+            className,
+            "hover:animate-pulse hover:fill-red/80 hover:stroke-red/80":
+              !isFavorite,
+          })}
+        />
       )}
     </button>
   )

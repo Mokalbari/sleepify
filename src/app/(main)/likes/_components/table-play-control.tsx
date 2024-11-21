@@ -5,7 +5,7 @@ import { useSleepify } from "@/context/sleepify-context"
 import { useErrorPopover } from "@/hooks/useErrorPopover"
 import { LikedSongs } from "@/lib/types/definitions"
 import { cn } from "@/utils/helpers/style"
-import { Bug, Pause, Play } from "lucide-react"
+import { HeadphoneOff, Pause, Play } from "lucide-react"
 
 type Props = {
   trackUrl: string | null
@@ -36,12 +36,12 @@ export default function TablePlayControl({
             aria-label="Track unavailable"
             onClick={openPopover}
           >
-            <Bug />
+            <HeadphoneOff />
           </button>
           {isPopoverOpen && (
             <div
               className={cn(
-                "brutal absolute bottom-10 right-0 z-10 w-80 rounded-md bg-deepBlue p-4 text-center text-xs font-bold text-white transition-opacity duration-300",
+                "brutal absolute bottom-10 right-0 z-10 w-80 rounded-md bg-[#FFC6E7] p-4 text-center text-xs font-bold transition-opacity duration-300",
                 "lg:text-base",
                 {
                   "opacity-100": isPopoverOpen,
