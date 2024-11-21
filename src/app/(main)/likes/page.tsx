@@ -1,6 +1,12 @@
 import LyricsPlayer from "@/components/lyrics-player"
+import { Metadata } from "next"
 import Header from "./_components/header"
 import Table from "./_components/table"
+
+export const metadata: Metadata = {
+  title: "Sleepify | Your favorites",
+  description: "Re-dediscover your favorite songs... or banish them forever.",
+}
 
 export default async function Page() {
   return (

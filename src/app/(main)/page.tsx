@@ -1,8 +1,14 @@
 import LyricsPlayer from "@/components/lyrics-player"
 import Pagination from "@/components/pagination"
+import { Metadata } from "next"
 import TrackList from "./_components/track-list"
 import TracksHeader from "./_components/tracks-header"
 import { getTotalPages } from "./actions"
+
+export const metadata: Metadata = {
+  title: "Sleepify | Top 28",
+  description: "Discover now Sleepify Top 28. Top 50 are overrated.",
+}
 
 type SearchParams = Promise<{ page?: string }>
 
