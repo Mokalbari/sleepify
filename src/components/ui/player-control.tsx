@@ -1,5 +1,6 @@
 "use client"
 import { useSleepify } from "@/context/sleepify-context"
+import { useClickAway } from "@/hooks/useClickAway"
 import {
   Pause,
   Play,
@@ -8,7 +9,7 @@ import {
   Volume2,
   VolumeX,
 } from "lucide-react"
-import { useState } from "react"
+import { useRef, useState } from "react"
 
 export default function PlayerControl() {
   const {
@@ -19,7 +20,7 @@ export default function PlayerControl() {
     volume,
     setAudioVolume,
   } = useSleepify()
-
+  const volumeRef = useRef<HTMLDivElement>(null)
   const [showVolumeSlider, setShowVolumeSlider] = useState(false)
 
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +31,12 @@ export default function PlayerControl() {
   const toggleVolumeSlider = () => {
     setShowVolumeSlider(!showVolumeSlider)
   }
+
+  const closeVolume = () => {
+    setShowVolumeSlider(false)
+  }
+
+  useClickAway(volumeRef, closeVolume, showVolumeSlider)
 
   return (
     <div className="relative">
@@ -51,7 +58,10 @@ export default function PlayerControl() {
             <Volume2 onClick={toggleVolumeSlider} className="cursor-pointer" />
           )}
           {showVolumeSlider && (
-            <div className="absolute bottom-full right-0 mb-2 w-32 rounded-md bg-white p-2 shadow-lg">
+            <div
+              ref={volumeRef}
+              className="absolute bottom-full right-0 mb-2 w-32 rounded-md bg-white p-2 shadow-lg"
+            >
               <input
                 type="range"
                 min="0"
