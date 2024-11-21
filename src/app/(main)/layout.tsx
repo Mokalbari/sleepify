@@ -1,7 +1,9 @@
+// layout.tsx
 import SideNav from "@/components/side-nav"
 import SleepifyNormalPlayer from "@/components/sleepify-normal-player"
 import FullPlayerProvider from "@/context/full-player-context"
 import LikesProvider from "@/context/likes-context"
+import LyricsProvider from "@/context/lyrics-provider"
 import AudioProvider from "@/context/sleepify-context"
 import { getLikesCount, getTracksCount, getUserInfo } from "@/server/actions"
 
@@ -29,12 +31,14 @@ export default async function SleepifyLayout({
           }}
         />
         <div className="flex-1">
-          <AudioProvider>
-            <FullPlayerProvider>
-              <main className="">{children}</main>
-              <SleepifyNormalPlayer />
-            </FullPlayerProvider>
-          </AudioProvider>
+          <LyricsProvider>
+            <AudioProvider>
+              <FullPlayerProvider>
+                <main className="">{children}</main>
+                <SleepifyNormalPlayer />
+              </FullPlayerProvider>
+            </AudioProvider>
+          </LyricsProvider>
         </div>
       </div>
     </LikesProvider>
