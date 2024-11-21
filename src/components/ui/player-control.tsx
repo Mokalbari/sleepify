@@ -60,7 +60,7 @@ export default function PlayerControl() {
           {showVolumeSlider && (
             <div
               ref={volumeRef}
-              className="absolute bottom-full right-0 mb-2 w-32 rounded-md bg-white p-2 shadow-lg"
+              className="brutal absolute bottom-full right-0 mb-2 w-32 bg-white p-2"
             >
               <input
                 type="range"
@@ -92,7 +92,7 @@ export default function PlayerControl() {
             <Volume2 onClick={toggleVolumeSlider} className="cursor-pointer" />
           )}
           {showVolumeSlider && (
-            <div className="absolute bottom-full right-0 mb-2 w-32 rounded-md bg-white p-2 shadow-lg">
+            <div className="brutal absolute bottom-full right-0 mb-2 w-32 bg-white p-2">
               <input
                 type="range"
                 min="0"
