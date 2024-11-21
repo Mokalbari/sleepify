@@ -22,7 +22,7 @@ export default function TablePlayControl({
   const { isPopoverOpen, openPopover } = useErrorPopover()
 
   return (
-    <div className="flex justify-end gap-4">
+    <div className="flex justify-end gap-4 lg:translate-y-[75%]">
       <HeartButton
         trackId={trackId}
         isFavorite={true}
