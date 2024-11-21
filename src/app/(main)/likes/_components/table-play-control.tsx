@@ -1,21 +1,19 @@
 "use client"
 
 import HeartButton from "@/components/ui/heart-button"
-import { useSleepify } from "@/context/sleepify-context"
+import { useSleepify } from "@/context/sleepify/use-sleepify"
 import { useErrorPopover } from "@/hooks/useErrorPopover"
 import { LikedSongs } from "@/lib/types/definitions"
 import { cn } from "@/utils/helpers/style"
-import { Bug, Pause, Play } from "lucide-react"
+import { HeadphoneOff, Pause, Play } from "lucide-react"
 
-type Props = {
-  trackUrl: string | null
-  trackId: string
+type Props = Pick<LikedSongs, "music_url" | "track_id"> & {
   playlist: LikedSongs[]
 }
 
 export default function TablePlayControl({
-  trackUrl,
-  trackId,
+  music_url: trackUrl,
+  track_id: trackId,
   playlist,
 }: Props) {
   const { currentTrack, isPlaying, playTrackFromPlaylist } = useSleepify()
@@ -36,12 +34,12 @@ export default function TablePlayControl({
             aria-label="Track unavailable"
             onClick={openPopover}
           >
-            <Bug />
+            <HeadphoneOff className="wiggle" />
           </button>
           {isPopoverOpen && (
             <div
               className={cn(
-                "brutal absolute bottom-10 right-0 z-10 w-80 rounded-md bg-deepBlue p-4 text-center text-xs font-bold text-white transition-opacity duration-300",
+                "brutal absolute bottom-10 right-0 z-10 w-80 rounded-md bg-[#FFC6E7] p-4 text-center text-xs font-bold transition-opacity duration-300",
                 "lg:text-base",
                 {
                   "opacity-100": isPopoverOpen,
@@ -67,7 +65,7 @@ export default function TablePlayControl({
           {isPlaying && currentTrack?.trackUrl === trackUrl ? (
             <Pause />
           ) : (
-            <Play />
+            <Play className="play" />
           )}
         </button>
       )}

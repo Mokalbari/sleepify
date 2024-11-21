@@ -1,18 +1,8 @@
 "use client"
 
 import { ContextProvider } from "@/lib/types/definitions"
-import { createContext, useContext, useState } from "react"
-
-type FullPlayerContextType = {
-  isOpen: boolean
-  isLyricsOpen: boolean
-  handleFullPlayerVisibility: () => void
-  handleLyricsVisibility: () => void
-}
-
-const FullPlayerContext = createContext<FullPlayerContextType | undefined>(
-  undefined,
-)
+import { useState } from "react"
+import { FullPlayerContext } from "./full-player-context"
 
 export default function FullPlayerProvider({ children }: ContextProvider) {
   const [isOpen, setIsOpen] = useState(false)
@@ -38,12 +28,4 @@ export default function FullPlayerProvider({ children }: ContextProvider) {
       {children}
     </FullPlayerContext.Provider>
   )
-}
-
-export const useFullPlayer = () => {
-  const context = useContext(FullPlayerContext)
-  if (!context) {
-    throw new Error("useFullPlayer must be used within a FullPlayerProvider")
-  }
-  return context
 }

@@ -39,9 +39,9 @@ export default async function Table() {
                 {makeTimeReadable(song.duration_ms)}
               </div>
               <TablePlayControl
-                trackUrl={song.music_url}
+                music_url={song.music_url}
                 playlist={likedSongs}
-                trackId={song.track_id}
+                track_id={song.track_id}
               />
             </td>
           </tr>

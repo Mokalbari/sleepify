@@ -42,12 +42,6 @@ export interface ContextProvider {
   children: ReactNode
 }
 
-export type LikesContextType = {
-  likedCount: Count
-  incrementLikes: () => void
-  decrementLikes: () => void
-}
-
 export type AudioTrack = {
   trackId: string
   trackUrl: string | null

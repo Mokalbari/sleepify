@@ -1,9 +1,9 @@
 "use client"
 
+import { usePaginationUrls } from "@/hooks/usePaginationUrls"
 import { generatePagination } from "@/utils/functions/generatePagination"
 import { cn } from "@/utils/helpers/style"
 import Link from "next/link"
-import { usePathname, useSearchParams } from "next/navigation"
 import NavButton from "./ui/nav-button"
 
 interface Props {
@@ -12,48 +12,56 @@ interface Props {
 }
 
 export default function Pagination({ currentPage, totalPages }: Props) {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
   const pagination = generatePagination(currentPage, totalPages)
-
-  const createPageURL = (pageNumber: string | number) => {
-    const params = new URLSearchParams(searchParams)
-    params.set("page", pageNumber.toString())
-    return `${pathname}?${params.toString()}`
-  }
+  const { createPageUrl } = usePaginationUrls()
 
   return (
-    <div className="my-10 flex justify-center gap-6">
-      <div>
-        <NavButton
-          currentPage={currentPage}
-          totalPages={totalPages}
-          direction="left"
-          createPageUrl={createPageURL}
-        />
-      </div>
-      <div className="flex gap-4">
-        {" "}
+    <nav
+      className="my-10 flex items-center justify-center gap-6"
+      aria-label="Pagination navigation"
+    >
+      {/* Previous Button */}
+      <NavButton
+        currentPage={currentPage}
+        totalPages={totalPages}
+        direction="left"
+        createPageUrl={createPageUrl}
+        aria-label="Go to previous page"
+      />
+
+      {/* Page Links */}
+      <ul className="flex gap-4">
         {pagination.map((page) => (
-          <Link key={page} href={createPageURL(page)}>
-            <button
-              className={cn("rounded-md border border-black bg-white px-2", {
+          <li
+            className={cn(
+              "w-8 rounded-md border border-black bg-white px-2 text-center",
+              "hover:cursor-pointer hover:bg-blue-500 hover:font-bold hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2",
+              {
                 "bg-deepBlue font-bold text-white": page === currentPage,
-              })}
+              },
+            )}
+            key={page}
+          >
+            <Link
+              href={createPageUrl(page)}
+              aria-label={`Go to page ${page}`}
+              aria-current={page === currentPage ? "page" : undefined}
+              className={""}
             >
               {page}
-            </button>
-          </Link>
+            </Link>
+          </li>
         ))}
-      </div>
-      <div>
-        <NavButton
-          currentPage={currentPage}
-          totalPages={totalPages}
-          direction="right"
-          createPageUrl={createPageURL}
-        />
-      </div>
-    </div>
+      </ul>
+
+      {/* Next Button */}
+      <NavButton
+        currentPage={currentPage}
+        totalPages={totalPages}
+        direction="right"
+        createPageUrl={createPageUrl}
+        aria-label="Go to next page"
+      />
+    </nav>
   )
 }

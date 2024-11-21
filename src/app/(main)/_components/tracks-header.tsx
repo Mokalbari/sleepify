@@ -13,7 +13,7 @@ export default function TracksHeader() {
           to tunes you’ll probably forget by tomorrow. Play it loud, or
           don’t—we’re not here to judge.
         </p>
-        <div className="mt-4 h-[2px] w-full max-w-[600px] bg-black sm:h-1" />
+        <hr className="mt-4 h-[2px] w-full max-w-[600px] bg-black sm:h-1" />
       </div>
     </header>
   )
