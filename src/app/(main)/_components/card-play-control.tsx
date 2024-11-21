@@ -20,6 +20,8 @@ export default function CardPlayControl({
   const { playlist } = usePlaylistContext()
   const { isPopoverOpen, openPopover } = useErrorPopover()
 
+  const isATrackPlaying = isPlaying && currentTrack?.trackUrl === trackUrl
+
   return (
     <div className="flex gap-4">
       <HeartButton isFavorite={isFavorite} trackId={trackId} />
@@ -55,17 +57,9 @@ export default function CardPlayControl({
             playTrackFromPlaylist(trackId, trackUrl, playlist)
           }}
           className="flex items-center justify-center"
-          aria-label={
-            isPlaying && currentTrack?.trackUrl === trackUrl
-              ? "Pause track"
-              : "Play track"
-          }
+          aria-label={isATrackPlaying ? "Pause track" : "Play track"}
         >
-          {isPlaying && currentTrack?.trackUrl === trackUrl ? (
-            <Pause />
-          ) : (
-            <Play className="play" />
-          )}
+          {isATrackPlaying ? <Pause /> : <Play className="play" />}
         </button>
       )}
     </div>

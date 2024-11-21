@@ -1,16 +1,17 @@
 import TrackCard from "@/app/(main)/_components/track-card"
-import type { TrackList } from "@/lib/types/definitions"
+import PlaylistProvider from "@/context/playlist/playlist-provider"
 import { getPlaylist } from "@/server/actions"
 import { getTracks } from "../actions"
-import PlaylistProvider from "@/context/playlist/playlist-provider"
 
-interface Props {
+type Props = {
   currentPage: number
 }
 
 export default async function TrackList({ currentPage }: Props) {
-  const tracks: TrackList[] = await getTracks(currentPage)
-  const playlist: TrackList[] = await getPlaylist()
+  const [tracks, playlist] = await Promise.all([
+    getTracks(currentPage),
+    getPlaylist(),
+  ])
 
   return (
     <PlaylistProvider initialPlaylist={playlist}>

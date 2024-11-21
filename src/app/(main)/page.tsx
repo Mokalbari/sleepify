@@ -9,7 +9,7 @@ type SearchParams = Promise<{ page?: string }>
 export default async function Page(props: { searchParams: SearchParams }) {
   const searchParams = await props.searchParams
   const currentPage = Number(searchParams?.page) || 1
-  const totalPages = await getTotalPages()
+  const totalPages = (await getTotalPages()) || 1
 
   return (
     <>
