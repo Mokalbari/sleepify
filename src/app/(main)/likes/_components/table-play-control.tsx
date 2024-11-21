@@ -1,7 +1,7 @@
 "use client"
 
 import HeartButton from "@/components/ui/heart-button"
-import { useSleepify } from "@/context/sleepify-context"
+import { useSleepify } from "@/context/sleepify/use-sleepify"
 import { useErrorPopover } from "@/hooks/useErrorPopover"
 import { LikedSongs } from "@/lib/types/definitions"
 import { cn } from "@/utils/helpers/style"

@@ -1,8 +1,8 @@
 import TrackCard from "@/app/(main)/_components/track-card"
-import PlaylistProvider from "@/context/playlist-context"
 import type { TrackList } from "@/lib/types/definitions"
 import { getPlaylist } from "@/server/actions"
 import { getTracks } from "../actions"
+import PlaylistProvider from "@/context/playlist/playlist-provider"
 
 interface Props {
   currentPage: number

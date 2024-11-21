@@ -1,6 +1,6 @@
 "use client"
 
-import { useLikesContext } from "@/context/likes-context"
+import { useLikesContext } from "@/context/likes/use-likes-context"
 import { useState } from "react"
 
 type Props = {

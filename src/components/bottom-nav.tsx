@@ -1,12 +1,12 @@
 "use client"
 
-import { useLikesContext } from "@/context/likes-context"
 import { cn } from "@/utils/helpers/style"
 import { AudioLines, Heart } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import userPhoto from "../../public/userphoto.jpg"
+import { useLikesContext } from "@/context/likes/use-likes-context"
 
 export default function BottomNav() {
   const { likedCount } = useLikesContext()

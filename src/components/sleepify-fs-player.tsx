@@ -1,12 +1,12 @@
 "use client"
 
-import { useFullPlayer } from "@/context/full-player-context"
-import { useSleepify } from "@/context/sleepify-context"
 import { ChevronDown } from "lucide-react"
 import Image from "next/image"
 import cover from "../../public/cover-album_placeholder.webp"
 import PlayerControlFS from "./ui/player-control-fs"
 import ProgressBarFS from "./ui/progress-bar-fs"
+import { useFullPlayer } from "@/context/full-player/use-full-player"
+import { useSleepify } from "@/context/sleepify/use-sleepify"
 
 export default function SleepifyFSPlayer() {
   const { currentTrack } = useSleepify()

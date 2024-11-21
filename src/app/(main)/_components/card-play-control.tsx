@@ -1,8 +1,8 @@
 "use client"
 
 import HeartButton from "@/components/ui/heart-button"
-import { usePlaylistContext } from "@/context/playlist-context"
-import { useSleepify } from "@/context/sleepify-context"
+import { usePlaylistContext } from "@/context/playlist/use-playlist-context"
+import { useSleepify } from "@/context/sleepify/use-sleepify"
 import { useErrorPopover } from "@/hooks/useErrorPopover"
 import { TrackList } from "@/lib/types/definitions"
 import "@/styles/animations.css"

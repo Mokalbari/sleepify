@@ -1,12 +1,12 @@
 "use client"
 
-import { useFullPlayer } from "@/context/full-player-context"
-import { useSleepify } from "@/context/sleepify-context"
 import { useLyrics } from "@/hooks/useLyrics"
 import { cn } from "@/utils/helpers/style"
 import { CircleX } from "lucide-react"
 import SleepifyFSPlayer from "./sleepify-fs-player"
 import Lyrics from "./ui/lyrics"
+import { useFullPlayer } from "@/context/full-player/use-full-player"
+import { useSleepify } from "@/context/sleepify/use-sleepify"
 
 export default function LyricsPlayer() {
   const { isOpen, handleFullPlayerVisibility } = useFullPlayer()

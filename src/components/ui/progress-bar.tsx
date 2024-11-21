@@ -1,4 +1,4 @@
-import { useSleepify } from "@/context/sleepify-context"
+import { useSleepify } from "@/context/sleepify/use-sleepify"
 import "@/styles/globals.css"
 import { formatTime } from "@/utils/functions/formatTime"
 

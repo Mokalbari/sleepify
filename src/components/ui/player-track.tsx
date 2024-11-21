@@ -1,9 +1,9 @@
 "use client"
 
-import { useFullPlayer } from "@/context/full-player-context"
-import { useSleepify } from "@/context/sleepify-context"
 import Image from "next/image"
 import cover from "../../../public/cover-album_placeholder.webp"
+import { useFullPlayer } from "@/context/full-player/use-full-player"
+import { useSleepify } from "@/context/sleepify/use-sleepify"
 
 export default function PlayerTrack() {
   const { currentTrack } = useSleepify()

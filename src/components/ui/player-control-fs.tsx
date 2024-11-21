@@ -1,5 +1,5 @@
 "use client"
-import { useSleepify } from "@/context/sleepify-context"
+import { useSleepify } from "@/context/sleepify/use-sleepify"
 import { Pause, Play, SkipBack, SkipForward } from "lucide-react"
 
 export default function PlayerControlFS() {
