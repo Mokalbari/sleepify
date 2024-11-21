@@ -36,7 +36,7 @@ export default function TablePlayControl({
             aria-label="Track unavailable"
             onClick={openPopover}
           >
-            <HeadphoneOff />
+            <HeadphoneOff className="wiggle" />
           </button>
           {isPopoverOpen && (
             <div
@@ -67,7 +67,7 @@ export default function TablePlayControl({
           {isPlaying && currentTrack?.trackUrl === trackUrl ? (
             <Pause />
           ) : (
-            <Play />
+            <Play className="play" />
           )}
         </button>
       )}
