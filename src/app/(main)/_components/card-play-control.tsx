@@ -2,10 +2,10 @@
 
 import { usePlaylistContext } from "@/context/playlist-context"
 import { useSleepify } from "@/context/sleepify-context"
+import { useErrorPopover } from "@/hooks/useErrorPopover"
 import { TrackList } from "@/lib/types/definitions"
 import { cn } from "@/utils/helpers/style"
 import { Bug, Pause, Play } from "lucide-react"
-import { useState } from "react"
 import HeartButton from "../../../components/ui/heart-button"
 
 type Props = Pick<TrackList, "music_url" | "is_favorite" | "track_id">
@@ -15,16 +15,9 @@ export default function CardPlayControl({
   is_favorite: isFavorite,
   track_id: trackId,
 }: Props) {
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false)
   const { currentTrack, isPlaying, playTrackFromPlaylist } = useSleepify()
   const { playlist } = usePlaylistContext()
-
-  const openPopover = () => {
-    setIsPopoverOpen(true)
-    setTimeout(() => {
-      setIsPopoverOpen(false)
-    }, 3000)
-  }
+  const { isPopoverOpen, openPopover } = useErrorPopover()
 
   return (
     <div className="flex gap-4">
