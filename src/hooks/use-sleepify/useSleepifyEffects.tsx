@@ -3,24 +3,26 @@
 import { PlayerStateWithActions } from "@/lib/types/definitions"
 import { RefObject, useEffect } from "react"
 
-// Define the types of actions and player state
-type UseSleepifyEffectsParams = {
+/**
+ * EFFECTS AND LIFECYCLE MANAGER - useSleepifyEffects
+ * This hook manages the event handling of sleepify.
+ * It binds event listeners to the states defined in the state manager.
+ *
+ * It ensures that state changes in the player (like currentTrack, volume, skipDirection)
+ * are reflected in the audio element and vice versa.
+ */
+
+type Props = {
   audioRef: RefObject<HTMLAudioElement>
   playerState: PlayerStateWithActions
 }
 
-export const useSleepifyEffects = ({
-  audioRef,
-  playerState,
-}: UseSleepifyEffectsParams) => {
-  const { state, dispatch, skipNext, skipPrevious } = playerState
-
+export const useSleepifyEffects = ({ audioRef, playerState }: Props) => {
+  // These reflects the state from the state manager.
+  const { state, dispatch, skipNext } = playerState
   const { currentTrack, volume, currentPlaylist, skipDirection } = state
 
-  /* *************************** */
-  /* LIFECYCLE AND EVENT MANAGER */
-  /* *************************** */
-
+  // This useEffect binds utils functions to event listeners
   useEffect(() => {
     const audio = audioRef.current
     if (!audio) return
@@ -46,7 +48,7 @@ export const useSleepifyEffects = ({
 
     audio.volume = volume
 
-    // Cleanup
+    // cleanup func
     return () => {
       audio.removeEventListener("play", handlePlay)
       audio.removeEventListener("pause", handlePause)
@@ -56,6 +58,8 @@ export const useSleepifyEffects = ({
     }
   }, [audioRef, currentPlaylist, volume, skipNext, dispatch])
 
+  // Updates the audio source and triggers playback when the current track changes
+  // handle edge case like if the track url is empty.
   useEffect(() => {
     const audio = audioRef.current
     if (audio && currentTrack && currentTrack.trackUrl) {
@@ -64,11 +68,7 @@ export const useSleepifyEffects = ({
         .play()
         .then(() => dispatch({ type: "SET_IS_PLAYING", payload: true }))
     } else {
-      if (skipDirection === "prev") {
-        skipPrevious()
-      } else {
-        skipNext()
-      }
+      skipNext()
     }
-  }, [audioRef, currentTrack, skipDirection, skipNext, skipPrevious, dispatch])
+  }, [audioRef, currentTrack, skipDirection, skipNext, dispatch])
 }
