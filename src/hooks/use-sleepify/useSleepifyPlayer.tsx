@@ -13,27 +13,18 @@ export const useSleepifyPlayer = (
   /* *************** */
 
   // State
-  const playerState = useSleepifyState()
+  const { state, dispatch } = useSleepifyState()
 
-  // Destructure state and setters
   const {
     currentTrack,
-    setCurrentTrack,
     currentPlaylist,
-    setCurrentPlaylist,
     skipDirection,
-    setSkipDirection,
     currentTrackIndex,
-    setCurrentTrackIndex,
     isPlaying,
-    setIsPlaying,
     volume,
-    setVolume,
     currentTime,
-    setCurrentTime,
     duration,
-    setDuration,
-  } = playerState
+  } = state
 
   /* ****************** */
   /* PLAYER FUNCTIONS   */
@@ -41,33 +32,27 @@ export const useSleepifyPlayer = (
 
   // Sets a track
   const playTrack = (track: AudioTrack) => {
-    setCurrentTrack(track)
+    dispatch({ type: "SET_CURRENT_TRACK", payload: track })
     const index = currentPlaylist.findIndex((t) => t.trackId === track.trackId)
     if (index !== -1) {
-      setCurrentTrackIndex(index)
+      dispatch({ type: "SET_CURRENT_TRACK_INDEX", payload: index })
     }
   }
 
   // Skip to the next track
   const skipNext = useCallback(() => {
-    setSkipDirection("next")
+    dispatch({ type: "SET_SKIP_DIRECTION", payload: "next" })
     if (currentPlaylist.length === 0) return
 
     const nextIndex = (currentTrackIndex + 1) % currentPlaylist.length
 
-    setCurrentTrack(currentPlaylist[nextIndex])
-    setCurrentTrackIndex(nextIndex)
-  }, [
-    currentPlaylist,
-    currentTrackIndex,
-    setSkipDirection,
-    setCurrentTrack,
-    setCurrentTrackIndex,
-  ])
+    dispatch({ type: "SET_CURRENT_TRACK", payload: currentPlaylist[nextIndex] })
+    dispatch({ type: "SET_CURRENT_TRACK_INDEX", payload: nextIndex })
+  }, [currentPlaylist, currentTrackIndex, dispatch])
 
   // Skip to the previous track
   const skipPrevious = useCallback(() => {
-    setSkipDirection("prev")
+    dispatch({ type: "SET_SKIP_DIRECTION", payload: "prev" })
 
     if (currentPlaylist.length === 0) return
 
@@ -83,24 +68,21 @@ export const useSleepifyPlayer = (
 
     // If a valid track is found
     if (attempts > 0) {
-      setCurrentTrack(currentPlaylist[prevIndex])
-      setCurrentTrackIndex(prevIndex)
+      dispatch({
+        type: "SET_CURRENT_TRACK",
+        payload: currentPlaylist[prevIndex],
+      })
+      dispatch({ type: "SET_CURRENT_TRACK_INDEX", payload: prevIndex })
     } else {
       console.warn("No valid previous track found.")
-      setCurrentTrack(null)
+      dispatch({ type: "SET_CURRENT_TRACK", payload: null })
     }
-  }, [
-    currentPlaylist,
-    currentTrackIndex,
-    setSkipDirection,
-    setCurrentTrack,
-    setCurrentTrackIndex,
-  ])
+  }, [currentPlaylist, currentTrackIndex, dispatch])
 
   // Sets the volume between 0 and 1
   const setAudioVolume = (newVolume: number) => {
     const clampedVolume = Math.max(0, Math.min(1, newVolume))
-    setVolume(clampedVolume)
+    dispatch({ type: "SET_VOLUME", payload: clampedVolume })
   }
 
   // Navigate to a specific point in the music
@@ -142,7 +124,7 @@ export const useSleepifyPlayer = (
   ) => {
     if (!trackUrl) return
 
-    const audioPlaylist = playlist.map((track) => ({
+    const audioPlaylist: AudioTrack[] = playlist.map((track) => ({
       trackId: track.track_id,
       trackUrl: track.music_url,
       trackName: track.track_name,
@@ -159,8 +141,8 @@ export const useSleepifyPlayer = (
       if (index !== -1) {
         const audioTrack = audioPlaylist[index]
 
-        setCurrentPlaylist(audioPlaylist)
-        setCurrentTrackIndex(index)
+        dispatch({ type: "SET_CURRENT_PLAYLIST", payload: audioPlaylist })
+        dispatch({ type: "SET_CURRENT_TRACK_INDEX", payload: index })
         playTrack(audioTrack)
       }
     } else {
@@ -172,7 +154,8 @@ export const useSleepifyPlayer = (
   useSleepifyEffects({
     audioRef,
     playerState: {
-      ...playerState,
+      state,
+      dispatch,
       skipNext,
       skipPrevious,
     },
@@ -184,6 +167,7 @@ export const useSleepifyPlayer = (
     This integration allows the context to only call a single hook
   */
   return {
+    // Expose state variables
     currentTrack,
     currentPlaylist,
     currentTrackIndex,
@@ -192,15 +176,6 @@ export const useSleepifyPlayer = (
     currentTime,
     duration,
     skipDirection,
-    // Expose setters as needed
-    setCurrentTrack,
-    setCurrentPlaylist,
-    setCurrentTrackIndex,
-    setIsPlaying,
-    setAudioVolume,
-    setCurrentTime,
-    setDuration,
-    setSkipDirection,
     // Player functions
     playTrack,
     skipNext,

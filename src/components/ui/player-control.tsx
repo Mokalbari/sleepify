@@ -18,14 +18,14 @@ export default function PlayerControl() {
     skipNext,
     skipPrevious,
     volume,
-    setAudioVolume,
+    adjustVolume,
   } = useSleepify()
   const volumeRef = useRef<HTMLDivElement>(null)
   const [showVolumeSlider, setShowVolumeSlider] = useState(false)
 
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newVolume = Number(e.target.value)
-    setAudioVolume(newVolume)
+    adjustVolume(newVolume)
   }
 
   const toggleVolumeSlider = () => {
