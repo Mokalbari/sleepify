@@ -1,5 +1,8 @@
-import { LikedSongs, TrackList } from "@/lib/types/definitions"
-import { useSleepifyAudio } from "./useSleepifyAudio"
+"use client"
+
+import { AudioTrack, LikedSongs, TrackList } from "@/lib/types/definitions"
+import { useCallback } from "react"
+import { useSleepifyEffects } from "./useSleepifyEffects"
 import { useSleepifyState } from "./useSleepifyState"
 
 export const useSleepifyPlayer = (
@@ -9,27 +12,98 @@ export const useSleepifyPlayer = (
   /* HOOK SUPERVISOR */
   /* *************** */
 
-  /*
-    This hook unites the two subhooks : useSleepifyAudio and useSleepifyState
-    it binds together the state and the effects and provides additionals functions
-    Those asbtractions are here so that future components do not need
-    to handle low level logic like play pause functions
-
-    Note: the audio ref is not defined here but in the context calling this hook.
-  */
-
-  // state
+  // State
   const playerState = useSleepifyState()
 
-  // effect
-  useSleepifyAudio({ audioRef, playerState })
+  // Destructure state and setters
+  const {
+    currentTrack,
+    setCurrentTrack,
+    currentPlaylist,
+    setCurrentPlaylist,
+    skipDirection,
+    setSkipDirection,
+    currentTrackIndex,
+    setCurrentTrackIndex,
+    isPlaying,
+    setIsPlaying,
+    volume,
+    setVolume,
+    currentTime,
+    setCurrentTime,
+    duration,
+    setDuration,
+  } = playerState
 
   /* ****************** */
-  /* SUPERVISOR TOOLBOX */
+  /* PLAYER FUNCTIONS   */
   /* ****************** */
 
-  // navigate to a specific point in the music
-  // used in combination with a slider
+  // Sets a track
+  const playTrack = (track: AudioTrack) => {
+    setCurrentTrack(track)
+    const index = currentPlaylist.findIndex((t) => t.trackId === track.trackId)
+    if (index !== -1) {
+      setCurrentTrackIndex(index)
+    }
+  }
+
+  // Skip to the next track
+  const skipNext = useCallback(() => {
+    setSkipDirection("next")
+    if (currentPlaylist.length === 0) return
+
+    const nextIndex = (currentTrackIndex + 1) % currentPlaylist.length
+
+    setCurrentTrack(currentPlaylist[nextIndex])
+    setCurrentTrackIndex(nextIndex)
+  }, [
+    currentPlaylist,
+    currentTrackIndex,
+    setSkipDirection,
+    setCurrentTrack,
+    setCurrentTrackIndex,
+  ])
+
+  // Skip to the previous track
+  const skipPrevious = useCallback(() => {
+    setSkipDirection("prev")
+
+    if (currentPlaylist.length === 0) return
+
+    let prevIndex =
+      (currentTrackIndex - 1 + currentPlaylist.length) % currentPlaylist.length
+
+    let attempts = currentPlaylist.length
+    while (currentPlaylist[prevIndex].trackUrl === null && attempts > 0) {
+      prevIndex =
+        (prevIndex - 1 + currentPlaylist.length) % currentPlaylist.length
+      attempts--
+    }
+
+    // If a valid track is found
+    if (attempts > 0) {
+      setCurrentTrack(currentPlaylist[prevIndex])
+      setCurrentTrackIndex(prevIndex)
+    } else {
+      console.warn("No valid previous track found.")
+      setCurrentTrack(null)
+    }
+  }, [
+    currentPlaylist,
+    currentTrackIndex,
+    setSkipDirection,
+    setCurrentTrack,
+    setCurrentTrackIndex,
+  ])
+
+  // Sets the volume between 0 and 1
+  const setAudioVolume = (newVolume: number) => {
+    const clampedVolume = Math.max(0, Math.min(1, newVolume))
+    setVolume(clampedVolume)
+  }
+
+  // Navigate to a specific point in the music
   const seekTo = (time: number) => {
     const audio = audioRef.current
     if (audio) {
@@ -48,9 +122,8 @@ export const useSleepifyPlayer = (
     }
   }
 
-  // set the volume to a specific point between 0 and 1
-  // used with a slider component
-  const setAudioVolume = (newVolume: number) => {
+  // Adjust volume with slider
+  const adjustVolume = (newVolume: number) => {
     const clampedVolume = Math.max(0, Math.min(1, newVolume))
     const audio = audioRef.current
 
@@ -58,12 +131,10 @@ export const useSleepifyPlayer = (
       audio.volume = clampedVolume
     }
 
-    playerState.setAudioVolume(clampedVolume)
+    setAudioVolume(clampedVolume)
   }
 
-  // If the selected track !== current trac, the playlist is updated
-  // it sets the current track and index and starts playback
-  // but if the selected track is already active, it juste uses the toggle play pause f()
+  // Play track from playlist
   const playTrackFromPlaylist = (
     trackId: string,
     trackUrl: string | null,
@@ -84,29 +155,59 @@ export const useSleepifyPlayer = (
 
     const index = audioPlaylist.findIndex((track) => track.trackId === trackId)
 
-    if (playerState.currentTrack?.trackUrl !== trackUrl) {
+    if (currentTrack?.trackUrl !== trackUrl) {
       if (index !== -1) {
         const audioTrack = audioPlaylist[index]
 
-        playerState.setCurrentPlaylist(audioPlaylist)
-        playerState.setCurrentTrackIndex(index)
-        playerState.playTrack(audioTrack)
+        setCurrentPlaylist(audioPlaylist)
+        setCurrentTrackIndex(index)
+        playTrack(audioTrack)
       }
     } else {
       togglePlayPause()
     }
   }
 
+  // Effect
+  useSleepifyEffects({
+    audioRef,
+    playerState: {
+      ...playerState,
+      skipNext,
+      skipPrevious,
+    },
+  })
+
   /*
     Returns the whole interface
-    state + effect + toolbox
+    state + functions
     This integration allows the context to only call a single hook
   */
   return {
-    ...playerState,
+    currentTrack,
+    currentPlaylist,
+    currentTrackIndex,
+    isPlaying,
+    volume,
+    currentTime,
+    duration,
+    skipDirection,
+    // Expose setters as needed
+    setCurrentTrack,
+    setCurrentPlaylist,
+    setCurrentTrackIndex,
+    setIsPlaying,
+    setAudioVolume,
+    setCurrentTime,
+    setDuration,
+    setSkipDirection,
+    // Player functions
+    playTrack,
+    skipNext,
+    skipPrevious,
     togglePlayPause,
     seekTo,
-    setAudioVolume,
+    adjustVolume,
     playTrackFromPlaylist,
   }
 }
