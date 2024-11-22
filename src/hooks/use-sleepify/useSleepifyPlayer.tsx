@@ -34,7 +34,6 @@ export const useSleepifyPlayer = (
   const {
     currentTrack,
     currentPlaylist,
-    skipDirection,
     currentTrackIndex,
     isPlaying,
     volume,
@@ -194,16 +193,17 @@ export const useSleepifyPlayer = (
     },
   })
 
+  /*
+    Exposes part of the state and utils functions
+    This integration allows the context to only call a single hook
+    while maintaining intern functions private
+  */
   return {
     currentTrack,
-    currentPlaylist,
-    currentTrackIndex,
     isPlaying,
     volume,
     currentTime,
     duration,
-    skipDirection,
-    playTrack,
     skipNext,
     skipPrevious,
     togglePlayPause,
