@@ -1,38 +1,12 @@
 "use client"
 
-import { AudioTrack } from "@/lib/types/definitions"
+import { PlayerStateWithActions } from "@/lib/types/definitions"
 import { RefObject, useEffect } from "react"
 
 // Define the types of actions and player state
-type Action =
-  | { type: "SET_CURRENT_TRACK"; payload: AudioTrack | null }
-  | { type: "SET_CURRENT_PLAYLIST"; payload: AudioTrack[] }
-  | { type: "SET_SKIP_DIRECTION"; payload: "prev" | "next" }
-  | { type: "SET_CURRENT_TRACK_INDEX"; payload: number }
-  | { type: "SET_IS_PLAYING"; payload: boolean }
-  | { type: "SET_VOLUME"; payload: number }
-  | { type: "SET_CURRENT_TIME"; payload: number }
-  | { type: "SET_DURATION"; payload: number }
-
-type PlayerState = {
-  state: {
-    currentTrack: AudioTrack | null
-    currentPlaylist: AudioTrack[]
-    skipDirection: "prev" | "next"
-    currentTrackIndex: number
-    isPlaying: boolean
-    volume: number
-    currentTime: number
-    duration: number
-  }
-  dispatch: React.Dispatch<Action>
-  skipNext: () => void
-  skipPrevious: () => void
-}
-
 type UseSleepifyEffectsParams = {
   audioRef: RefObject<HTMLAudioElement>
-  playerState: PlayerState
+  playerState: PlayerStateWithActions
 }
 
 export const useSleepifyEffects = ({

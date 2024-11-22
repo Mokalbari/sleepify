@@ -67,6 +67,16 @@ export type UseSleepifyAudioParams = {
   }
 }
 
+export type Action =
+  | { type: "SET_CURRENT_TRACK"; payload: AudioTrack | null }
+  | { type: "SET_CURRENT_PLAYLIST"; payload: AudioTrack[] }
+  | { type: "SET_SKIP_DIRECTION"; payload: "prev" | "next" }
+  | { type: "SET_CURRENT_TRACK_INDEX"; payload: number }
+  | { type: "SET_IS_PLAYING"; payload: boolean }
+  | { type: "SET_VOLUME"; payload: number }
+  | { type: "SET_CURRENT_TIME"; payload: number }
+  | { type: "SET_DURATION"; payload: number }
+
 export type PlayerState = {
   currentTrack: AudioTrack | null
   currentPlaylist: AudioTrack[]
@@ -78,12 +88,9 @@ export type PlayerState = {
   duration: number
 }
 
-export type Action =
-  | { type: "SET_CURRENT_TRACK"; payload: AudioTrack | null }
-  | { type: "SET_CURRENT_PLAYLIST"; payload: AudioTrack[] }
-  | { type: "SET_SKIP_DIRECTION"; payload: "prev" | "next" }
-  | { type: "SET_CURRENT_TRACK_INDEX"; payload: number }
-  | { type: "SET_IS_PLAYING"; payload: boolean }
-  | { type: "SET_VOLUME"; payload: number }
-  | { type: "SET_CURRENT_TIME"; payload: number }
-  | { type: "SET_DURATION"; payload: number }
+export type PlayerStateWithActions = {
+  state: PlayerState
+  dispatch: React.Dispatch<Action>
+  skipNext: () => void
+  skipPrevious: () => void
+}
