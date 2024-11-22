@@ -12,13 +12,14 @@ Think Spotify, but wrapped in a 90s aesthetic and dipped in neobrutalist vibes. 
 4. [Project Structure](#project-structure)
 5. [Core Feature Description](#core-feature-description)
    - [useSleepifyState](#useSleepifyState)
-   - [useSleepifyAudio](#useSleepifyAudio) 
+   - [useSleepifyEffects](#useSleepifyEffects) 
    - [useSleepifyPlayer](#useSleepifyPlayer) 
    - [useSleepify](#useSleepify) 
 5. [Roadmap](#roadmap)
    - [Authentification](#authentification)
    - [useOptimistic](#useOptimistic) 
 6. [Contributing](#contributing)
+7. [Tribute](#tribute)
 
 ## Features
 With Sleepify, you can:
@@ -26,7 +27,7 @@ With Sleepify, you can:
 - Precisely time-seek your favorite parts of the song
 - Adjust the volume so your neighbor can enjoy your music better.
 - Create and listen to your favorite playlists, curated by your superior taste.
-- View the app from mobile (from ~320px) to desktop.
+- View the app from mobile (~320px) to desktop.
 - Sing along to lyrics because you are the star of your own nostalgic sitcom.
 
 ## Tech Stack
@@ -42,7 +43,7 @@ You can find the whole description out in package.json.
 Take some time to skim through it before initialising the project.
 
 **Heads up**: this is a *POC* (Proof of Concept), so it’s intentionally minimal and snappy.
-I try to not rely on external packages unless the needs for it grows with the app.
+I try to not rely on external packages unless the need for it grows with the app.
 
 ## Getting Started
 ### Prerequisites
@@ -56,22 +57,23 @@ Before you start, make sure you meet the following requirement:
 3. `pnpm install`
 
 **Big warning**: It won’t work out of the box. The database is hosted on Vercel.
-You’ll need to email rahoarau@gmail.com to get your credentials.
+You’ll need to email `rahoarau@gmail.com` to get your credentials.
 (Yes, we gatekeep.)
 
 When you are approved :
-4. Replace the `.env.sample` to `.env` and fill the fields with your credentials.
-5. `pnpm dev` and visit : `http://localhost:3000`
+- Replace the `.env.sample` to `.env` and fill the fields with your credentials.
+- `pnpm dev` and visit : `http://localhost:3000`
 
 ## Project Structure
 This app uses NextJS 15 App Router with src directory.
+Feeling lost? You can find a recap in `./docs/tree-structure.png`
 
-[!Tree structure](./docs//tree-structure.png)
+[!Tree structure](./docs/tree-structure.png)
 
 ## Core Feature Description
 At its core, Sleepify relies on three hooks in @/hooks/use-sleepify:
 - useSleepifyState
-- useSleepifyAudio
+- useSleepifyEffects
 - useSleepifyPlayer
 
 Each plays a key role in managing the app's music playback. Here’s a closer look:
@@ -83,14 +85,10 @@ It tracks crucial aspects of the app like:
 - The playback state (e.g., playing, paused).
 - Volume levels and duration.
 
-Additionally, it provides methods to interact with the playback state, including:
+Under the hood, it uses useReducer for its great scalability and ease of maintenance.
 
-- Setting a track.
-- Skipping to the next/previous song.
-- Retrieving the duration of a track.
-
-### useSleepifyAudio
-useSleepifyAudio is responsible for synchronizing the app’s state with the audio player.
+### useSleepifyEffects
+useSleepifyEffects is responsible for synchronizing the app’s state with the audio player.
 By binding event listeners to the state, it ensures that changes in playback (like pausing or seeking) are reflected correctly.
 
 ### useSleepifyPlayer
@@ -118,3 +116,9 @@ Fork this repo, make your changes, and submit a Pull Request.
 Follow conventional commits, and we’re good to go.
 
 Thanks for checking out Sleepify—because irony and nostalgia make everything better.
+
+## Tribute
+Wondering where the name Sleepify comes from? Check out this video:
+`https://www.youtube.com/watch?v=KXvncV79LXk&pp=ygUIc2xlZXBpZnk%3D`
+Or this wiki page for more details:
+`https://en.wikipedia.org/wiki/Sleepify`
