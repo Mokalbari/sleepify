@@ -1,0 +1,18 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "eslint.runtime": "node",
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "prettier.ignorePath": ".gitignore",
+  "search.exclude": {
+    "pnpm-lock.yaml": true,
+    "**/.cache/*": true,
+    "**/.next/*": true,
+    "**/.turbo/*": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
