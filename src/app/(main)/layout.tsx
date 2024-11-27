@@ -21,11 +21,11 @@ export default async function SleepifyLayout({
     <LikesProvider initialCount={likedCount.count}>
       <div className="flex min-h-screen bg-lightBlue">
         <SideNav tracksCount={tracksCount} userInfo={userInfo} />
-        <div className="flex-1">
+        <div className="relative flex-1">
           <SleepifyProvider>
             <LyricsProvider>
               <FullPlayerProvider>
-                <main className="">{children}</main>
+                <main className="min-h-screen">{children}</main>
                 <SleepifyNormalPlayer />
               </FullPlayerProvider>
             </LyricsProvider>

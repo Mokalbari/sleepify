@@ -4,7 +4,7 @@ Remember when the internet was a chaotic wonderland, and streaming meant "buffer
 
 Think Spotify, but wrapped in a 90s aesthetic and dipped in neobrutalist vibes. Functional? Yes. Gorgeous? Sure. Ironic? You bet.
 
-## Table of content
+## Table of contents
 
 1. [Features](#features)
 2. [Tech Stack](#tech-stack)
@@ -19,7 +19,6 @@ Think Spotify, but wrapped in a 90s aesthetic and dipped in neobrutalist vibes. 
    - [useSleepify](#useSleepify)
 6. [Roadmap](#roadmap)
    - [Authentification](#authentification)
-   - [useOptimistic](#useOptimistic)
 7. [Contributing](#contributing)
 8. [Tribute](#tribute)
 
@@ -31,12 +30,12 @@ With Sleepify, you can:
 - Precisely time-seek your favorite parts of the song
 - Adjust the volume so your neighbor can enjoy your music better.
 - Create and listen to your favorite playlists, curated by your superior taste.
-- View the app from mobile (~320px) to desktop.
+- Enjoy a responsive design from mobile (~320px) to desktop.
 - Sing along to lyrics because you are the star of your own nostalgic sitcom.
 
 ## Tech Stack
 
-With app was built using **NextJS15** and **React 19**.
+This app was built using **NextJS15** and **React 19**.
 The essentials include:
 
 - TypeScript
@@ -45,8 +44,8 @@ The essentials include:
 - Lucide-React
 - Hosting: **Vercel**.
 
-You can find the whole description out in package.json.
-Take some time to skim through it before initialising the project.
+You can find the full description out in `package.json`.
+Take some time to skim through it before initializing the project.
 
 **Heads up**: this is a _POC_ (Proof of Concept), so it’s intentionally minimal and snappy.
 I try to not rely on external packages unless the need for it grows with the app.
@@ -70,9 +69,9 @@ Before you start, make sure you meet the following requirement:
 You’ll need to email `rahoarau@gmail.com` to get your credentials.
 (Yes, we gatekeep.)
 
-When you are approved :
+When you are approved:
 
-- Replace the `.env.sample` to `.env` and fill the fields with your credentials.
+- Rename the `.env.sample` to `.env` and fill the fields with your credentials.
 - `pnpm dev` and visit : `http://localhost:3000`
 
 ## Project Structure
@@ -126,11 +125,6 @@ Here’s what’s on the horizon (if I had 48 more hours and unlimited coffee):
 
 - The test `USER_ID` is hardcoded everywhere.
 - We can use NextAuth as it provides a simple and modern auth options
-
-### useOptimistic
-
-- Right now, the likes counter and like feature solely rely on the client. The state might fall out of sync with the server and there's no failsafe to handle it.
-  To prevent this, we can use NextJS with React useOptimistic hook to rely on server.
 
 ## Contributing
 
