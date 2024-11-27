@@ -4,7 +4,6 @@ import { useFullPlayer } from "@/context/full-player/use-full-player"
 import { useSleepify } from "@/context/sleepify/use-sleepify"
 import { ChevronDown } from "lucide-react"
 import Image from "next/image"
-import cover from "../../public/cover-album_placeholder.webp"
 import PlayerControlFS from "./ui/player-control-fs"
 import ProgressBarFS from "./ui/progress-bar-fs"
 
@@ -19,7 +18,7 @@ export default function SleepifyFSPlayer() {
       </div>
       <div className="brutal rounded-md lg:max-w-sm">
         <Image
-          src={currentTrack?.previewImage || cover}
+          src={currentTrack?.previewImage || "/cover-album_placeholder"}
           alt={`Cover album ${currentTrack?.trackName || ""}`}
           width={640}
           height={640}
