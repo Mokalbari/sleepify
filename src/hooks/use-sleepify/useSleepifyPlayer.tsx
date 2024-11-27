@@ -15,7 +15,7 @@ import { useSleepifyState } from "./useSleepifyState"
  * It also provides a toolbox used to interact with the music.
  *
  * It's main goal is to simplify the interaction with the state and effects
- * by dispatching some utils function and by returning a full interface to the context.
+ * by dispatching some utils function and by returning an interface to the context.
  * Those asbtractions are here so that future components do not need
  * to handle low level logic like play pause functions
  */
@@ -47,7 +47,7 @@ export const useSleepifyPlayer = (
    * *******
    */
 
-  /* SLEEPIFY SKIPPING FUNCTIONS */
+  /* SLEEPIFY PLAYING FUNCTIONS */
   const playTrack = (track: AudioTrack) => {
     dispatch({ type: "SET_CURRENT_TRACK", payload: track })
     const index = currentPlaylist.findIndex((t) => t.trackId === track.trackId)

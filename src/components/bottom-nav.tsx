@@ -1,12 +1,11 @@
 "use client"
 
+import { useLikesContext } from "@/context/likes/use-likes-context"
 import { cn } from "@/utils/helpers/style"
 import { AudioLines, Heart } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import userPhoto from "../../public/userphoto.jpg"
-import { useLikesContext } from "@/context/likes/use-likes-context"
 
 export default function BottomNav() {
   const { likedCount } = useLikesContext()
@@ -16,10 +15,7 @@ export default function BottomNav() {
     <div className="bg-white py-2 text-xs">
       <nav role="navigation">
         <menu className="flex items-center justify-between gap-4">
-          <li
-            role="menuitem"
-            className="-white flex items-center gap-4 px-5 py-1"
-          >
+          <li role="menuitem" className="px-5 py-1">
             <Link
               href={"/"}
               aria-current={pathname === "/" ? "page" : undefined}
@@ -38,14 +34,14 @@ export default function BottomNav() {
           </li>
           <li role="menuitem" className="max-w-9">
             <Image
-              src={userPhoto}
+              src={"/userphoto.jpg"}
               width={128}
               height={128}
               alt="Profile photo of the current user"
               className="rounded-full border border-black"
             />
           </li>
-          <li role="menuitem" className="flex items-center gap-4 px-5 py-1">
+          <li role="menuitem" className="px-5 py-1">
             <Link
               href={"/likes"}
               aria-current={pathname === "/likes" ? "page" : undefined}

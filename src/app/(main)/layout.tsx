@@ -1,4 +1,3 @@
-// layout.tsx
 import SideNav from "@/components/side-nav"
 import SleepifyNormalPlayer from "@/components/sleepify-normal-player"
 import FullPlayerProvider from "@/context/full-player/full-player-provider"
@@ -21,20 +20,12 @@ export default async function SleepifyLayout({
   return (
     <LikesProvider initialCount={likedCount.count}>
       <div className="flex min-h-screen bg-lightBlue">
-        <SideNav
-          tracksCount={tracksCount}
-          userInfo={{
-            id: userInfo.id,
-            firstname: userInfo.firstname,
-            lastname: userInfo.lastname,
-            avatar: userInfo.avatar,
-          }}
-        />
-        <div className="flex-1">
+        <SideNav tracksCount={tracksCount} userInfo={userInfo} />
+        <div className="relative flex-1">
           <SleepifyProvider>
             <LyricsProvider>
               <FullPlayerProvider>
-                <main className="">{children}</main>
+                <main className="min-h-screen">{children}</main>
                 <SleepifyNormalPlayer />
               </FullPlayerProvider>
             </LyricsProvider>

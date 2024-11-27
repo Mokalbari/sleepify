@@ -2,6 +2,7 @@
 
 import { Count, TrackList, UserInfo } from "@/lib/types/definitions"
 import { sql } from "@vercel/postgres"
+import { revalidatePath } from "next/cache"
 import { cache } from "react"
 
 const USER_ID = "410544b2-4001-4271-9855-fec4b6a6442a"
@@ -80,3 +81,38 @@ export const getPlaylist = cache(async () => {
     throw new Error("Error while fetching tracklist")
   }
 })
+
+export const deleteFromLikes = async (trackId: string) => {
+  if (!trackId) {
+    throw new Error("Track ID is required")
+  }
+
+  const result = await sql/*SQL*/ `
+    DELETE FROM favorites
+    WHERE user_id = ${USER_ID} and track_id = ${trackId}
+  `
+
+  if (result.rowCount === 0) {
+    throw new Error("No favorite track found to delete")
+  }
+
+  revalidatePath("/likes")
+  return { success: true }
+}
+
+export const addToLikes = async (trackId: string) => {
+  if (!trackId) {
+    throw new Error("Track ID is required")
+  }
+
+  const result = await sql/*sql*/ `
+  INSERT INTO favorites (user_id, track_id)
+  VALUES (${USER_ID}, ${trackId})`
+
+  if (result.rowCount === 0) {
+    throw new Error("Failed to add to favorites")
+  }
+  revalidatePath("/likes")
+
+  return { success: true }
+}

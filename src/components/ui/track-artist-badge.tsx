@@ -4,7 +4,7 @@ import Image from "next/image"
 type Props = Pick<TrackList, "track_image" | "track_name" | "artist_name">
 
 export default function TrackArtistBadge({
-  track_image: trackImage = "../../../public/cover-album_placeholder.webp",
+  track_image: trackImage = "/cover-album_placeholder.webp",
   track_name: trackName = "Unknown track",
   artist_name: artistName = ["Unknown artist"],
 }: Props) {

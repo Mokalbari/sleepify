@@ -1,9 +1,8 @@
 "use client"
 
-import Image from "next/image"
-import cover from "../../../public/cover-album_placeholder.webp"
 import { useFullPlayer } from "@/context/full-player/use-full-player"
 import { useSleepify } from "@/context/sleepify/use-sleepify"
+import Image from "next/image"
 
 export default function PlayerTrack() {
   const { currentTrack } = useSleepify()
@@ -28,7 +27,7 @@ export default function PlayerTrack() {
     >
       <div className="brutal w-14 rounded-md sm:w-16">
         <Image
-          src={currentTrack?.previewImage || cover}
+          src={currentTrack?.previewImage || "/cover-album_placeholder.webp"}
           width={650}
           height={650}
           alt={`Cover album ${trackName}`}
