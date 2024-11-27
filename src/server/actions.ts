@@ -82,7 +82,7 @@ export const getPlaylist = cache(async () => {
   }
 })
 
-export const deleteFromlikes = async (trackId: string) => {
+export const deleteFromLikes = async (trackId: string) => {
   if (!trackId) {
     throw new Error("Track ID is required")
   }
