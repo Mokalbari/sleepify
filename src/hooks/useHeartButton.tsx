@@ -1,6 +1,7 @@
 "use client"
 
 import { useLikesContext } from "@/context/likes/use-likes-context"
+import { addToLikes, deleteFromlikes } from "@/server/actions"
 import { useState } from "react"
 
 type Props = {
@@ -13,31 +14,14 @@ export const useHeartButton = ({ trackId, initialFavorite }: Props) => {
   const { incrementLikes, decrementLikes } = useLikesContext()
 
   const toggleFavorite = async () => {
-    try {
-      if (isFavorite) {
-        const res = await fetch("/api/likes", {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ track_id: trackId }),
-        })
-
-        if (!res.ok) throw new Error("Failed to remove favorite")
-        decrementLikes()
-        setIsFavorite(false)
-      } else {
-        const res = await fetch("/api/likes", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ track_id: trackId }),
-        })
-
-        if (!res.ok) throw new Error("Failed to add a new favorite track")
-        incrementLikes()
-        setIsFavorite(true)
-      }
-    } catch (error) {
-      console.error(error)
+    if (isFavorite) {
+      await deleteFromlikes(trackId)
+      decrementLikes()
+    } else {
+      await addToLikes(trackId)
+      incrementLikes()
     }
+    setIsFavorite((prevState) => !prevState)
   }
 
   return { isFavorite, toggleFavorite }
