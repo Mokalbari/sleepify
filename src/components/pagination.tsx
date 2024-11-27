@@ -25,7 +25,6 @@ export default function Pagination({ currentPage, totalPages }: Props) {
         currentPage={currentPage}
         totalPages={totalPages}
         direction="left"
-        createPageUrl={createPageUrl}
         aria-label="Go to previous page"
       />
 
@@ -59,7 +58,6 @@ export default function Pagination({ currentPage, totalPages }: Props) {
         currentPage={currentPage}
         totalPages={totalPages}
         direction="right"
-        createPageUrl={createPageUrl}
         aria-label="Go to next page"
       />
     </nav>
