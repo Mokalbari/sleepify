@@ -35,7 +35,7 @@ export default function Pagination({ currentPage, totalPages }: Props) {
             <Link
               className={cn(
                 "inline-block w-8 rounded-md border border-black bg-white px-2 text-center",
-                "hover:cursor-pointer hover:bg-blue-500 hover:font-bold hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2",
+                "hover:cursor-pointer hover:bg-blue-500 hover:font-bold hover:text-white",
                 {
                   "bg-deepBlue font-bold text-white": page === currentPage,
                 },
