@@ -23,7 +23,6 @@ export default function NavButton({
 
   return (
     <Link
-      scroll={false}
       href={createPageUrl(newPage)}
       onClick={(e) => {
         if (isDisabled) {
