@@ -31,21 +31,18 @@ export default function Pagination({ currentPage, totalPages }: Props) {
       {/* Page Links */}
       <ul className="flex gap-4">
         {pagination.map((page) => (
-          <li
-            className={cn(
-              "w-8 rounded-md border border-black bg-white px-2 text-center",
-              "hover:cursor-pointer hover:bg-blue-500 hover:font-bold hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2",
-              {
-                "bg-deepBlue font-bold text-white": page === currentPage,
-              },
-            )}
-            key={page}
-          >
+          <li key={page}>
             <Link
+              className={cn(
+                "inline-block w-8 rounded-md border border-black bg-white px-2 text-center",
+                "hover:cursor-pointer hover:bg-blue-500 hover:font-bold hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2",
+                {
+                  "bg-deepBlue font-bold text-white": page === currentPage,
+                },
+              )}
               href={createPageUrl(page)}
               aria-label={`Go to page ${page}`}
               aria-current={page === currentPage ? "page" : undefined}
-              className={""}
             >
               {page}
             </Link>
