@@ -13,14 +13,18 @@ export default function SleepifyNormalPlayer() {
   const { handleFullPlayerVisibility } = useFullPlayer()
   const { currentTrack } = useSleepify()
   return (
-    <div className="sticky bottom-0 left-0">
+    <div
+      className={cn("sticky bottom-0 left-0", {
+        "animate-slide-up": currentTrack,
+      })}
+    >
       <div className="sm:hidden">
         <BottomNav />
       </div>
       <div
         className={cn("", {
           hidden: !currentTrack,
-          "animate-slide-up": currentTrack,
+          // "animate-slide-up": currentTrack,
         })}
       >
         <ProgressBar />

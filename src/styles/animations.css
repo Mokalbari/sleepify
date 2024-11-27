@@ -1,11 +1,9 @@
 @keyframes slide-up {
   from {
-    transform: translateY(100%);
-    opacity: 25;
+    transform: translateY(50%);
   }
   to {
     transform: translateY(0);
-    opacity: 100;
   }
 }
 
@@ -14,9 +12,11 @@
 }
 
 .play {
-  transition: transform ease-in-out 50ms, fill 150ms;
+  transition:
+    transform ease-in-out 50ms,
+    fill 150ms;
   &:hover {
-    fill: #FFE959;
+    fill: #ffe959;
     animation: jump 0.25s ease-in-out 0.5s forwards;
   }
 }
@@ -37,10 +37,12 @@
 }
 
 .wiggle {
-  transition: transform ease-in-out 150ms, fill ease-in-out 150ms ;
+  transition:
+    transform ease-in-out 150ms,
+    fill ease-in-out 150ms;
   &:hover {
-    fill: #FF5454;
-    animation: wiggle 0.6s ease-in-out 0.2s 2; 
+    fill: #ff5454;
+    animation: wiggle 0.6s ease-in-out 0.2s 2;
   }
 }
 
@@ -49,13 +51,13 @@
     transform: rotate(0deg);
   }
   25% {
-    transform: rotate(-5deg); 
+    transform: rotate(-5deg);
   }
   50% {
-    transform: rotate(5deg); 
+    transform: rotate(5deg);
   }
   75% {
-    transform: rotate(-5deg); 
+    transform: rotate(-5deg);
   }
   100% {
     transform: rotate(0deg);

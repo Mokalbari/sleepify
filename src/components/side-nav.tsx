@@ -34,7 +34,7 @@ export default function SideNav({ tracksCount, userInfo }: Props) {
             <span className="cursor-pointer">
               <SleepifyLogo sizes="40" />
             </span>
-            <span>Sleepify</span>
+            Sleepify
           </h1>
         </Link>
         <nav role="navigation" className="mt-12 text-xs">
@@ -45,9 +45,7 @@ export default function SideNav({ tracksCount, userInfo }: Props) {
               })}
             >
               <AudioLines aria-hidden />
-              <span>
-                <Link href={"/"}>Tracks ({tracksCount.count})</Link>
-              </span>
+              <Link href={"/"}>Tracks ({tracksCount.count})</Link>
             </li>
 
             <li
@@ -56,9 +54,7 @@ export default function SideNav({ tracksCount, userInfo }: Props) {
               })}
             >
               <Heart aria-hidden />
-              <span>
-                <Link href={"/likes"}>Likes ({likedCount.count})</Link>
-              </span>
+              <Link href={"/likes"}>Likes ({likedCount.count})</Link>
             </li>
           </menu>
         </nav>
