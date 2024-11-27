@@ -19,7 +19,6 @@ Think Spotify, but wrapped in a 90s aesthetic and dipped in neobrutalist vibes. 
    - [useSleepify](#useSleepify)
 6. [Roadmap](#roadmap)
    - [Authentification](#authentification)
-   - [useOptimistic](#useOptimistic)
 7. [Contributing](#contributing)
 8. [Tribute](#tribute)
 
@@ -126,11 +125,6 @@ Here’s what’s on the horizon (if I had 48 more hours and unlimited coffee):
 
 - The test `USER_ID` is hardcoded everywhere.
 - We can use NextAuth as it provides a simple and modern auth options
-
-### useOptimistic
-
-- Right now, the likes counter and like feature solely rely on the client. The state might fall out of sync with the server and there's no failsafe to handle it.
-  To prevent this, we can use NextJS with React useOptimistic hook to rely on server.
 
 ## Contributing
 
