@@ -78,6 +78,7 @@ const useSleepifyPlayer = (
     volume,
     currentTime,
     duration,
+    skipDirection,
   } = state
 
   // initialize audio element for use in player functions
@@ -201,7 +202,7 @@ const useSleepifyPlayer = (
     }
   }, [currentPlaylist, currentTrackIndex, dispatch])
 
-  // Playback Control Functions
+  // SEEK TO FUNCTION
   const seekTo = useCallback(
     (time: number) => {
       if (audio) {
@@ -211,6 +212,7 @@ const useSleepifyPlayer = (
     [audio],
   )
 
+  // ADJUST VOLUME FUNCTION
   const adjustVolume = useCallback(
     (newVolume: number) => {
       const clampedVolume = Math.max(0, Math.min(1, newVolume))
@@ -224,7 +226,7 @@ const useSleepifyPlayer = (
     [audio, dispatch],
   )
 
-  // Effect Handlers
+  // AUDIO EFFECTS HANDLERS
   useEffect(() => {
     if (!audio) return
 
@@ -267,7 +269,7 @@ const useSleepifyPlayer = (
     } else {
       skipNext()
     }
-  }, [audio, currentTrack, state.skipDirection, skipNext, dispatch])
+  }, [audio, currentTrack, skipDirection, skipNext, dispatch])
 
   const playerControls = useMemo(
     () => ({
