@@ -3,13 +3,43 @@
 import type { TrackList } from "@/lib/types/definitions"
 import { sql } from "@vercel/postgres"
 import { cache } from "react"
+import { z } from "zod"
 
+// Set of Constants
+// MUST BE CLEANUP BEFORE GOING TO PROD
 const USER_ID = "410544b2-4001-4271-9855-fec4b6a6442a"
 const ITEMS_PER_PAGE = 10
-// GET
+
+// Schema Validation with Zod
+const TrackSchema = z.object({
+  track_id: z.string(),
+  track_name: z.string(),
+  music_url: z.string().url().nullable(),
+  track_duration: z.number(),
+  track_image: z.string().url().nullable(),
+  artist_name: z.array(z.string()),
+  is_favorite: z.boolean(),
+})
+
+const TrackListSchema = z.array(TrackSchema)
+
+const PaginationSchema = z.number().int().min(1).default(1)
+
+/**
+ * GET req -- Tracks
+ * Retrieving from db the tracks and artists associated.
+ * if multiple are found for the same tracks, it is returned as an array
+ * Also checks if the track is from the favorite.
+ *
+ * It adopts the constant limit / page with an offset for the pagination system.
+ */
 export const getTracks = cache(async (currentPage: number) => {
   try {
-    const offset = (currentPage - 1) * ITEMS_PER_PAGE
+    // Runtime validation for the page and setting the offset values
+    const page = PaginationSchema.parse(currentPage)
+    const offset = (page - 1) * ITEMS_PER_PAGE
+
+    // SQL Query
     const { rows } = await sql<TrackList>/* SQL */ `
     SELECT 
         tracks.id AS track_id,
@@ -35,13 +65,18 @@ export const getTracks = cache(async (currentPage: number) => {
     LIMIT ${ITEMS_PER_PAGE}
     OFFSET ${offset}
 `
-    return rows
+    // Zod parsing data before returning it
+    return TrackListSchema.parse(rows)
   } catch (error) {
     console.error(error)
     throw new Error("Error while fetching tracklist")
   }
 })
 
+/**
+ * GET req -- Count page
+ * base on the nb of items per page, it returns the total of pages available
+ */
 export const getTotalPages = cache(async () => {
   try {
     const count = await sql/* SQL */ `
