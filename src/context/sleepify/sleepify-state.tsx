@@ -1,20 +1,6 @@
-"use client"
+import { PlayerState, Action } from "@/lib/types/definitions"
 
-import type { Action, PlayerState } from "@/lib/types/definitions"
-import { useReducer } from "react"
-
-/**
- * STATE MANAGER -- useSleepifyState
- * This hook is the backbone state management system of Sleepify.
- * it maintains every states related to music the music player.
- *
- * This keeps track of: tracks (eh.), playlist, volume, duration...
- * It's easily scalable thanks to the React useReducer.
- *
- * A hook is exported to dispatch the initialState and the reducer
- */
-
-const initialState: PlayerState = {
+export const initialState: PlayerState = {
   currentTrack: null,
   currentPlaylist: [],
   skipDirection: "next",
@@ -25,7 +11,7 @@ const initialState: PlayerState = {
   duration: 0,
 }
 
-const reducer = (state: PlayerState, action: Action): PlayerState => {
+export const reducer = (state: PlayerState, action: Action): PlayerState => {
   switch (action.type) {
     case "SET_CURRENT_TRACK":
       return { ...state, currentTrack: action.payload }
@@ -45,14 +31,5 @@ const reducer = (state: PlayerState, action: Action): PlayerState => {
       return { ...state, duration: action.payload }
     default:
       return state
-  }
-}
-
-export const useSleepifyState = () => {
-  const [state, dispatch] = useReducer(reducer, initialState)
-
-  return {
-    state,
-    dispatch,
   }
 }

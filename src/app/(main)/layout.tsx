@@ -3,7 +3,7 @@ import SleepifyNormalPlayer from "@/components/sleepify-normal-player"
 import FullPlayerProvider from "@/context/full-player/full-player-provider"
 import LikesProvider from "@/context/likes/likes-provider"
 import LyricsProvider from "@/context/lyrics/lyrics-provider"
-import SleepifyProvider from "@/context/sleepify/sleepif-provider"
+import SleepifyProvider from "@/context/sleepify/use-sleepify"
 import { getLikesCount, getTracksCount, getUserInfo } from "@/server/actions"
 
 export default async function SleepifyLayout({
