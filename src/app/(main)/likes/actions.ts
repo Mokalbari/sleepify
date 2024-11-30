@@ -1,22 +1,8 @@
+import { USER_ID } from "@/lib/constants"
+import { LikesListSchema } from "@/lib/schema/definitions"
 import { Count, LikedSongs } from "@/lib/types/definitions"
 import { sql } from "@vercel/postgres"
 import { cache } from "react"
-import { z } from "zod"
-
-// Set of constants
-// MUST BE CLEANUP BEFORE GOING TO PROD
-const USER_ID = "410544b2-4001-4271-9855-fec4b6a6442a"
-
-// Schema Validation with Zod
-const LikesSchema = z.object({
-  track_id: z.string(),
-  track_name: z.string(),
-  music_url: z.string().url().nullable(),
-  duration_ms: z.number(),
-  artist_name: z.array(z.string()),
-})
-
-const LikesListSchema = z.array(LikesSchema)
 
 /**
  * GET req -- Users liked songs

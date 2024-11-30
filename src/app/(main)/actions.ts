@@ -1,29 +1,10 @@
 "use server"
 
+import { ITEMS_PER_PAGE, USER_ID } from "@/lib/constants"
+import { PaginationSchema, TrackSchema } from "@/lib/schema/definitions"
 import type { TrackList } from "@/lib/types/definitions"
 import { sql } from "@vercel/postgres"
 import { cache } from "react"
-import { z } from "zod"
-
-// Set of Constants
-// MUST BE CLEANUP BEFORE GOING TO PROD
-const USER_ID = "410544b2-4001-4271-9855-fec4b6a6442a"
-const ITEMS_PER_PAGE = 10
-
-// Schema Validation with Zod
-const TrackSchema = z.object({
-  track_id: z.string(),
-  track_name: z.string(),
-  music_url: z.string().url().nullable(),
-  track_duration: z.number(),
-  track_image: z.string().url().nullable(),
-  artist_name: z.array(z.string()),
-  is_favorite: z.boolean(),
-})
-
-const TrackListSchema = z.array(TrackSchema)
-
-const PaginationSchema = z.number().int().min(1).default(1)
 
 /**
  * GET req -- Tracks
@@ -33,14 +14,15 @@ const PaginationSchema = z.number().int().min(1).default(1)
  *
  * It adopts the constant limit / page with an offset for the pagination system.
  */
-export const getTracks = cache(async (currentPage: number) => {
-  try {
-    // Runtime validation for the page and setting the offset values
-    const page = PaginationSchema.parse(currentPage)
-    const offset = (page - 1) * ITEMS_PER_PAGE
+export const getTracks = cache(
+  async (currentPage: number): Promise<TrackList> => {
+    try {
+      // Runtime validation for the page and setting the offset values
+      const page = PaginationSchema.parse(currentPage)
+      const offset = (page - 1) * ITEMS_PER_PAGE
 
-    // SQL Query
-    const { rows } = await sql<TrackList>/* SQL */ `
+      // SQL Query
+      const { rows } = await sql<TrackList>/* SQL */ `
     SELECT 
         tracks.id AS track_id,
         tracks.name AS track_name,
@@ -65,19 +47,22 @@ export const getTracks = cache(async (currentPage: number) => {
     LIMIT ${ITEMS_PER_PAGE}
     OFFSET ${offset}
 `
-    // Zod parsing data before returning it
-    return TrackListSchema.parse(rows)
-  } catch (error) {
-    console.error(error)
-    throw new Error("Error while fetching tracklist")
-  }
-})
+      // Zod parsing data before returning it
+      const validatedData = rows.map((row) => TrackSchema.parse(row))
+      return validatedData
+      // return TrackListSchema.parse(rows)
+    } catch (error) {
+      console.error(error)
+      throw new Error("Error while fetching tracklist")
+    }
+  },
+)
 
 /**
  * GET req -- Count page
  * base on the nb of items per page, it returns the total of pages available
  */
-export const getTotalPages = cache(async () => {
+export const getTotalPages = cache(async (): Promise<number> => {
   try {
     const count = await sql/* SQL */ `
     SELECT COUNT(*) FROM tracks`
