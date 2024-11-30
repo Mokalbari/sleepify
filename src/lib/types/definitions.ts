@@ -1,4 +1,3 @@
-import { useSleepifyPlayer } from "@/hooks/use-sleepify/useSleepifyPlayer"
 import { ReactNode } from "react"
 import { z } from "zod"
 import {
@@ -23,8 +22,6 @@ export type Count = z.infer<typeof CountSchema>
 export type Avatar = {
   avatar: string
 }
-
-export type AudioContextType = ReturnType<typeof useSleepifyPlayer>
 
 export interface ContextProvider {
   children: ReactNode

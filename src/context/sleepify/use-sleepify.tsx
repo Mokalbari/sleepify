@@ -14,6 +14,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useReducer,
   useRef,
 } from "react"
@@ -68,15 +69,20 @@ const useSleepifyPlayer = (
   } = state
 
   // Track Management Functions
-  const playTrack = (track: AudioTrack) => {
-    dispatch({ type: "SET_CURRENT_TRACK", payload: track })
-    const index = currentPlaylist.findIndex((t) => t.trackId === track.trackId)
-    if (index !== -1) {
-      dispatch({ type: "SET_CURRENT_TRACK_INDEX", payload: index })
-    }
-  }
+  const playTrack = useCallback(
+    (track: AudioTrack) => {
+      dispatch({ type: "SET_CURRENT_TRACK", payload: track })
+      const index = currentPlaylist.findIndex(
+        (t) => t.trackId === track.trackId,
+      )
+      if (index !== -1) {
+        dispatch({ type: "SET_CURRENT_TRACK_INDEX", payload: index })
+      }
+    },
+    [currentPlaylist, dispatch],
+  )
 
-  const togglePlayPause = () => {
+  const togglePlayPause = useCallback(() => {
     const audio = audioRef.current
     if (!audio) return
 
@@ -85,39 +91,44 @@ const useSleepifyPlayer = (
     } else {
       audio.pause()
     }
-  }
+  }, [audioRef])
 
-  const playTrackFromPlaylist = (
-    trackId: string,
-    trackUrl: string | null,
-    playlist: TrackList | LikedSongs,
-  ) => {
-    if (!trackUrl) return
+  const playTrackFromPlaylist = useCallback(
+    (
+      trackId: string,
+      trackUrl: string | null,
+      playlist: TrackList | LikedSongs,
+    ) => {
+      if (!trackUrl) return
 
-    const audioPlaylist: AudioTrack[] = playlist.map((track) => ({
-      trackId: track.track_id,
-      trackUrl: track.music_url ?? null,
-      trackName: track.track_name,
-      artistName: Array.isArray(track.artist_name)
-        ? track.artist_name
-        : [track.artist_name],
-      previewImage: track.track_image ?? null,
-      isFavorite: "is_favorite" in track ? track.is_favorite : false,
-    }))
+      const audioPlaylist: AudioTrack[] = playlist.map((track) => ({
+        trackId: track.track_id,
+        trackUrl: track.music_url ?? null,
+        trackName: track.track_name,
+        artistName: Array.isArray(track.artist_name)
+          ? track.artist_name
+          : [track.artist_name],
+        previewImage: track.track_image ?? null,
+        isFavorite: "is_favorite" in track ? track.is_favorite : false,
+      }))
 
-    const index = audioPlaylist.findIndex((track) => track.trackId === trackId)
+      const index = audioPlaylist.findIndex(
+        (track) => track.trackId === trackId,
+      )
 
-    if (currentTrack?.trackUrl !== trackUrl) {
-      if (index !== -1) {
-        const audioTrack = audioPlaylist[index]
-        dispatch({ type: "SET_CURRENT_PLAYLIST", payload: audioPlaylist })
-        dispatch({ type: "SET_CURRENT_TRACK_INDEX", payload: index })
-        playTrack(audioTrack)
+      if (currentTrack?.trackUrl !== trackUrl) {
+        if (index !== -1) {
+          const audioTrack = audioPlaylist[index]
+          dispatch({ type: "SET_CURRENT_PLAYLIST", payload: audioPlaylist })
+          dispatch({ type: "SET_CURRENT_TRACK_INDEX", payload: index })
+          playTrack(audioTrack)
+        }
+      } else {
+        togglePlayPause()
       }
-    } else {
-      togglePlayPause()
-    }
-  }
+    },
+    [currentTrack, dispatch, togglePlayPause, playTrack],
+  )
 
   // Navigation Functions
   const skipNext = useCallback(() => {
@@ -157,23 +168,29 @@ const useSleepifyPlayer = (
   }, [currentPlaylist, currentTrackIndex, dispatch])
 
   // Playback Control Functions
-  const seekTo = (time: number) => {
-    const audio = audioRef.current
-    if (audio) {
-      audio.currentTime = time
-    }
-  }
+  const seekTo = useCallback(
+    (time: number) => {
+      const audio = audioRef.current
+      if (audio) {
+        audio.currentTime = time
+      }
+    },
+    [audioRef],
+  )
 
-  const adjustVolume = (newVolume: number) => {
-    const clampedVolume = Math.max(0, Math.min(1, newVolume))
-    const audio = audioRef.current
+  const adjustVolume = useCallback(
+    (newVolume: number) => {
+      const clampedVolume = Math.max(0, Math.min(1, newVolume))
+      const audio = audioRef.current
 
-    if (audio) {
-      audio.volume = clampedVolume
-    }
+      if (audio) {
+        audio.volume = clampedVolume
+      }
 
-    dispatch({ type: "SET_VOLUME", payload: clampedVolume })
-  }
+      dispatch({ type: "SET_VOLUME", payload: clampedVolume })
+    },
+    [audioRef, dispatch],
+  )
 
   // Effect Handlers
   useEffect(() => {
@@ -222,19 +239,36 @@ const useSleepifyPlayer = (
     }
   }, [audioRef, currentTrack, state.skipDirection, skipNext, dispatch])
 
-  return {
-    currentTrack,
-    isPlaying,
-    volume,
-    currentTime,
-    duration,
-    skipNext,
-    skipPrevious,
-    togglePlayPause,
-    seekTo,
-    adjustVolume,
-    playTrackFromPlaylist,
-  }
+  const playerControls = useMemo(
+    () => ({
+      currentTrack,
+      isPlaying,
+      volume,
+      currentTime,
+      duration,
+      skipNext,
+      skipPrevious,
+      togglePlayPause,
+      seekTo,
+      adjustVolume,
+      playTrackFromPlaylist,
+    }),
+    [
+      currentTrack,
+      isPlaying,
+      volume,
+      currentTime,
+      duration,
+      skipNext,
+      skipPrevious,
+      togglePlayPause,
+      seekTo,
+      adjustVolume,
+      playTrackFromPlaylist,
+    ],
+  )
+
+  return playerControls
 }
 
 // ===============================
