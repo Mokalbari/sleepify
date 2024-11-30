@@ -2,10 +2,12 @@ import { useSleepifyPlayer } from "@/hooks/use-sleepify/useSleepifyPlayer"
 import { ReactNode } from "react"
 import { z } from "zod"
 import {
+  CountSchema,
   LikesListSchema,
   LikesSchema,
   TrackListSchema,
   TrackSchema,
+  UserInfoSchema,
 } from "../schema/definitions"
 
 export type TrackList = z.infer<typeof TrackListSchema>
@@ -14,16 +16,9 @@ export type Track = z.infer<typeof TrackSchema>
 export type LikedSongs = z.infer<typeof LikesListSchema>
 export type LikedSong = z.infer<typeof LikesSchema>
 
-export type UserInfo = {
-  id: string
-  firstname: string
-  lastname: string
-  avatar: string
-}
+export type UserInfo = z.infer<typeof UserInfoSchema>
 
-export type Count = {
-  count: number
-}
+export type Count = z.infer<typeof CountSchema>
 
 export type Avatar = {
   avatar: string

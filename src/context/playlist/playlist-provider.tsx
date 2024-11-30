@@ -4,7 +4,7 @@ import { useState } from "react"
 import { PlaylistContext } from "./playlist-context"
 
 interface Props extends ContextProvider {
-  initialPlaylist: TrackList[]
+  initialPlaylist: TrackList
 }
 
 export default function PlaylistProvider({ children, initialPlaylist }: Props) {

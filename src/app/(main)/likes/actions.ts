@@ -9,7 +9,7 @@ import { cache } from "react"
  * Retrieving users' liked songs
  * If multiple artists are found for a track, returns as an array
  */
-export const getUsersLikes = cache(async () => {
+export const getUsersLikes = cache(async (): Promise<LikedSongs> => {
   try {
     const { rows } = await sql<LikedSongs>/*SQL*/ `
         SELECT 

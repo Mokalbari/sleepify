@@ -1,16 +1,28 @@
 "use server"
 
+import { USER_ID } from "@/lib/constants"
+import {
+  CountSchema,
+  TrackListSchema,
+  UserInfoSchema,
+} from "@/lib/schema/definitions"
 import { Count, TrackList, UserInfo } from "@/lib/types/definitions"
 import { sql } from "@vercel/postgres"
 import { revalidatePath } from "next/cache"
 import { cache } from "react"
+import { z } from "zod"
 
-const USER_ID = "410544b2-4001-4271-9855-fec4b6a6442a"
-
-// GET
-export const getUserInfo = cache(async (id: string = USER_ID) => {
-  try {
-    const { rows } = await sql<UserInfo>/*SQL*/ `
+/**
+ * GET req -- No context
+ * These are a collection of requests that are used in the app
+ * They are cached with react.cache()
+ *
+ * They are not dependent on a specific page context but can be used anywhere in the app
+ */
+export const getUserInfo = cache(
+  async (id: string = USER_ID): Promise<UserInfo> => {
+    try {
+      const { rows } = await sql<UserInfo>/*SQL*/ `
         SELECT
             id,
             firstname,
@@ -19,38 +31,41 @@ export const getUserInfo = cache(async (id: string = USER_ID) => {
         FROM users
         WHERE id = ${id}
         `
-    return rows[0]
-  } catch (error) {
-    console.error("Error while fetching user info", error)
-    throw new Error("Error while fetching user infos")
-  }
-})
+      return UserInfoSchema.parse(rows[0])
+    } catch (error) {
+      console.error("Error while fetching user info", error)
+      throw new Error("Error while fetching user infos")
+    }
+  },
+)
 
-export const getLikesCount = cache(async (id: string = USER_ID) => {
-  try {
-    const { rows } = await sql<Count>/*SQL*/ `
+export const getLikesCount = cache(
+  async (id: string = USER_ID): Promise<Count> => {
+    try {
+      const { rows } = await sql<Count>/*SQL*/ `
       SELECT COUNT(*)::INTEGER FROM favorites WHERE user_id = ${id}
       `
-    return rows[0]
-  } catch (error) {
-    console.error("Error while getting the count of likes:", error)
-    throw new Error("Failed to fetch the total counts of likes")
-  }
-})
+      return CountSchema.parse(rows[0])
+    } catch (error) {
+      console.error("Error while getting the count of likes:", error)
+      throw new Error("Failed to fetch the total counts of likes")
+    }
+  },
+)
 
-export const getTracksCount = cache(async () => {
+export const getTracksCount = cache(async (): Promise<Count> => {
   try {
     const { rows } = await sql<Count>/*SQL*/ `
         SELECT COUNT(*)::INTEGER FROM tracks
         `
-    return rows[0]
+    return CountSchema.parse(rows[0])
   } catch (error) {
     console.error("Error while getting the count of tracks", error)
     throw new Error("Failed to fetch the total counts of tracks")
   }
 })
 
-export const getPlaylist = cache(async () => {
+export const getPlaylist = cache(async (): Promise<TrackList> => {
   try {
     const { rows } = await sql<TrackList>/* SQL */ `
     SELECT 
@@ -75,21 +90,28 @@ export const getPlaylist = cache(async () => {
         tracks.id, tracks.name, tracks.preview_url, tracks.duration_ms, tracks.image_url
     ORDER BY track_id ASC
 `
-    return rows
+    const validatedData = TrackListSchema.parse(rows)
+    return validatedData
   } catch (error) {
     console.error(error)
     throw new Error("Error while fetching tracklist")
   }
 })
 
-export const deleteFromLikes = async (trackId: string) => {
-  if (!trackId) {
-    throw new Error("Track ID is required")
-  }
+/**
+ * POST - Next Actions
+ * They are used to mutate the database
+ * They are not cached
+ */
+
+export const deleteFromLikes = async (
+  trackId: string,
+): Promise<{ success: boolean }> => {
+  const validatedId = z.string().min(1).parse(trackId)
 
   const result = await sql/*SQL*/ `
     DELETE FROM favorites
-    WHERE user_id = ${USER_ID} and track_id = ${trackId}
+    WHERE user_id = ${USER_ID} and track_id = ${validatedId}
   `
 
   if (result.rowCount === 0) {
@@ -100,14 +122,14 @@ export const deleteFromLikes = async (trackId: string) => {
   return { success: true }
 }
 
-export const addToLikes = async (trackId: string) => {
-  if (!trackId) {
-    throw new Error("Track ID is required")
-  }
+export const addToLikes = async (
+  trackId: string,
+): Promise<{ success: boolean }> => {
+  const validatedId = z.string().min(1).parse(trackId)
 
   const result = await sql/*sql*/ `
   INSERT INTO favorites (user_id, track_id)
-  VALUES (${USER_ID}, ${trackId})`
+  VALUES (${USER_ID}, ${validatedId})`
 
   if (result.rowCount === 0) {
     throw new Error("Failed to add to favorites")

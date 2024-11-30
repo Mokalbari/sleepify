@@ -25,3 +25,14 @@ export const LikesSchema = z.object({
 })
 
 export const LikesListSchema = z.array(LikesSchema)
+
+export const UserInfoSchema = z.object({
+  id: z.string(),
+  firstname: z.string(),
+  lastname: z.string(),
+  avatar: z.string().url().nullable(),
+})
+
+export const CountSchema = z.object({
+  count: z.number(),
+})
