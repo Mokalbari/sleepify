@@ -1,7 +1,7 @@
-import { TrackList } from "@/lib/types/definitions"
+import { Track } from "@/lib/types/definitions"
 import Image from "next/image"
 
-type Props = Pick<TrackList, "track_image" | "track_name" | "artist_name">
+type Props = Pick<Track, "track_image" | "track_name" | "artist_name">
 
 export default function TrackArtistBadge({
   track_image: trackImage = "/cover-album_placeholder.webp",
@@ -12,7 +12,7 @@ export default function TrackArtistBadge({
     <figure className="flex items-center">
       <div className="relative w-12 sm:w-16">
         <Image
-          src={trackImage}
+          src={trackImage || "/cover-album_placeholder.webp"}
           alt={`Album cover of ${trackName} by ${artistName}`}
           width={640}
           height={640}

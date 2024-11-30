@@ -6,7 +6,7 @@ export default function UserBadge({ firstname, lastname, avatar }: UserInfo) {
     <div className="flex flex-col items-center gap-4 text-center lg:flex-row lg:text-left">
       <div className="max-w-12">
         <Image
-          src={avatar}
+          src={avatar || "/avatar_placeholder.webp"}
           width={128}
           height={128}
           alt="utilisateur"
