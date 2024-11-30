@@ -35,7 +35,7 @@ export type AudioTrack = {
   trackUrl: string | null
   trackName: string
   artistName: string[]
-  previewImage: string
+  previewImage: string | null
   isFavorite?: boolean
 }
 

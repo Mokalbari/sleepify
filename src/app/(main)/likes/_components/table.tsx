@@ -5,7 +5,7 @@ import { getUsersLikes } from "../actions"
 import TablePlayControl from "./table-play-control"
 
 export default async function Table() {
-  const likedSongs: LikedSongs[] = await getUsersLikes()
+  const likedSongs: LikedSongs = await getUsersLikes()
 
   return (
     <table className="w-full">

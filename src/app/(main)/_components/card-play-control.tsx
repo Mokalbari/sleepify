@@ -4,12 +4,12 @@ import HeartButton from "@/components/ui/heart-button"
 import { usePlaylistContext } from "@/context/playlist/use-playlist-context"
 import { useSleepify } from "@/context/sleepify/use-sleepify"
 import { useErrorPopover } from "@/hooks/useErrorPopover"
-import { TrackList } from "@/lib/types/definitions"
+import { Track } from "@/lib/types/definitions"
 import "@/styles/animations.css"
 import { cn } from "@/utils/helpers/style"
 import { HeadphoneOff, Pause, Play } from "lucide-react"
 
-type Props = Pick<TrackList, "music_url" | "is_favorite" | "track_id">
+type Props = Pick<Track, "music_url" | "is_favorite" | "track_id">
 
 export default function CardPlayControl({
   music_url: trackUrl,

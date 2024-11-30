@@ -21,6 +21,7 @@ export const LikesSchema = z.object({
   track_name: z.string(),
   music_url: z.string().url().nullable(),
   duration_ms: z.number(),
+  track_image: z.string().url().nullable(),
   artist_name: z.array(z.string()),
 })
 

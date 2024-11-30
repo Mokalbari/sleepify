@@ -70,18 +70,18 @@ export const useSleepifyPlayer = (
   const playTrackFromPlaylist = (
     trackId: string,
     trackUrl: string | null,
-    playlist: TrackList[] | LikedSongs[],
+    playlist: TrackList | LikedSongs,
   ) => {
     if (!trackUrl) return
 
     const audioPlaylist: AudioTrack[] = playlist.map((track) => ({
       trackId: track.track_id,
-      trackUrl: track.music_url,
+      trackUrl: track.music_url ?? null,
       trackName: track.track_name,
       artistName: Array.isArray(track.artist_name)
         ? track.artist_name
         : [track.artist_name],
-      previewImage: track.track_image,
+      previewImage: track.track_image ?? null,
       isFavorite: "is_favorite" in track ? track.is_favorite : false,
     }))
 

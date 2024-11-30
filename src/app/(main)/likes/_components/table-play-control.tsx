@@ -3,12 +3,12 @@
 import HeartButton from "@/components/ui/heart-button"
 import { useSleepify } from "@/context/sleepify/use-sleepify"
 import { useErrorPopover } from "@/hooks/useErrorPopover"
-import { LikedSongs } from "@/lib/types/definitions"
+import { LikedSong, LikedSongs } from "@/lib/types/definitions"
 import { cn } from "@/utils/helpers/style"
 import { HeadphoneOff, Pause, Play } from "lucide-react"
 
-type Props = Pick<LikedSongs, "music_url" | "track_id"> & {
-  playlist: LikedSongs[]
+type Props = Pick<LikedSong, "music_url" | "track_id"> & {
+  playlist: LikedSongs
 }
 
 export default function TablePlayControl({
