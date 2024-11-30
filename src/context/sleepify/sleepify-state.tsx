@@ -1,5 +1,16 @@
-import { PlayerState, Action } from "@/lib/types/definitions"
+import { Action, PlayerState } from "@/lib/types/definitions"
 
+/**
+ * STATE MANAGEMENT
+ *
+ * This is the state management for the Sleepify player.
+ * It is used to manage the state of the player, such as the current track, playlist, and playback controls.
+ *
+ * The reducer function is used to update the state based on the action type.
+ * The initial state is the default state of the player.
+ *
+ * Both of these are used inside a useReducer hook in the useSleepifyPlayer hook.
+ */
 export const initialState: PlayerState = {
   currentTrack: null,
   currentPlaylist: [],

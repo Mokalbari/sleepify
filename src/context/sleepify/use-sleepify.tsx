@@ -20,6 +20,18 @@ import {
 } from "react"
 import { initialState, reducer } from "./sleepify-state"
 
+/**
+ * SLEEPIFY CONTEXT
+ *
+ * This is the context for the Sleepify player.
+ * It provides the player functions to the rest of the application.
+ *
+ * it also binds the player functions to the audio element while keeping the state in sync.
+ * It returns a memoized object of the player functions to prevent unnecessary re-renders.
+ *
+ * The useSleepify hook is used to access the player functions from the rest of the application.
+ */
+
 // ===============================
 // Types
 // ===============================
@@ -68,13 +80,17 @@ const useSleepifyPlayer = (
     duration,
   } = state
 
-  // Track Management Functions
+  // initialize audio element for use in player functions
+  const audio = audioRef.current
+
+  // PLAY PAUSE TRACK FUNCTION
   const playTrack = useCallback(
     (track: AudioTrack) => {
       dispatch({ type: "SET_CURRENT_TRACK", payload: track })
       const index = currentPlaylist.findIndex(
         (t) => t.trackId === track.trackId,
       )
+      // safeguard against invalid index. If the track index is not found, the index setter will not be called.
       if (index !== -1) {
         dispatch({ type: "SET_CURRENT_TRACK_INDEX", payload: index })
       }
@@ -83,7 +99,6 @@ const useSleepifyPlayer = (
   )
 
   const togglePlayPause = useCallback(() => {
-    const audio = audioRef.current
     if (!audio) return
 
     if (audio.paused) {
@@ -91,7 +106,7 @@ const useSleepifyPlayer = (
     } else {
       audio.pause()
     }
-  }, [audioRef])
+  }, [audio])
 
   const playTrackFromPlaylist = useCallback(
     (
@@ -99,8 +114,16 @@ const useSleepifyPlayer = (
       trackUrl: string | null,
       playlist: TrackList | LikedSongs,
     ) => {
+      // prevent undefined trackUrl from causing errors
       if (!trackUrl) return
 
+      /**
+       * Map playlist to AudioTrack format
+       * This is necessary to:
+       * - Convert snake_case to camelCase for consistency
+       * - Handle non-array artist names
+       * - Add optional properties like isFavorite
+       */
       const audioPlaylist: AudioTrack[] = playlist.map((track) => ({
         trackId: track.track_id,
         trackUrl: track.music_url ?? null,
@@ -116,31 +139,41 @@ const useSleepifyPlayer = (
         (track) => track.trackId === trackId,
       )
 
-      if (currentTrack?.trackUrl !== trackUrl) {
-        if (index !== -1) {
-          const audioTrack = audioPlaylist[index]
-          dispatch({ type: "SET_CURRENT_PLAYLIST", payload: audioPlaylist })
-          dispatch({ type: "SET_CURRENT_TRACK_INDEX", payload: index })
-          playTrack(audioTrack)
-        }
-      } else {
-        togglePlayPause()
+      // If track is not currently playing, start playing it
+      if (currentTrack?.trackUrl !== trackUrl && index !== -1) {
+        const audioTrack = audioPlaylist[index]
+
+        // Update playlist and track info
+        dispatch({ type: "SET_CURRENT_PLAYLIST", payload: audioPlaylist })
+        dispatch({ type: "SET_CURRENT_TRACK_INDEX", payload: index })
+        playTrack(audioTrack)
+        return
       }
+
+      // If track is already playing, toggle play/pause
+      togglePlayPause()
     },
     [currentTrack, dispatch, togglePlayPause, playTrack],
   )
 
-  // Navigation Functions
+  // NAVIGATION FUNCTIONS
   const skipNext = useCallback(() => {
     dispatch({ type: "SET_SKIP_DIRECTION", payload: "next" })
     if (currentPlaylist.length === 0) return
 
+    // calculate next index with modulo to prevent out of bounds errors
+    // because the playlist length is dynamic, we need to use modulo
+    // to wrap around to the beginning of the playlist when the end is reached
     const nextIndex = (currentTrackIndex + 1) % currentPlaylist.length
 
+    // update state
     dispatch({ type: "SET_CURRENT_TRACK", payload: currentPlaylist[nextIndex] })
     dispatch({ type: "SET_CURRENT_TRACK_INDEX", payload: nextIndex })
   }, [currentPlaylist, currentTrackIndex, dispatch])
 
+  // Previous Track Function
+  // needs to handle cases where the current track has no audio URL
+  // and needs to loop through the playlist to find a valid track to play
   const skipPrevious = useCallback(() => {
     dispatch({ type: "SET_SKIP_DIRECTION", payload: "prev" })
     if (currentPlaylist.length === 0) return
@@ -162,6 +195,7 @@ const useSleepifyPlayer = (
       })
       dispatch({ type: "SET_CURRENT_TRACK_INDEX", payload: prevIndex })
     } else {
+      // Developer warning NOT PRODUCTION CODE
       console.warn("No valid previous track found.")
       dispatch({ type: "SET_CURRENT_TRACK", payload: null })
     }
@@ -170,18 +204,16 @@ const useSleepifyPlayer = (
   // Playback Control Functions
   const seekTo = useCallback(
     (time: number) => {
-      const audio = audioRef.current
       if (audio) {
         audio.currentTime = time
       }
     },
-    [audioRef],
+    [audio],
   )
 
   const adjustVolume = useCallback(
     (newVolume: number) => {
       const clampedVolume = Math.max(0, Math.min(1, newVolume))
-      const audio = audioRef.current
 
       if (audio) {
         audio.volume = clampedVolume
@@ -189,12 +221,11 @@ const useSleepifyPlayer = (
 
       dispatch({ type: "SET_VOLUME", payload: clampedVolume })
     },
-    [audioRef, dispatch],
+    [audio, dispatch],
   )
 
   // Effect Handlers
   useEffect(() => {
-    const audio = audioRef.current
     if (!audio) return
 
     const handlePlay = () => dispatch({ type: "SET_IS_PLAYING", payload: true })
@@ -225,10 +256,9 @@ const useSleepifyPlayer = (
       audio.removeEventListener("loadedmetadata", handleLoadedMetadata)
       audio.removeEventListener("ended", handleEnded)
     }
-  }, [audioRef, currentPlaylist, volume, skipNext, dispatch])
+  }, [audio, currentPlaylist, volume, skipNext, dispatch])
 
   useEffect(() => {
-    const audio = audioRef.current
     if (audio && currentTrack && currentTrack.trackUrl) {
       audio.src = currentTrack.trackUrl
       audio
@@ -237,7 +267,7 @@ const useSleepifyPlayer = (
     } else {
       skipNext()
     }
-  }, [audioRef, currentTrack, state.skipDirection, skipNext, dispatch])
+  }, [audio, currentTrack, state.skipDirection, skipNext, dispatch])
 
   const playerControls = useMemo(
     () => ({
